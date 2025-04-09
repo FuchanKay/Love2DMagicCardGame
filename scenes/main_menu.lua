@@ -3,6 +3,8 @@ MainMenu = {}
 local buttons = {}
 local button_text_font = nil
 
+-- this local function must be initialized first so that
+-- it can be referenced later. lua is weird.
 local function newButton(text, fn)
     return {
         text = text,
@@ -21,7 +23,7 @@ MainMenu.load = function()
         -- anonymous function
         function()
             print "Starting Game..."
-            CurrentScene = Scenes.gameScene
+            ChangeScene("game_scene")
         end))
     table.insert(buttons, newButton(
         "Continue",
@@ -48,6 +50,8 @@ MainMenu.update = function(dt)
 
 end
 
+-- bunch of constants
+-- lua does not support final or const
 local LEFT_CLICK = 1
 
 local BUTTON_HEIGHT = 64

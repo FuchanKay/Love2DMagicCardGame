@@ -1,17 +1,19 @@
 GameScene = {}
 
-
-local CardImg = nil
+local cardImg = nil
 GameScene.load = function()
-    CardImg = love.graphics.newImage("res/images/rune_card.png")
+    cardImg = love.graphics.newImage("res/images/rune_type_hd.png")
 end
 
 GameScene.update = function(dt)
 
 end
 
+local WHITE = {1.0, 1.0, 1.0, 1.0}
 GameScene.draw = function()
-    love.graphics.draw(CardImg, 0, 0)
+    -- draws graphics at 100% brightness
+    love.graphics.setColor(WHITE)
+    love.graphics.draw(cardImg, 200, 200)
 end
 
 GameScene.keyboardpressed = function(k)
