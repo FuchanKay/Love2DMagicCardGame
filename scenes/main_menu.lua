@@ -17,11 +17,12 @@ MainMenu.load = function()
     button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
     -- adds buttons to table
     table.insert(buttons, newButton(
-    "Start Game",
-    -- anonymous function
-    function()
-        print "Starting Game..."
-    end))
+        "Start Game",
+        -- anonymous function
+        function()
+            print "Starting Game..."
+            CurrentScene = Scenes.gameScene
+        end))
     table.insert(buttons, newButton(
         "Continue",
         function ()

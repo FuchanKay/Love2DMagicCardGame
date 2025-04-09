@@ -5,6 +5,7 @@ function love.load()
     love.window.setMode(Settings.windowWidth, Settings.windowHeight)
     Scenes = {}
     Scenes.mainMenu = require 'scenes.main_menu'
+    Scenes.gameScene = require 'scenes.game_scene'
     CurrentScene = Scenes.mainMenu
     CurrentScene.load()
 end

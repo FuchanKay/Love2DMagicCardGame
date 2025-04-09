@@ -1,7 +1,9 @@
 GameScene = {}
 
-GameScene.load = function()
 
+local CardImg = nil
+GameScene.load = function()
+    CardImg = love.graphics.newImage("res/images/rune_card.png")
 end
 
 GameScene.update = function(dt)
@@ -9,10 +11,10 @@ GameScene.update = function(dt)
 end
 
 GameScene.draw = function()
-
+    love.graphics.draw(CardImg, 0, 0)
 end
 
-GameScene.keypressed = function(k)
+GameScene.keyboardpressed = function(k)
 
 end
 
