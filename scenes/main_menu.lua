@@ -14,7 +14,7 @@ end
 
 MainMenu.load = function()
     -- initializes font
-    button_text_font = love.graphics.newFont(32)
+    button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
     -- adds buttons to table
     table.insert(buttons, newButton(
     "Start Game",
