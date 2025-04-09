@@ -1,13 +1,20 @@
 local scenes = {}
 local current_scene = nil
+
+-- window setup
 Settings = require 'settings'
 love.window.setTitle(Settings.title);
-love.window.setMode(Settings.windowWidth, Settings.windowHeight)
+love.window.setMode(Settings.window_width, Settings.window_height)
+love.window.setFullscreen(Settings.fullscreen)
+
+-- adds scenes from /scenes
 scenes.mainMenu = require 'scenes.main_menu'
 scenes.gameScene = require 'scenes.game_scene'
 current_scene = scenes.mainMenu
+
 function love.load()
-    if current_scene.load then current_scene.load() end
+    -- checks whether .funcion is not nil before calling
+    if not current_scene.loaded and current_scene.load then current_scene.load() end
 end
 
 function love.update(dt)
@@ -23,7 +30,14 @@ function love.keypressed(k)
     if k == "escape" then love.event.quit() end
     -- relaunches the game when r is pressed
     if k == "r" then love.event.quit "restart" end
-    if current_scene.keypressed then current_scene.keyboardpressed(k) end
+
+    if k == "p" then
+        print("gamescene")
+        print(scenes.gameScene.loaded)
+        print("settings")
+        print(scenes.mainMenu.loaded)
+    end
+    if current_scene.keyboardpressed then current_scene.keyboardpressed(k) end
 end
 
 function love.keyreleased(k)
