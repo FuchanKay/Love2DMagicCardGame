@@ -31,12 +31,6 @@ function love.keypressed(k)
     -- relaunches the game when r is pressed
     if k == "r" then love.event.quit "restart" end
 
-    if k == "p" then
-        print("gamescene")
-        print(scenes.gameScene.loaded)
-        print("settings")
-        print(scenes.mainMenu.loaded)
-    end
     if current_scene.keyboardpressed then current_scene.keyboardpressed(k) end
 end
 

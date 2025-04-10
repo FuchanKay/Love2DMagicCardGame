@@ -10,7 +10,7 @@ local DEFAULT_TEXT_COLOR = {0, 0, 0, 1}
 
 local DEFAULT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
-
+-- really bloated constructor but idk how to do it any other way
 button.NewButton = function(x, y, width, height, button_color, hot_color, text, font, text_color, centered_x, centered_y, on_pressed)
     -- if argument is nil, or X sets the property to X
     return {
@@ -25,7 +25,7 @@ button.NewButton = function(x, y, width, height, button_color, hot_color, text, 
         text_color = text_color or DEFAULT_TEXT_COLOR,
         centered_x = centered_x or false,
         centered_y = centered_y or false,
-        on_pressed = on_pressed or print"no function provided for button",
+        on_pressed = on_pressed or function() print"no function provided for button" end,
         now = false,
         last = false
     }
@@ -62,6 +62,7 @@ button.ButtonUpdate = function(button)
 
     -- prints black text
     love.graphics.setColor(button.text_color)
+    -- centers text
     local text_offset_x = 0
     if button.centered_x then
         local text_width = button.font:getWidth(button.text)
