@@ -1,116 +1,90 @@
 MainMenu = {}
-
+local button_utils = require("game_objects/UI/button")
 -- if you want to do a private global variable like this,
 -- make sure to set it to nil then assign a value in load()
 local buttons = nil
-local button_text_font = nil
 
 -- bunch of constants
 -- NOTE: lua does not support final or const
-local LEFT_CLICK = 1
+local window_width, window_height = love.graphics.getDimensions()
+local main_buttons_width = window_width / 3
+local main_buttons_height = 100
+local main_buttons_spacing = 20
+local button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
+local highest_main_button_y = window_height / 5
 
-local BUTTON_HEIGHT = 64
-local BUTTON_MARGIN = 16
--- bluish grey
-local BUTTON_DEFAULT_COLOR = {0.4, 0.4, 0.5, 1.0}
--- white
-local BUTTON_HOT_COLOR = {0.8, 0.8, 0.9, 1.0}
--- black
-local TEXT_COLOR = {0, 0, 0, 1}
-
--- this local function must be initialized first so that
--- it can be referenced later. lua is weird.
-local function newButton(text, fn)
-    return {
-        x = nil,
-        y = nil,
-        text = text,
-        fn = fn,
-        now = false,
-        last = false
-    }
+local function addStartButton(off_x, off_y)
+    if buttons == nil then error("Buttons is nil") end
+    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
+    local button_y = highest_main_button_y + off_y
+    table.insert(buttons, button_utils.NewButton(
+    button_x, button_y,
+    main_buttons_width, main_buttons_height,
+    nil, nil,
+    "Start Game",
+    button_text_font, nil,
+    true, true,
+    function ()
+        ChangeScene("game_scene")
+    end
+    ))
 end
-
-local function buttonBehavior(button, button_offset_y)
-    local windowWidth = love.graphics.getWidth()
-    local windowHeight = love.graphics.getHeight()
-    local button_width = windowWidth * (1/3)
-    local total_height = (BUTTON_HEIGHT + BUTTON_MARGIN) * #buttons
-    -- button.last/now makes sure that button being pressed is called once
-    button.last = button.now
-
-    button.x = (windowWidth - button_width) * 0.5
-    button.y = (windowHeight - total_height) * 0.5 + button_offset_y
-
-    local button_color = BUTTON_DEFAULT_COLOR
-    local mouse_x, mouse_y = love.mouse.getPosition()
-
-    -- button is being hovered by mouse
-    local hot = mouse_x > button.x and mouse_x < button.x + button_width and
-                mouse_y > button.y and mouse_y < button.y + BUTTON_HEIGHT
-
-    if hot then
-        button_color = BUTTON_HOT_COLOR
+local function addContinueButton(off_x, off_y)
+    if buttons == nil then error("Buttons is nil") end
+    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
+    local button_y = highest_main_button_y + off_y
+    table.insert(buttons, button_utils.NewButton(
+    button_x, button_y,
+    main_buttons_width, main_buttons_height,
+    nil, nil,
+    "Continue Game",
+    button_text_font, nil,
+    true, true,
+    function ()
+        print "continue"
     end
-
-    button.now = love.mouse.isDown(LEFT_CLICK)
-    -- calls function in parameter if button is clicked
-    if (button.now and not button.last and hot) then
-        button.fn()
+    ))
+end
+local function addSettingsButton(off_x, off_y)
+    if buttons == nil then error("Buttons is nil") end
+    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
+    local button_y = highest_main_button_y + off_y
+    table.insert(buttons, button_utils.NewButton(
+    button_x, button_y,
+    main_buttons_width, main_buttons_height,
+    nil, nil,
+    "Settings",
+    button_text_font, nil,
+    true, true,
+    function ()
+        ChangeScene("settings_scene")
     end
-
-    love.graphics.setColor(button_color)
-    love.graphics.rectangle(
-    "fill",
-    button.x,
-    button.y,
-    button_width,
-    BUTTON_HEIGHT)
-    
-    -- updates the button position every iteration
-    button_offset_y = button_offset_y + BUTTON_HEIGHT + BUTTON_MARGIN
-
-    -- prints black text
-    love.graphics.setColor(TEXT_COLOR)
-    love.graphics.print(
-    button.text,
-    button_text_font,
-    button.x,
-    button.y
-    )
+    ))
+end
+local function addQuitButton(off_x, off_y)
+    if buttons == nil then error("Buttons is nil") end
+    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
+    local button_y = highest_main_button_y + off_y
+    table.insert(buttons, button_utils.NewButton(
+    button_x, button_y,
+    main_buttons_width, main_buttons_height,
+    nil, nil,
+    "Quit",
+    button_text_font, nil,
+    true, true,
+    function ()
+        love.event.quit(0)
+    end
+    ))
 end
 
 MainMenu.load = function()
     buttons = {}
     -- initializes font
-    button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
-    -- adds 4 buttons to table
-    table.insert(buttons, newButton(
-        "Start Game",
-        -- anonymous function as argument
-        function()
-            print "Starting Game..."
-            ChangeScene("game_scene")
-        end))
-    table.insert(buttons, newButton(
-        "Continue",
-        function ()
-            print "Loading Game..."
-        end
-    ))
-    table.insert(buttons, newButton(
-        "Settings",
-        function ()
-            print "Settings..."
-        end
-    ))
-    table.insert(buttons, newButton(
-        "Quit Game",
-        function ()
-            print "Quit Game"
-            love.event.quit(0)
-        end
-    ))
+    addStartButton(0, 0)
+    addContinueButton(0, main_buttons_height + main_buttons_spacing)
+    addSettingsButton(0, 2 * (main_buttons_height + main_buttons_spacing))
+    addQuitButton(0, 3 * (main_buttons_height + main_buttons_spacing))
 end
 
 MainMenu.update = function(dt)
@@ -118,15 +92,10 @@ MainMenu.update = function(dt)
 end
 
 MainMenu.draw = function()
-
-    local button_offset_y = 0
-
     -- nil check to make sure buttons is instantiated
     if not buttons then return end
-
     for i, button in ipairs(buttons) do
-        buttonBehavior(button, button_offset_y)
-        button_offset_y = button_offset_y + BUTTON_HEIGHT + BUTTON_MARGIN
+        button_utils.ButtonUpdate(button)
     end
 end
 
