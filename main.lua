@@ -4,7 +4,7 @@ local current_scene = nil
 -- window setup
 Settings = require 'settings'
 love.window.setTitle(Settings.title);
-love.window.setMode(Settings.window_width, Settings.window_height)
+love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
 love.window.setFullscreen(Settings.fullscreen)
 
 -- play sound effects from here
