@@ -42,9 +42,7 @@ button_module.buttonUpdate = function(button)
     local hot = mouse_x > button.x and mouse_x < button.x + button.width and
                 mouse_y > button.y and mouse_y < button.y + button.height
 
-    if hot then
-        button_color = HOT_COLOR
-    end
+    if hot then button_color = HOT_COLOR end
 
     button.now = love.mouse.isDown(LEFT_CLICK)
     -- calls function in parameter if button is clicked

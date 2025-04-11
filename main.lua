@@ -7,6 +7,10 @@ love.window.setTitle(Settings.title);
 love.window.setMode(Settings.window_width, Settings.window_height)
 love.window.setFullscreen(Settings.fullscreen)
 
+-- play sound effects from here
+-- automatically sets volume before playing
+SoundEffects = require 'sound.sound_effects'
+
 -- adds scenes from /scenes
 scenes.mainMenu = require 'scenes.main_menu'
 scenes.gameScene = require 'scenes.game_scene'

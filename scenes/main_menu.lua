@@ -6,9 +6,9 @@ local buttons = nil
 
 -- bunch of constants
 -- NOTE: lua does not support final or const
-local main_buttons_height = 120
-local main_buttons_spacing = 20
-local button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
+local MAIN_BUTTONS_HEIGHT = 120
+local MAIN_BUTTONS_SPACING = 20
+local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
 local function addStartButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
@@ -19,10 +19,10 @@ local function addStartButton(off_x, off_y)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
-    main_buttons_width, main_buttons_height,
+    main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
     "Start Game",
-    button_text_font, nil,
+    BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
         ChangeScene("game_scene")
@@ -38,10 +38,10 @@ local function addContinueButton(off_x, off_y)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
-    main_buttons_width, main_buttons_height,
+    main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
     "Continue Game",
-    button_text_font, nil,
+    BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
         print "continue"
@@ -57,10 +57,10 @@ local function addSettingsButton(off_x, off_y)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
-    main_buttons_width, main_buttons_height,
+    main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
     "Settings",
-    button_text_font, nil,
+    BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
         ChangeScene("settings_scene")
@@ -76,10 +76,10 @@ local function addQuitButton(off_x, off_y)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
-    main_buttons_width, main_buttons_height,
+    main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
     "Quit",
-    button_text_font, nil,
+    BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
         love.event.quit(0)
@@ -91,9 +91,9 @@ main_menu_module.load = function()
     buttons = {}
     -- initializes font
     addStartButton(0, 0)
-    addContinueButton(0, main_buttons_height + main_buttons_spacing)
-    addSettingsButton(0, 2 * (main_buttons_height + main_buttons_spacing))
-    addQuitButton(0, 3 * (main_buttons_height + main_buttons_spacing))
+    addContinueButton(0, MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING)
+    addSettingsButton(0, 2 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
+    addQuitButton(0, 3 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
 end
 
 main_menu_module.update = function(dt)

@@ -18,7 +18,6 @@ end
 
 game_scene_module.keyboardpressed = function(k)
     if k == "m" then
-        print("aldkjfhalskjdfh")
         ChangeScene("main_menu")
     end
     if k == "p" then

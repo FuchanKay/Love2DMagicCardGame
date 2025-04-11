@@ -1,8 +1,8 @@
 local settings_module = {
-    window_width = 800,
-    window_height = 600,
+    window_width = 1200,
+    window_height = 800,
     fullscreen = true,
     title = "Magic Card Game",
-    game_audio_level = 100,
+    master_audio_level = 100,
 }
 return settings_module
