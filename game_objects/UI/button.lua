@@ -1,4 +1,4 @@
-local button = {}
+local button_module = {}
 
 local LEFT_CLICK = 1
 -- bluish grey
@@ -11,7 +11,7 @@ local DEFAULT_TEXT_COLOR = {0, 0, 0, 1}
 local DEFAULT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
 -- really bloated constructor but idk how to do it any other way
-button.NewButton = function(x, y, width, height, button_color, hot_color, text, font, text_color, centered_x, centered_y, on_pressed)
+button_module.newButton = function(x, y, width, height, button_color, hot_color, text, font, text_color, centered_x, centered_y, on_pressed)
     -- if argument is nil, or X sets the property to X
     return {
         x = x or 0,
@@ -31,7 +31,7 @@ button.NewButton = function(x, y, width, height, button_color, hot_color, text, 
     }
 end
 
-button.ButtonUpdate = function(button)
+button_module.buttonUpdate = function(button)
     -- button.last/now makes sure that button being pressed is called once
     button.last = button.now
 
@@ -80,4 +80,4 @@ button.ButtonUpdate = function(button)
     button.y + text_offset_y
     )
 end
-return button
+return button_module

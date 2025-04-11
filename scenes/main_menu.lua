@@ -1,4 +1,4 @@
-MainMenu = {}
+local main_menu_module = {}
 local button_utils = require("game_objects/UI/button")
 -- if you want to do a private global variable like this,
 -- make sure to set it to nil then assign a value in load()
@@ -17,7 +17,7 @@ local function addStartButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
     local button_x = (window_width - main_buttons_width) * 0.5 + off_x
     local button_y = highest_main_button_y + off_y
-    table.insert(buttons, button_utils.NewButton(
+    table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
     nil, nil,
@@ -33,7 +33,7 @@ local function addContinueButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
     local button_x = (window_width - main_buttons_width) * 0.5 + off_x
     local button_y = highest_main_button_y + off_y
-    table.insert(buttons, button_utils.NewButton(
+    table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
     nil, nil,
@@ -49,7 +49,7 @@ local function addSettingsButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
     local button_x = (window_width - main_buttons_width) * 0.5 + off_x
     local button_y = highest_main_button_y + off_y
-    table.insert(buttons, button_utils.NewButton(
+    table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
     nil, nil,
@@ -65,7 +65,7 @@ local function addQuitButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
     local button_x = (window_width - main_buttons_width) * 0.5 + off_x
     local button_y = highest_main_button_y + off_y
-    table.insert(buttons, button_utils.NewButton(
+    table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
     nil, nil,
@@ -78,7 +78,7 @@ local function addQuitButton(off_x, off_y)
     ))
 end
 
-MainMenu.load = function()
+main_menu_module.load = function()
     buttons = {}
     -- initializes font
     addStartButton(0, 0)
@@ -87,32 +87,32 @@ MainMenu.load = function()
     addQuitButton(0, 3 * (main_buttons_height + main_buttons_spacing))
 end
 
-MainMenu.update = function(dt)
+main_menu_module.update = function(dt)
 
 end
 
-MainMenu.draw = function()
+main_menu_module.draw = function()
     -- nil check to make sure buttons is instantiated
     if not buttons then return end
     for i, button in ipairs(buttons) do
-        button_utils.ButtonUpdate(button)
+        button_utils.buttonUpdate(button)
     end
 end
 
-MainMenu.keyboardpressed = function(k)
+main_menu_module.keyboardpressed = function(k)
     -- if k == "f" then love.filesystem.write("save.txt", "f") end
 end
 
-MainMenu.keyboardreleased = function(k)
+main_menu_module.keyboardreleased = function(k)
 
 end
 
-MainMenu.mousepressed = function(x, y, button)
+main_menu_module.mousepressed = function(x, y, button)
 
 end
 
-MainMenu.mousereleased = function(x, y, button)
+main_menu_module.mousereleased = function(x, y, button)
 
 end
 
-return MainMenu
+return main_menu_module

@@ -1,41 +1,41 @@
-GameScene = {}
+local game_scene_module = {}
 
 local card_img = nil
-GameScene.load = function()
+game_scene_module.load = function()
     card_img = love.graphics.newImage("res/images/rune_card_hd.png")
 end
 
-GameScene.update = function(dt)
+game_scene_module.update = function(dt)
 
 end
 
 local WHITE = {1.0, 1.0, 1.0, 1.0}
-GameScene.draw = function()
+game_scene_module.draw = function()
     -- draws graphics at 100% brightness
     love.graphics.setColor(WHITE)
     love.graphics.draw(card_img, 0, 100)
 end
 
-GameScene.keyboardpressed = function(k)
+game_scene_module.keyboardpressed = function(k)
     if k == "m" then
         print("aldkjfhalskjdfh")
         ChangeScene("main_menu")
     end
     if k == "p" then
-        print(GameScene.loaded)
+        print(game_scene_module.loaded)
     end
 end
 
-GameScene.keyboardreleased = function(k)
+game_scene_module.keyboardreleased = function(k)
 
 end
 
-GameScene.mousepressed = function(x, y, button)
+game_scene_module.mousepressed = function(x, y, button)
 
 end
 
-GameScene.mousereleased = function(x, y, button)
+game_scene_module.mousereleased = function(x, y, button)
 
 end
 
-return GameScene
+return game_scene_module
