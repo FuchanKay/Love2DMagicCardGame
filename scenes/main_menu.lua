@@ -1,22 +1,22 @@
 local main_menu_module = {}
-local button_utils = require("game_objects/UI/button")
+local button_utils = require "game_objects.ui.button"
 -- if you want to do a private global variable like this,
 -- make sure to set it to nil then assign a value in load()
 local buttons = nil
 
 -- bunch of constants
 -- NOTE: lua does not support final or const
-local window_width, window_height = love.graphics.getDimensions()
-local main_buttons_width = window_width / 3
-local main_buttons_height = 100
+local main_buttons_height = 120
 local main_buttons_spacing = 20
 local button_text_font = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
-local highest_main_button_y = window_height / 5
 
 local function addStartButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
-    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
-    local button_y = highest_main_button_y + off_y
+    local window_width, window_height = love.graphics.getDimensions()
+    local main_buttons_width = window_width / 2
+    local highest_main_button_y = window_height / 5
+    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
@@ -31,8 +31,11 @@ local function addStartButton(off_x, off_y)
 end
 local function addContinueButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
-    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
-    local button_y = highest_main_button_y + off_y
+    local window_width, window_height = love.graphics.getDimensions()
+    local main_buttons_width = window_width / 2
+    local highest_main_button_y = window_height / 5
+    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
@@ -47,8 +50,11 @@ local function addContinueButton(off_x, off_y)
 end
 local function addSettingsButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
-    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
-    local button_y = highest_main_button_y + off_y
+    local window_width, window_height = love.graphics.getDimensions()
+    local main_buttons_width = window_width / 2
+    local highest_main_button_y = window_height / 5
+    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
@@ -63,8 +69,11 @@ local function addSettingsButton(off_x, off_y)
 end
 local function addQuitButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
-    local button_x = (window_width - main_buttons_width) * 0.5 + off_x
-    local button_y = highest_main_button_y + off_y
+    local window_width, window_height = love.graphics.getDimensions()
+    local main_buttons_width = window_width / 2
+    local highest_main_button_y = window_height / 5
+    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, button_utils.newButton(
     button_x, button_y,
     main_buttons_width, main_buttons_height,
@@ -92,11 +101,7 @@ main_menu_module.update = function(dt)
 end
 
 main_menu_module.draw = function()
-    -- nil check to make sure buttons is instantiated
-    if not buttons then return end
-    for i, button in ipairs(buttons) do
-        button_utils.buttonUpdate(button)
-    end
+    button_utils.updateAll(buttons)
 end
 
 main_menu_module.keyboardpressed = function(k)

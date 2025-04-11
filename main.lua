@@ -50,3 +50,7 @@ function ChangeScene(nextScene)
     current_scene = require("scenes/"..nextScene)
     current_scene.load()
 end
+
+function ReloadScene()
+    current_scene.load()
+end

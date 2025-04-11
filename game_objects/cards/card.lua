@@ -24,13 +24,11 @@ card_module.newCard = function(card_type, card_letter)
     elseif card_type == types.hemo then card.type_img = hemo_img
     elseif card_type == types.holy then card.type_img = holy_img
     elseif card_type == types.unholy then card.type_img = unholy_img
-    else card.type_img = not_img
-    end
+    else card.type_img = not_img end
     -- if card_letter argument is invalid, sets letter to "!"
     card.letter = card_letter or "!"
     if string.len(card.letter) == 0 then card.letter = "!" end
     if string.len(card.letter) > 1 then card.letter = "!" end
-    
     return card
 end
 

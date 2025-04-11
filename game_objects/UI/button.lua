@@ -17,7 +17,7 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         x = x or 0,
         y = y or 0,
         width = width or 64,
-        height = height or 16,
+        height = height or 64,
         button_default_color = button_color or DEFAULT_COLOR,
         button_hot_color = hot_color or HOT_COLOR,
         text = text or "",
@@ -79,5 +79,11 @@ button_module.buttonUpdate = function(button)
     button.x + text_offset_x,
     button.y + text_offset_y
     )
+end
+
+button_module.updateAll = function(buttons)
+    for i, button in ipairs(buttons) do
+        button_module.buttonUpdate(button)
+    end
 end
 return button_module
