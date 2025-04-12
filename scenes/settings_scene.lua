@@ -46,7 +46,7 @@ local AUDIO_INCREMENT = 5
 local CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR = 1/16
 local CONTROLLER_ARROW_SPACING_SCREEN_FACTOR = 1/96
 
-local APPLY_BUTTON_UPDATED_COLOR = {0.7, 0.7, 0.8, 1.0}
+local APPLY_BUTTON_UPDATED_COLOR = {0.6, 0.6, 0.7, 1.0}
 -- bluish grey
 local DEFAULT_BUTTON_COLOR = {0.4, 0.4, 0.5, 1.0}
 -- white
@@ -314,17 +314,22 @@ local function addSettingsApplyButton(off_x, off_y)
     )
     -- has to initialize function outside of its constructor to be able to reference itself
     settings_apply_button.on_pressed = function()
-        late_fullscreen = Settings.fullscreen
-        late_master_audio_level = Settings.master_audio_level
-        late_window_dimensions = Settings.window_dimensions
-
-        if not Settings.fullscreen then 
-            love.window.setFullscreen(Settings.fullscreen)
-            love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
-        else
-            love.window.setFullscreen(Settings.fullscreen)
+        if fullscreen_updated or window_dimension_updated or master_audio_level_updated then
+            late_fullscreen = Settings.fullscreen
+            late_master_audio_level = Settings.master_audio_level
+            late_window_dimensions = Settings.window_dimensions
+            fullscreen_updated = false
+            window_dimension_updated = false
+            master_audio_level_updated = false
+            if not Settings.fullscreen then 
+                love.window.setFullscreen(Settings.fullscreen)
+                love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
+            else
+                love.window.setFullscreen(Settings.fullscreen)
+            end
+            ReloadScene()
+            love.timer.sleep(0.25)
         end
-        ReloadScene()
     end
     if not buttons then error("Buttons is nil") end
     table.insert(buttons, settings_apply_button)
