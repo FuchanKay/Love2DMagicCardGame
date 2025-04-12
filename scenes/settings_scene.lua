@@ -6,12 +6,13 @@ local box_utils = require "game_objects.ui.box"
 local buttons = nil
 local boxes = nil
 
-local fullscreen_
-local master_audio_level_is_updated = false
+local fullscreen_updated = false
+local master_audio_level_updated = false
+local window_dimension_updated = false
 
 local late_fullscreen = Settings.fullscreen
 local late_master_audio_level = Settings.master_audio_level
-local late_screen_dimensions = Settings.screen
+local late_window_dimensions = Settings.window_dimensions
 
 -- every button and its properties can be globally accessed and changed
 local full_screen_button = nil
@@ -45,6 +46,23 @@ local AUDIO_INCREMENT = 5
 local CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR = 1/16
 local CONTROLLER_ARROW_SPACING_SCREEN_FACTOR = 1/96
 
+local APPLY_BUTTON_UPDATED_COLOR = {0.7, 0.7, 0.8, 1.0}
+-- bluish grey
+local DEFAULT_BUTTON_COLOR = {0.4, 0.4, 0.5, 1.0}
+-- white
+local DEFAULT_HOT_COLOR = {0.8, 0.8, 0.9, 1.0}
+
+local function updateApplyButton()
+    if not settings_apply_button then error("settings apply button is nil") end
+    if fullscreen_updated or window_dimension_updated or master_audio_level_updated then
+        settings_apply_button.default_color = APPLY_BUTTON_UPDATED_COLOR
+        settings_apply_button.hot_color = DEFAULT_HOT_COLOR
+    else
+        settings_apply_button.default_color = DEFAULT_BUTTON_COLOR
+        settings_apply_button.hot_color = DEFAULT_BUTTON_COLOR
+    end
+end
+
 local function addFullScreenButton(off_x, off_y)
     local window_width, window_height = love.graphics.getDimensions()
     local fullscreen_button_width = window_width / 2
@@ -52,8 +70,8 @@ local function addFullScreenButton(off_x, off_y)
     local button_x = (window_width - fullscreen_button_width) * 0.5 + (off_x or 0)
     local button_y = highest_settings_button_y + (off_y or 0)
     local text = nil
-    if Settings.fullscreen then text = "Set To Windowed" end
-    if not Settings.fullscreen then text = "Set To FullScreen" end
+    if Settings.fullscreen then text = "FullScreen" end
+    if not Settings.fullscreen then text = "Windowed" end
 
     full_screen_button = button_utils.newButton(
     button_x, button_y,
@@ -66,11 +84,15 @@ local function addFullScreenButton(off_x, off_y)
     )
     -- has to initialize function outside of its constructor to be able to reference itself
     full_screen_button.on_pressed = function()
-        late_fullscreen = not late_fullscreen
-        if Settings.fullscreen then full_screen_button.text = "Set To Windowed"
-        else full_screen_button.text = "Set To FullScreen" end
+        Settings.fullscreen = not Settings.fullscreen
+        if Settings.fullscreen then full_screen_button.text = "FullScreen"
+        else full_screen_button.text = "Windowed" end
+
+        if Settings.fullscreen ~= late_fullscreen then fullscreen_updated = true
+        else fullscreen_updated = false end
+        updateApplyButton()
     end
-    if not buttons then error("Buttons is nil") end
+    if not buttons then error("buttons is nil") end
     table.insert(buttons, full_screen_button)
 end
 
@@ -85,9 +107,9 @@ local function addBackButton(off_x, off_y)
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        late_fullscreen = Settings.fullscreen
-        late_master_audio_level = Settings.master_audio_level
-        late_screen_dimensions = Settings.window_dimensions
+        Settings.fullscreen = late_fullscreen
+        Settings.master_audio_level = late_master_audio_level
+        Settings.window_dimensions = late_window_dimensions
         ChangeScene("main_menu")
     end
     )
@@ -112,14 +134,14 @@ local function addLeftAudioArrow()
         BUTTON_TEXT_FONT, nil,
         true, true,
         function()
-            late_master_audio_level = late_master_audio_level - AUDIO_INCREMENT
+            Settings.master_audio_level = Settings.master_audio_level - AUDIO_INCREMENT
             if Settings.master_audio_level < 0 then
                 Settings.master_audio_level = 0
             end
-            if Settings.master_audio_level ~= late_master_audio_level then
-                has_settings_to_apply = true
-            end
+            if Settings.master_audio_level ~= late_master_audio_level then master_audio_level_updated = true
+            else master_audio_level_updated = false end
             audio_level_display_box.text = "Master Audio: "..tostring(Settings.master_audio_level)
+            updateApplyButton()
         end
     )
 
@@ -143,14 +165,14 @@ local function addRightAudioArrow()
         BUTTON_TEXT_FONT, nil,
         true, true,
         function()
-            late_master_audio_level = late_master_audio_level + AUDIO_INCREMENT
+            Settings.master_audio_level = Settings.master_audio_level + AUDIO_INCREMENT
             if Settings.master_audio_level > MAX_AUDIO then
                 Settings.master_audio_level = MAX_AUDIO
             end
-            if Settings.master_audio_level ~= late_master_audio_level then
-                has_settings_to_apply = true
-            end
+            if Settings.master_audio_level ~= late_master_audio_level then master_audio_level_updated = true
+            else master_audio_level_updated = false end
             audio_level_display_box.text = "Master Audio: "..tostring(Settings.master_audio_level)
+            updateApplyButton()
         end
     )
 
@@ -201,11 +223,16 @@ local function addLeftDimensionArrow()
         function()
             screen_res_ind = screen_res_ind - 1
             if screen_res_ind < 1 then screen_res_ind = 1 end
-            late_screen_dimensions = SCREEN_RESOLUTIONS[screen_res_ind]
+            Settings.window_dimensions = SCREEN_RESOLUTIONS[screen_res_ind]
+            
+            if Settings.window_dimensions[1] ~= late_window_dimensions[1] or
+            Settings.window_dimensions[2] ~= late_window_dimensions[2]
+            then window_dimension_updated = true
+            else window_dimension_updated = false end
             dimension_display_box.text = "Res: "..tostring(Settings.window_dimensions[1]).."x"..tostring(Settings.window_dimensions[2])
+            updateApplyButton()
         end
     )
-
     if not buttons then error("buttons is nil") end
     table.insert(buttons, left_dimension_arrow_button)
 end
@@ -228,8 +255,13 @@ local function addRightDimensionArrow()
         function()
             screen_res_ind = screen_res_ind + 1
             if screen_res_ind > NUM_OF_SCREEN_RESOLUTIONS then screen_res_ind = NUM_OF_SCREEN_RESOLUTIONS end
-            late_screen_dimensions = SCREEN_RESOLUTIONS[screen_res_ind]
+            Settings.window_dimensions = SCREEN_RESOLUTIONS[screen_res_ind]
+            if Settings.window_dimensions[1] ~= late_window_dimensions[1] or
+            Settings.window_dimensions[2] ~= late_window_dimensions[2]
+            then window_dimension_updated = true
+            else window_dimension_updated = false end
             dimension_display_box.text = "Res: "..tostring(Settings.window_dimensions[1]).."x"..tostring(Settings.window_dimensions[2])
+            updateApplyButton()
         end
     )
 
@@ -274,7 +306,7 @@ local function addSettingsApplyButton(off_x, off_y)
     settings_apply_button = button_utils.newButton(
     button_x, button_y,
     fullscreen_button_width, SETTINGS_BLOCKS_HEIGHT,
-    nil, nil,
+    DEFAULT_BUTTON_COLOR, DEFAULT_BUTTON_COLOR,
     text,
     BUTTON_TEXT_FONT, nil,
     true, true,
@@ -282,9 +314,17 @@ local function addSettingsApplyButton(off_x, off_y)
     )
     -- has to initialize function outside of its constructor to be able to reference itself
     settings_apply_button.on_pressed = function()
-        
+        late_fullscreen = Settings.fullscreen
+        late_master_audio_level = Settings.master_audio_level
+        late_window_dimensions = Settings.window_dimensions
+
+        if not Settings.fullscreen then 
+            love.window.setFullscreen(Settings.fullscreen)
+            love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
+        else
+            love.window.setFullscreen(Settings.fullscreen)
+        end
         ReloadScene()
-        love.timer.sleep(0.25)
     end
     if not buttons then error("Buttons is nil") end
     table.insert(buttons, settings_apply_button)

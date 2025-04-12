@@ -18,8 +18,8 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         y = y or 0,
         width = width or 64,
         height = height or 64,
-        button_default_color = button_color or DEFAULT_COLOR,
-        button_hot_color = hot_color or HOT_COLOR,
+        default_color = button_color or DEFAULT_COLOR,
+        hot_color = hot_color or HOT_COLOR,
         text = text or "",
         font = font or DEFAULT_FONT,
         text_color = text_color or DEFAULT_TEXT_COLOR,
@@ -35,14 +35,14 @@ button_module.buttonUpdate = function(button)
     -- button.last/now makes sure that button being pressed is called once
     button.last = button.now
 
-    local button_color = DEFAULT_COLOR
+    local button_color = button.default_color
     local mouse_x, mouse_y = love.mouse.getPosition()
 
     -- button is being hovered by mouse
     local hot = mouse_x > button.x and mouse_x < button.x + button.width and
                 mouse_y > button.y and mouse_y < button.y + button.height
 
-    if hot then button_color = HOT_COLOR end
+    if hot then button_color = button.hot_color end
 
     button.now = love.mouse.isDown(LEFT_CLICK)
     -- calls function in parameter if button is clicked
