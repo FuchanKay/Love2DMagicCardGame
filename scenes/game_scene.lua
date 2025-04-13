@@ -1,8 +1,9 @@
 local game_scene_module = {}
 
 local card_img = nil
+local card = require "game_objects.cards.card"
 game_scene_module.load = function()
-    card_img = love.graphics.newImage("res/images/rune_card_hd.png")
+    card_img = love.graphics.newImage("res/images/cards/rune_card_hd.png")
 end
 
 game_scene_module.update = function(dt)

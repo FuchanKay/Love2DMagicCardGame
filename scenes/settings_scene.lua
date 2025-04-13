@@ -1,8 +1,5 @@
 local settings_scene_module = {}
 
-local button_utils = require "game_objects.ui.button"
-local box_utils = require "game_objects.ui.box"
-
 local buttons = nil
 local boxes = nil
 
@@ -73,7 +70,7 @@ local function addFullScreenButton(off_x, off_y)
     if Settings.fullscreen then text = "FullScreen" end
     if not Settings.fullscreen then text = "Windowed" end
 
-    full_screen_button = button_utils.newButton(
+    full_screen_button = Button.newButton(
     button_x, button_y,
     fullscreen_button_width, SETTINGS_BLOCKS_HEIGHT,
     nil, nil,
@@ -99,7 +96,7 @@ end
 local BACK_BUTTON_X, BACK_BUTTON_Y = 64, 64
 local BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT = 128, 96
 local function addBackButton(off_x, off_y)
-    back_button = button_utils.newButton(
+    back_button = Button.newButton(
     BACK_BUTTON_X + (off_x or 0), BACK_BUTTON_Y + (off_y or 0),
     BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT,
     nil, nil,
@@ -126,7 +123,7 @@ local function addLeftAudioArrow()
     local button_x = audio_level_display_box.x - audio_arrow_width - audio_controller_spacing
     local button_y = audio_level_display_box.y
 
-    left_audio_arrow_button = button_utils.newButton(
+    left_audio_arrow_button = Button.newButton(
         button_x, button_y,
         audio_arrow_width, SETTINGS_BLOCKS_HEIGHT,
         nil, nil,
@@ -157,7 +154,7 @@ local function addRightAudioArrow()
     local button_x = audio_level_display_box.x + audio_level_display_box.width + audio_controller_spacing
     local button_y = audio_level_display_box.y
 
-    right_audio_arrow_button = button_utils.newButton(
+    right_audio_arrow_button = Button.newButton(
         button_x, button_y,
         audio_arrow_width, SETTINGS_BLOCKS_HEIGHT,
         nil, nil,
@@ -189,7 +186,7 @@ local function addAudioController(off_x, off_y)
     local box_x = (window_width - audio_display_box_width) / 2 + (off_x or 0)
     local box_y = highest_settings_block_y + (off_y or 0)
 
-    audio_level_display_box = box_utils.newBox(
+    audio_level_display_box = Box.newBox(
         box_x, box_y,
         audio_display_box_width, SETTINGS_BLOCKS_HEIGHT,
         nil, "Master Audio: "..tostring(Settings.master_audio_level),
@@ -213,7 +210,7 @@ local function addLeftDimensionArrow()
     local button_x = dimension_display_box.x - dimension_arrow_width - dimension_controller_spacing
     local button_y = dimension_display_box.y
 
-    left_dimension_arrow_button = button_utils.newButton(
+    left_dimension_arrow_button = Button.newButton(
         button_x, button_y,
         dimension_arrow_width, SETTINGS_BLOCKS_HEIGHT,
         nil, nil,
@@ -245,7 +242,7 @@ local function addRightDimensionArrow()
     local button_x = dimension_display_box.x + dimension_display_box.width + dimension_controller_spacing
     local button_y = dimension_display_box.y
 
-    right_dimension_arrow_button = button_utils.newButton(
+    right_dimension_arrow_button = Button.newButton(
         button_x, button_y,
         dimension_arrow_width, SETTINGS_BLOCKS_HEIGHT,
         nil, nil,
@@ -280,7 +277,7 @@ local addScreenDimensionController = function(off_x, off_y)
     local box_x = (window_width - audio_display_box_width) / 2 + (off_x or 0)
     local box_y = highest_settings_block_y + (off_y or 0)
 
-    dimension_display_box = box_utils.newBox(
+    dimension_display_box = Box.newBox(
         box_x, box_y,
         audio_display_box_width, SETTINGS_BLOCKS_HEIGHT,
         nil, "Res: "..tostring(Settings.window_dimensions[1]).."x"..tostring(Settings.window_dimensions[2]),
@@ -303,7 +300,7 @@ local function addSettingsApplyButton(off_x, off_y)
     local button_y = highest_settings_button_y + (off_y or 0)
     local text = "Apply Settings"
 
-    settings_apply_button = button_utils.newButton(
+    settings_apply_button = Button.newButton(
     button_x, button_y,
     fullscreen_button_width, SETTINGS_BLOCKS_HEIGHT,
     DEFAULT_BUTTON_COLOR, DEFAULT_BUTTON_COLOR,
@@ -350,8 +347,8 @@ settings_scene_module.update = function(dt)
 end
 
 settings_scene_module.draw = function()
-    button_utils.updateAll(buttons)
-    box_utils.updateAll(boxes)
+    Button.updateAll(buttons)
+    Box.updateAll(boxes)
 end
 
 settings_scene_module.keyboardpressed = function(k)
