@@ -11,8 +11,13 @@ love.window.setFullscreen(Settings.fullscreen)
 -- automatically sets volume before playing
 SoundEffects = require 'sound.sound_effects'
 
+-- ui
 Button = require "game_objects.ui.button"
 Box = require "game_objects.ui.box"
+
+-- game mechanics
+Card = require "game_objects.cards.card"
+CardTypes = require "game_objects.cards.card_types"
 
 -- adds scenes from /scenes
 scenes.mainMenu = require 'scenes.main_menu'

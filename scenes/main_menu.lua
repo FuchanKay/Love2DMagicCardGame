@@ -10,7 +10,7 @@ local MAIN_BUTTONS_SPACING = 20
 local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
 local function addStartButton(off_x, off_y)
-    if buttons == nil then error("Buttons is nil") end
+    if buttons == nil then error("buttons is nil") end
     local window_width, window_height = love.graphics.getDimensions()
     local main_buttons_width = window_width / 2
     local highest_main_button_y = window_height / 5
@@ -28,8 +28,8 @@ local function addStartButton(off_x, off_y)
     end
     ))
 end
-local function addContinueButton(off_x, off_y)
-    if buttons == nil then error("Buttons is nil") end
+local function addLoadButton(off_x, off_y)
+    if buttons == nil then error("buttons is nil") end
     local window_width, window_height = love.graphics.getDimensions()
     local main_buttons_width = window_width / 2
     local highest_main_button_y = window_height / 5
@@ -39,16 +39,16 @@ local function addContinueButton(off_x, off_y)
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
-    "Continue Game",
+    "Load Game",
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        print "continue"
+        print "load"
     end
     ))
 end
 local function addSettingsButton(off_x, off_y)
-    if buttons == nil then error("Buttons is nil") end
+    if buttons == nil then error("buttons is nil") end
     local window_width, window_height = love.graphics.getDimensions()
     local main_buttons_width = window_width / 2
     local highest_main_button_y = window_height / 5
@@ -90,7 +90,7 @@ main_menu_module.load = function()
     buttons = {}
     -- initializes font
     addStartButton(0, 0)
-    addContinueButton(0, MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING)
+    addLoadButton(0, MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING)
     addSettingsButton(0, 2 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
     addQuitButton(0, 3 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
 end
