@@ -4,6 +4,7 @@ local current_scene = nil
 -- window setup
 Settings = require 'settings'
 love.window.setTitle(Settings.title);
+Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
 love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
 love.window.setFullscreen(Settings.fullscreen)
 
@@ -18,6 +19,7 @@ Box = require "game_objects.ui.box"
 -- game mechanics
 Card = require "game_objects.cards.card"
 CardTypes = require "game_objects.cards.card_types"
+HandDisplay = require "game_objects.cards.hand_display"
 
 -- adds scenes from /scenes
 scenes.mainMenu = require 'scenes.main_menu'

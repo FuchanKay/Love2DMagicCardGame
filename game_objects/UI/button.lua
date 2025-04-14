@@ -46,7 +46,7 @@ button_module.buttonUpdate = function(button)
 
     button.now = love.mouse.isDown(LEFT_CLICK)
     -- calls function in parameter if button is clicked
-    if (button.now and not button.last and hot) then
+    if button.now and not button.last and hot then
         button.on_pressed()
     end
 

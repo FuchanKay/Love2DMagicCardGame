@@ -9,20 +9,36 @@ local not_img = love.graphics.newImage("res/images/etc/no.png")
 
 -- constants
 local CARD_LEVEL_MAX = 10
+local LEFT_CLICK = 1
 
 -- for sprites
 local CARD_WIDTH = red_card_img:getWidth()
 local CARD_HEIGHT = red_card_img:getHeight()
 -- every rune image has the same width and height of 640x640
-local RUNE_SCALE = 1/2
+local RUNE_SCALE = 1 / 2
 local RUNE_WIDTH = arcane_img:getWidth() * RUNE_SCALE
 local RUNE_HEIGHT = arcane_img:getHeight() * RUNE_SCALE
-local CARD_LETTER_FONT_FACTOR = 1/8
+local CARD_LETTER_FONT_FACTOR = 1 / 8
+local DEFAULT_SCALE = 1.0
+local EXPANDED_SCALE = 1.4
 
+local BLACK = {0, 0, 0, 1.0}
+local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
+local WHITE = {1, 1, 1, 1}
 
 card_module.newCard = function(type, letter, description)
-    local card = {img = red_card_img, type = type, level = 1, description = description}
-
+    local card = {
+    img = red_card_img,
+    type = type,
+    level = 1,
+    description = description,
+    x = 0,
+    y = 0,
+    hot = false,
+    selected = false,
+    now = false,
+    last = false
+    }
     -- if parameter is a negative number, unupgrades
     card.upgrade = function(num)
         card.level = card.level + (num or 1)
@@ -44,21 +60,51 @@ card_module.newCard = function(type, letter, description)
     return card
 end
 
-card_module.drawCard = function(card, x, y, x_scale, y_scale)
-    local card_width = CARD_WIDTH * x_scale
-    local card_height = CARD_HEIGHT * y_scale
+card_module.updateCard = function(card, updated)
+    card.last = card.now
+    -- lua's equivalent of a ternary operator
+    -- careful about evaluating functions to set variables
+    -- beacuse they execute weirdly
+    card.scale = card.selected and card.scale * EXPANDED_SCALE or card.scale * DEFAULT_SCALE
+    
+    local mouse_x, mouse_y = love.mouse.getPosition()
+    card.hot = mouse_x > card.x and mouse_x < card.x + card.width and
+                mouse_y > card.y and mouse_y < card.y + card.height
+                and not updated
+    card.now = love.mouse.isDown(LEFT_CLICK)
+    local selected = false
+    -- calls function in parameter if button is clicked
+    if card.now and not card.last and card.hot and not updated then
+        card.selected = not card.selected
+        selected = true
+    end
+    return selected
+end
 
-    local rune_width = RUNE_WIDTH * x_scale
-    local rune_height = RUNE_HEIGHT * y_scale
+card_module.drawCard = function(card)
+    local brightness = LIGHT_GREY
+    if card.hot then brightness = WHITE end
 
-    love.graphics.draw(red_card_img, x, y, 0, x_scale, y_scale)
+    love.graphics.setColor(brightness)
 
-    local font = love.graphics.newFont("res/fonts/ComicRunes.otf", math.floor(card_width * CARD_LETTER_FONT_FACTOR))
+    local off_x = 0
+    if card.selected then off_x = (card.width * (EXPANDED_SCALE / DEFAULT_SCALE - 1)) / 2 end
+
+    love.graphics.draw(red_card_img, card.x - off_x, card.y, 0, card.scale, card.scale)
+    -- print(card.scale)
+
+    local font = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
 
     love.graphics.setFont(font)
+
     local letter_width = font:getWidth(card.letter)
     local letter_height = font:getHeight(card.letter)
-    love.graphics.print(card.letter, font, x + card_width / 2 - letter_width / 2, y + card_height / 7 - letter_height / 2)
+    local letter_x = card.x + card.width / 2 - letter_width / 2 - off_x
+    local letter_y = card.y + card.width / 7 - letter_height / 2
+
+    love.graphics.setColor(BLACK)
+    love.graphics.print(card.letter, font, letter_x, letter_y)
+    love.graphics.setColor(brightness)
 
     local rune_img = not_img
     if card.type == CardTypes.arcane then
@@ -74,7 +120,16 @@ card_module.drawCard = function(card, x, y, x_scale, y_scale)
     elseif card.type == CardTypes.item then
         -- no img for item but ill definitely add items
     end
-    love.graphics.draw(rune_img, x + card_width / 2 - rune_width / 2, y + card_height / 2 - rune_height / 2, 0, x_scale * RUNE_SCALE, y_scale * RUNE_SCALE)
+
+    local rune_width = RUNE_WIDTH * card.scale
+    local rune_height = RUNE_HEIGHT * card.scale
+
+    local rune_x = card.x + card.width / 2 - rune_width / 2 - off_x
+    local rune_y = card.y + card.width / 2 - rune_height / 2
+    local rune_scale_x = card.scale * RUNE_SCALE
+    local rune_scale_y = card.scale * RUNE_SCALE
+
+    love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
 end
 
 return card_module
