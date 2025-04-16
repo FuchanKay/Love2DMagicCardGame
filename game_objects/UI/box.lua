@@ -1,7 +1,7 @@
 local box_module = {}
 -- bluish grey
 local DEFAULT_COLOR = {0.4, 0.4, 0.5, 1.0}
--- black
+-- Colors.black
 local DEFAULT_TEXT_COLOR = {0, 0, 0, 1}
 
 local DEFAULT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
@@ -28,7 +28,7 @@ box_module.newBox = function(x, y, width, height, box_color, text, font, text_co
         box.y,
         box.width,
         box.height)
-            -- prints black text
+            -- prints Colors.black text
         love.graphics.setColor(box.text_color)
         -- centers text
         local text_offset_x = 0

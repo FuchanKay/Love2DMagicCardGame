@@ -46,7 +46,7 @@ local CONTROLLER_ARROW_SPACING_SCREEN_FACTOR = 1/96
 local APPLY_BUTTON_UPDATED_COLOR = {0.6, 0.6, 0.7, 1.0}
 -- bluish grey
 local DEFAULT_BUTTON_COLOR = {0.4, 0.4, 0.5, 1.0}
--- white
+-- Colors.white
 local DEFAULT_HOT_COLOR = {0.8, 0.8, 0.9, 1.0}
 
 local function updateApplyButton()

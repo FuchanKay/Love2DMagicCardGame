@@ -3,9 +3,9 @@ local button_module = {}
 local LEFT_CLICK = 1
 -- bluish grey
 local DEFAULT_COLOR = {0.4, 0.4, 0.5, 1.0}
--- white
+-- Colors.white
 local HOT_COLOR = {0.8, 0.8, 0.9, 1.0}
--- black
+-- Colors.black
 local DEFAULT_TEXT_COLOR = {0, 0, 0, 1}
 
 local DEFAULT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
@@ -56,7 +56,7 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         button.width,
         button.height)
 
-        -- prints black text
+        -- prints Colors.black text
         love.graphics.setColor(button.text_color)
         -- centers text
         local text_offset_x = 0

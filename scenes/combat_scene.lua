@@ -1,11 +1,9 @@
 local combat_scene_module = {}
 
 local hand = nil
+local resource_display = nil
 
 -- constants
-local BACKGROUND_COLOR = {0.4, 0.4, 0.5, 1.0}
-local WHITE = {1.0, 1.0, 1.0, 1.0}
-
 local CARD_SIZE_SCALE = 1 / 4
 
 combat_scene_module.load = function()
@@ -16,6 +14,7 @@ combat_scene_module.load = function()
     hand.addCard(Card.newCard(CardTypes.hemo, "U", CARD_SIZE_SCALE, "card 3 description"))
     hand.addCard(Card.newCard(CardTypes.holy, "M", CARD_SIZE_SCALE, "card 4 description"))
     hand.addCard(Card.newCard(CardTypes.unholy, "A", CARD_SIZE_SCALE, "card 5 description"))
+    resource_display = ResourceDisplay.newResourceDisplay(0, 0, 1, 15, 20, 25, 0)
 end
 
 combat_scene_module.update = function(dt)
@@ -24,10 +23,11 @@ end
 
 combat_scene_module.draw = function()
     -- draws graphics at 100% brightness
-    love.graphics.setColor(BACKGROUND_COLOR)
-    love.graphics.rectangle("fill", 0, 0, Settings.window_dimensions[1], Settings.window_dimensions[2])
-    love.graphics.setColor(WHITE)
-    HandDisplay.drawHand(hand)
+    love.graphics.setBackgroundColor(0.4, 0.4, 0.5)
+    if not hand then error "hand is nil" end
+    hand.draw()
+    if not resource_display then error "resource display is nil" end
+    resource_display.draw()
 end
 
 combat_scene_module.keyboardpressed = function(k)

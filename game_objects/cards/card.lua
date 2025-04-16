@@ -6,32 +6,30 @@ local card_module = {}
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1
 
-local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
-local ARCANE_IMG = love.graphics.newImage("res/images/runes/arcane_hd.png")
-local HEMO_IMG = love.graphics.newImage("res/images/runes/hemo_hd.png")
-local HOLY_IMG = love.graphics.newImage("res/images/runes/holy_hd.png")
-local UNHOLY_IMG = love.graphics.newImage("res/images/runes/unholy_hd.png")
+local RED_CARD_HD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
+local ARCANE_HD_IMG = love.graphics.newImage("res/images/runes/arcane_hd.png")
+local HEMO_HD_IMG = love.graphics.newImage("res/images/runes/hemo_hd.png")
+local HOLY_HD_IMG = love.graphics.newImage("res/images/runes/holy_hd.png")
+local UNHOLY_HD_IMG = love.graphics.newImage("res/images/runes/unholy_hd.png")
 local NOT_IMG = love.graphics.newImage("res/images/etc/no.png")
 
 -- for sprites
-local CARD_WIDTH = RED_CARD_IMG:getWidth()
-local CARD_HEIGHT = RED_CARD_IMG:getHeight()
+local CARD_WIDTH = RED_CARD_HD_IMG:getWidth()
+local CARD_HEIGHT = RED_CARD_HD_IMG:getHeight()
 
 -- every rune image has the same width and height of 640x640
 local RUNE_SCALE = 1 / 2
-local RUNE_WIDTH = ARCANE_IMG:getWidth() * RUNE_SCALE
-local RUNE_HEIGHT = ARCANE_IMG:getHeight() * RUNE_SCALE
+local RUNE_WIDTH = ARCANE_HD_IMG:getWidth() * RUNE_SCALE
+local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 local CARD_LETTER_FONT_FACTOR = 3 / 5
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
 
-local BLACK = {0, 0, 0, 1.0}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
-local WHITE = {1, 1, 1, 1}
 
 card_module.newCard = function(type, letter, scale, description)
     local card = {
-    img = RED_CARD_IMG,
+    img = RED_CARD_HD_IMG,
     type = type,
     level = 1,
     scale = scale,
@@ -52,10 +50,10 @@ card_module.newCard = function(type, letter, scale, description)
         if card.level < 1 then card.level = 1 end
     end
 
-    if type == CardTypes.arcane then card.type_img = ARCANE_IMG
-    elseif type == CardTypes.hemo then card.type_img = HEMO_IMG
-    elseif type == CardTypes.holy then card.type_img = HOLY_IMG
-    elseif type == CardTypes.unholy then card.type_img = UNHOLY_IMG
+    if type == CardTypes.arcane then card.type_img = ARCANE_HD_IMG
+    elseif type == CardTypes.hemo then card.type_img = HEMO_HD_IMG
+    elseif type == CardTypes.holy then card.type_img = HOLY_HD_IMG
+    elseif type == CardTypes.unholy then card.type_img = UNHOLY_HD_IMG
     else card.type_img = NOT_IMG end
 
     -- if card_letter argument is invalid, sets letter to "!"
@@ -93,7 +91,7 @@ card_module.newCard = function(type, letter, scale, description)
 
     card.draw = function()
         local brightness = LIGHT_GREY
-        if card.hot then brightness = WHITE end
+        if card.hot then brightness = Colors.white end
 
         local off_x = 0
         if card.selected then off_x = -(card.width * (EXPANDED_SCALE / DEFAULT_SCALE - 1)) / 3 end
@@ -101,7 +99,7 @@ card_module.newCard = function(type, letter, scale, description)
         love.graphics.setColor(brightness)
 
         local card_x = card.x + off_x
-        love.graphics.draw(RED_CARD_IMG, card_x, card.y, 0, card.scale, card.scale)
+        love.graphics.draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
         if card.ind == 1 and love.keyboard.isDown "space" then
             print("card.width: "..card.width.."  card.scale: "..card.scale.."  card_x: "..card_x)
         end
@@ -115,19 +113,19 @@ card_module.newCard = function(type, letter, scale, description)
         local letter_x = card.x + card.width / 2 - letter_width / 2 + off_x
         local letter_y = card.y + card.height / 7 - letter_height / 2
 
-        love.graphics.setColor(BLACK)
+        love.graphics.setColor(Colors.black)
         love.graphics.print(card.letter, font, letter_x, letter_y)
         love.graphics.setColor(brightness)
 
         local rune_img = NOT_IMG
         if card.type == CardTypes.arcane then
-            rune_img = ARCANE_IMG
+            rune_img = ARCANE_HD_IMG
         elseif card.type == CardTypes.hemo then
-            rune_img = HEMO_IMG
+            rune_img = HEMO_HD_IMG
         elseif card.type == CardTypes.holy then
-            rune_img = HOLY_IMG  
+            rune_img = HOLY_HD_IMG  
         elseif card.type == CardTypes.unholy then
-            rune_img = UNHOLY_IMG
+            rune_img = UNHOLY_HD_IMG
         elseif card.type == CardTypes.mana then
             -- no mana img because idk if im going to add it
         elseif card.type == CardTypes.item then
