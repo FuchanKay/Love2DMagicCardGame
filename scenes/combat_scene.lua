@@ -52,7 +52,7 @@ end
 
 combat_scene_module.keyboardreleased = function(k)
     if not resource_display then error "resource display is nil" end
-    if k == "up" then resource_display.addResource(CardTypes.unholy, 1) end
+    if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
 end
 

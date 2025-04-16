@@ -9,6 +9,7 @@ local CARD_HEIGHT = red_card_img:getHeight()
 
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
+local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 30)
 
 hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile, discard_pile, card_scale)
     local hand = {
@@ -78,6 +79,11 @@ hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile,
                 hand.selected_card.selected = true
             end
         end
+        local draw_pile_num = #hand.draw_pile
+        local discard_pile_num = #hand.discard_pile
+        love.graphics.setColor(Colors.white)
+        love.graphics.print("Draw Pile: "..draw_pile_num, FONT, 0, 130)
+        love.graphics.print("Discard Pile: "..discard_pile_num, FONT, 0, 230)
     end
 
     -- draws cards from draw pile. num cannot be negative or 0
@@ -88,6 +94,12 @@ hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile,
         
     end
 
+    hand.discardHand = function()
+        for i = 1, #hand do
+            local removed = table.remove(hand, 1)
+            table.insert(hand.discard_pile, removed)
+        end
+    end
     return hand
 end
 

@@ -101,9 +101,6 @@ card_module.newCard = function(type, letter, scale, description)
 
         local card_x = card.x + off_x
         love.graphics.draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
-        if card.ind == 1 and love.keyboard.isDown "space" then
-            print("card.width: "..card.width.."  card.scale: "..card.scale.."  card_x: "..card_x)
-        end
 
         local font = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
 
