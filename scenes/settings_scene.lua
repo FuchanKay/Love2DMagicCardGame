@@ -333,6 +333,7 @@ local function addSettingsApplyButton(off_x, off_y)
 end
 
 settings_scene_module.load = function()
+    love.graphics.setBackgroundColor(Colors.black)
     buttons = {}
     boxes = {}
     addBackButton()
@@ -350,10 +351,11 @@ settings_scene_module.draw = function()
     if not buttons then error "buttons is nil" end
     for i, button in ipairs(buttons) do
         button.update()
+        button.draw()
     end
     if not boxes then error "boxes is nil" end
     for i, box in ipairs(boxes) do
-        box.update()
+        box.draw()
     end
 end
 settings_scene_module.keyboardpressed = function(k)

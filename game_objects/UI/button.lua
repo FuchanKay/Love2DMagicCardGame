@@ -18,6 +18,7 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         y = y or 0,
         width = width or 64,
         height = height or 64,
+        hot = false,
         default_color = button_color or DEFAULT_COLOR,
         hot_color = hot_color or HOT_COLOR,
         text = text or "",
@@ -33,21 +34,22 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         -- button.last/now makes sure that button being pressed is called once
         button.last = button.now
 
-        local button_color = button.default_color
         local mouse_x, mouse_y = love.mouse.getPosition()
 
         -- button is being hovered by mouse
-        local hot = mouse_x > button.x and mouse_x < button.x + button.width and
+        button.hot = mouse_x > button.x and mouse_x < button.x + button.width and
                     mouse_y > button.y and mouse_y < button.y + button.height
-
-        if hot then button_color = button.hot_color end
 
         button.now = love.mouse.isDown(LEFT_CLICK)
         -- calls function in parameter if button is clicked
-        if button.now and not button.last and hot then
+        if button.now and not button.last and button.hot then
             button.on_pressed()
         end
+    end
 
+    button.draw = function()
+        local button_color = button.default_color
+        if button.hot then button_color = button.hot_color end
         love.graphics.setColor(button_color)
         love.graphics.rectangle(
         "fill",

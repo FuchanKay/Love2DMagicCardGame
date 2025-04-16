@@ -87,6 +87,8 @@ local function addQuitButton(off_x, off_y)
 end
 
 main_menu_module.load = function()
+    love.graphics.setBackgroundColor(Colors.black)
+    love.graphics.setColor(Colors.white)
     buttons = {}
     -- initializes font
     addStartButton(0, 0)
@@ -103,6 +105,7 @@ main_menu_module.draw = function()
     if not buttons then error "buttons is nil" end
     for i, button in ipairs(buttons) do
         button.update()
+        button.draw()
     end
 end
 

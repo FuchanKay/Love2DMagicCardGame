@@ -4,10 +4,11 @@ local hand = nil
 local resource_display = nil
 
 -- constants
-local CARD_SIZE_SCALE = 1 / 4
+local CARD_SIZE_SCALE = 1 / 7
+local HAND_WIDTH = Settings.window_dimensions[1] / 2
 
 combat_scene_module.load = function()
-    hand = HandDisplay.newHandDisplay(200, 200, CARD_SIZE_SCALE)
+    hand = HandDisplay.newHandDisplay(Settings.window_dimensions[1] - 200 - HAND_WIDTH, 200, HAND_WIDTH, CARD_SIZE_SCALE)
     if not hand then error "hand is nil" end
     hand.addCard(Card.newCard(CardTypes.arcane, "A", CARD_SIZE_SCALE, "card 1 description"))
     hand.addCard(Card.newCard(CardTypes.arcane, "F", CARD_SIZE_SCALE, "card 2 description"))
@@ -35,7 +36,9 @@ combat_scene_module.keyboardpressed = function(k)
 end
 
 combat_scene_module.keyboardreleased = function(k)
-
+    if not resource_display then error "resource display is nil" end
+    if k == "up" then resource_display.addResource(CardTypes.unholy, 1) end
+    if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)

@@ -21,7 +21,8 @@ local CARD_HEIGHT = RED_CARD_HD_IMG:getHeight()
 local RUNE_SCALE = 1 / 2
 local RUNE_WIDTH = ARCANE_HD_IMG:getWidth() * RUNE_SCALE
 local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
-local CARD_LETTER_FONT_FACTOR = 3 / 5
+-- card leter bigger than usual so its easier to see for now. will update visuals later
+local CARD_LETTER_FONT_FACTOR = 7 / 5
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
 
@@ -81,6 +82,7 @@ card_module.newCard = function(type, letter, scale, description)
         -- calls function in parameter if button is clicked
         if card.now and not card.last and card.hot then
             card.selected = not card.selected
+            SoundEffects.playBell()
         end
         -- called again to make sure that everything is updated if scale is changed
         if card.selected then card.scale = card.expanded_scale

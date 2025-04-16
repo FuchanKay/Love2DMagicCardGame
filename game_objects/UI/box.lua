@@ -20,7 +20,7 @@ box_module.newBox = function(x, y, width, height, box_color, text, font, text_co
         centered_x = centered_x or false,
         centered_y = centered_y or false,
     }
-    box.update = function()
+    box.draw = function()
         love.graphics.setColor(box.box_color)
         love.graphics.rectangle(
         "fill",

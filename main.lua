@@ -32,6 +32,8 @@ function love.load()
 end
 
 function love.update(dt)
+    -- relaunches the game when r is pressed
+    if love.keyboard.isDown("lctrl") and love.keyboard.isDown("r") then love.event.quit "restart" end
     if current_scene.update then current_scene.update(dt) end
 end
 
@@ -41,9 +43,8 @@ end
 
 function love.keypressed(k)
     -- exits game when esc is pressed no matter what scene
-    if k == "escape" then love.event.quit() end
-    -- relaunches the game when r is pressed
-    if k == "r" then love.event.quit "restart" end
+    -- if k == "escape" then love.event.quit() end
+
 
     if current_scene.keyboardpressed then current_scene.keyboardpressed(k) end
 end
