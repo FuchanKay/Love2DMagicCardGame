@@ -22,9 +22,7 @@ CardTypes = require "game_objects.cards.card_types"
 HandDisplay = require "game_objects.cards.hand_display"
 
 -- adds scenes from /scenes
-scenes.mainMenu = require 'scenes.main_menu'
-scenes.gameScene = require 'scenes.game_scene'
-current_scene = scenes.mainMenu
+current_scene = require "scenes.main_menu"
 
 function love.load()
     -- checks whether .funcion is not nil before calling

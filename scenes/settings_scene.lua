@@ -347,10 +347,15 @@ settings_scene_module.update = function(dt)
 end
 
 settings_scene_module.draw = function()
-    Button.updateAll(buttons)
-    Box.updateAll(boxes)
+    if not buttons then error "buttons is nil" end
+    for i, button in ipairs(buttons) do
+        button.update()
+    end
+    if not boxes then error "boxes is nil" end
+    for i, box in ipairs(boxes) do
+        box.update()
+    end
 end
-
 settings_scene_module.keyboardpressed = function(k)
     -- if k == "f" then love.filesystem.write("save.txt", "f") end
 end

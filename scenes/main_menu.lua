@@ -24,7 +24,7 @@ local function addStartButton(off_x, off_y)
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        ChangeScene("game_scene")
+        ChangeScene("combat_scene")
     end
     ))
 end
@@ -100,7 +100,10 @@ main_menu_module.update = function(dt)
 end
 
 main_menu_module.draw = function()
-    Button.updateAll(buttons)
+    if not buttons then error "buttons is nil" end
+    for i, button in ipairs(buttons) do
+        button.update()
+    end
 end
 
 main_menu_module.keyboardpressed = function(k)
