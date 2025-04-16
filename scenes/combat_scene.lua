@@ -4,8 +4,8 @@ local hand = nil
 local resource_display = nil
 
 -- constants
-local CARD_SIZE_SCALE = 1 / 7
-local HAND_WIDTH = Settings.window_dimensions[1] / 2
+local CARD_SIZE_SCALE = 1 / 4
+local HAND_WIDTH = Settings.window_dimensions[1] / 3
 
 combat_scene_module.load = function()
     hand = HandDisplay.newHandDisplay(Settings.window_dimensions[1] - 200 - HAND_WIDTH, 200, HAND_WIDTH, CARD_SIZE_SCALE)

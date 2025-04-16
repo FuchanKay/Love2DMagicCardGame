@@ -30,8 +30,7 @@ hand_display_module.newHandDisplay = function(x, y, width, card_scale)
     local right_input_now = false
     local right_input_late = false
     hand.draw = function()
-        left_input_late = left_input_now
-        right_input_late = right_input_now
+
         local spacing = hand.width / #hand
         local has_selected_card = false
         for i, card in ipairs(hand) do
@@ -41,14 +40,21 @@ hand_display_module.newHandDisplay = function(x, y, width, card_scale)
             card.y = hand.y
 
             card.update()
-
-            card.draw()
+            if not card.selected then card.draw() end
 
             if card.selected then
                 hand.selected_card = card
                 has_selected_card = true
             end
         end
+
+        if hand.selected_card then hand.selected_card.draw() end
+
+        -- for inputs where it should not trigger multiple times for holding it down,
+        -- create boolean variables now and late and set late to now before checking whether the key is down.
+        -- if now is true and late is false then trigger
+        left_input_late = left_input_now
+        right_input_late = right_input_now
         left_input_now = love.keyboard.isDown("left")
         right_input_now = love.keyboard.isDown("right")
 
@@ -67,10 +73,6 @@ hand_display_module.newHandDisplay = function(x, y, width, card_scale)
         end
     end
     return hand
-end
-
-hand_display_module.drawHand = function(hand)
-
 end
 
 return hand_display_module
