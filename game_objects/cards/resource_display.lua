@@ -20,12 +20,13 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
     local resource_display = {
         x = x, y = y, scale = scale, 
         font = love.graphics.newFont("res/fonts/Roman SD.ttf", math.floor(CARD_LETTER_FONT_FACTOR * scale)),
-        arcane_num = init_arcane,
-        hemo_num = init_hemo,
-        holy_num = init_holy,
-        unholy_num = init_unholy
+        arcane_num = init_arcane or 0,
+        hemo_num = init_hemo or 0,
+        holy_num = init_holy or 0,
+        unholy_num = init_unholy or 0
     }
 
+    -- adds num to resource specified. num cannot be negative
     resource_display.addResource = function(card_type, num)
         -- lua's weird way of performing ternary operators
         -- make sure to not not perform functions because it can lead to some weird side effects
@@ -43,6 +44,7 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
         end
     end
 
+    -- subtracts num to resource specified. num cannot be negative
     resource_display.subtractResource = function(card_type, num)
         if num < 0 then error "num cannot be negative" end
         if card_type == CardTypes.arcane then
@@ -101,7 +103,6 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
         else love.graphics.print(""..resource_display.unholy_num, font, text_x, text_y) end
         resource_x = resource_x + offset_x
         text_x = text_x + offset_x
-
     end
     return resource_display
 end

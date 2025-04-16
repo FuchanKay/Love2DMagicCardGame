@@ -15,13 +15,7 @@ SoundEffects = require 'sound.sound_effects'
 -- ui
 Button = require "game_objects.ui.button"
 Box = require "game_objects.ui.box"
-
--- game mechanics
 Colors = require "libraries.luacolors"
-Card = require "game_objects.cards.card"
-CardTypes = require "game_objects.cards.card_types"
-HandDisplay = require "game_objects.cards.hand_display"
-ResourceDisplay = require"game_objects.cards.resource_display"
 
 -- adds scenes from /scenes
 current_scene = require "scenes.main_menu"

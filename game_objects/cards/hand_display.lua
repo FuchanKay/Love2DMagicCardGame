@@ -10,8 +10,14 @@ local CARD_HEIGHT = red_card_img:getHeight()
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 
-hand_display_module.newHandDisplay = function(x, y, width, card_scale)
-    local hand = {x = x, y = y, width = width, card_scale = card_scale, selected_card = nil, selected_cards = {}}
+hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile, discard_pile, card_scale)
+    local hand = {
+        x = x, y = y, width = width,
+        hand_size = hand_size,
+        draw_pile = draw_pile, discard_pile = discard_pile,
+        card_scale = card_scale,
+        selected_card = nil, selected_cards = {}
+    }
     hand.addCard = function(card)
         card.width = CARD_WIDTH * card.scale
         card.height = CARD_HEIGHT * card.scale
@@ -29,8 +35,9 @@ hand_display_module.newHandDisplay = function(x, y, width, card_scale)
     local left_input_late = false
     local right_input_now = false
     local right_input_late = false
-    hand.draw = function()
 
+    -- draw as in drawing sprites, not drawing cards
+    hand.draw = function()
         local spacing = hand.width / #hand
         local has_selected_card = false
         for i, card in ipairs(hand) do
@@ -72,6 +79,15 @@ hand_display_module.newHandDisplay = function(x, y, width, card_scale)
             end
         end
     end
+
+    -- draws cards from draw pile. num cannot be negative or 0
+    hand.drawCards = function (num)
+        if num <= 0 then error "num cannto be negative or 0" end
+
+
+        
+    end
+
     return hand
 end
 

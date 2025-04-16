@@ -74,7 +74,6 @@ card_module.newCard = function(type, letter, scale, description)
         local off_x = 0
         if card.selected then off_x = -(card.width * (EXPANDED_SCALE / DEFAULT_SCALE - 1)) / 3 end
 
-
         local mouse_x, mouse_y = love.mouse.getPosition()
         card.hot = mouse_x > card.x + off_x and mouse_x < card.x + card.width + off_x and
                     mouse_y > card.y and mouse_y < card.y + card.height
