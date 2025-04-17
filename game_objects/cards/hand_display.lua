@@ -4,11 +4,6 @@ local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.p
 local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_rune_card_hd.png")
 -- constants
 -- for sprites
-local CARD_WIDTH = RED_CARD_IMG:getWidth()
-local CARD_HEIGHT = RED_CARD_IMG:getHeight()
-
-local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
-local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 30)
 
 hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, discard_pile, card_scale)
@@ -86,8 +81,8 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         local draw_pile_num = #hand.draw_pile
         local discard_pile_num = #hand.discard_pile
         love.graphics.setColor(Colors.white)
-        love.graphics.print("Draw Pile: "..draw_pile_num, FONT, 0, 130)
-        love.graphics.print("Discard Pile: "..discard_pile_num, FONT, 0, 230)
+        love.graphics.print("Draw Pile: "..draw_pile_num, FONT, 30, 130)
+        love.graphics.print("Discard Pile: "..discard_pile_num, FONT, 30, 230)
     end
 
     -- draws cards from draw pile. num cannot be negative or 0
@@ -121,7 +116,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
     end
 
     -- discards entire hand into discard pile
-    hand.discardHand = function()
+    hand.discardEntireHand = function()
         for i = 1, #hand do
             local removed = table.remove(hand, 1)
             if removed == hand.selected_card then

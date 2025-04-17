@@ -1,4 +1,4 @@
 --this file deploys the console on game launch
 function love.conf(t)
-    t.console = false
+    t.console = true
 end
