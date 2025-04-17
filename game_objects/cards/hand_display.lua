@@ -1,24 +1,26 @@
 local hand_display_module = {}
 
-local red_card_img = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
-
+local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
+local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_rune_card_hd.png")
 -- constants
 -- for sprites
-local CARD_WIDTH = red_card_img:getWidth()
-local CARD_HEIGHT = red_card_img:getHeight()
+local CARD_WIDTH = RED_CARD_IMG:getWidth()
+local CARD_HEIGHT = RED_CARD_IMG:getHeight()
 
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 30)
 
-hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile, discard_pile, card_scale)
+hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, discard_pile, card_scale)
     local hand = {
         x = x, y = y, width = width,
-        hand_size = hand_size,
+        size = size,
         draw_pile = draw_pile, discard_pile = discard_pile,
         card_scale = card_scale,
         selected_card = nil, selected_cards = {}
     }
+    print(RED_CARD_IMG:getWidth())
+    print(GREY_BLANK_CARD_IMG:getWidth())
     hand.addCard = function(card)
         card.width = CARD_WIDTH * card.scale
         card.height = CARD_HEIGHT * card.scale
@@ -39,8 +41,13 @@ hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile,
 
     -- draw as in drawing sprites, not drawing cards
     hand.draw = function()
-        local spacing = hand.width / #hand
+        local spacing = hand.width / hand.size
         local has_selected_card = false
+        love.graphics.setColor(Colors.gray)
+        for i = 1, hand.size do
+            local card_x =  hand.x + (i - 1) * spacing
+            love.graphics.draw(GREY_BLANK_CARD_IMG, card_x, hand.y, 0, hand.card_scale, hand.card_scale)
+        end
         for i, card in ipairs(hand) do
             if hand.selected_card ~= card then card.selected = false end
             local card_x = hand.x + (i - 1) * spacing
@@ -96,10 +103,6 @@ hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile,
             elseif #hand.discard_pile > 0 then
                 local cards = hand.discard_pile.reshuffle()
                 hand.draw_pile.addCards(cards)
-                print(#hand.draw_pile)
-                for i = 1, #hand.draw_pile do
-                    -- print(hand.draw_pile[i])
-                end
                 local card = hand.draw_pile.drawCard()
                 table.insert(hand, card)
             else
