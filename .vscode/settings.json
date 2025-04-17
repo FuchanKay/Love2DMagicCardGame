@@ -1,6 +1,10 @@
 {
     "Lua.diagnostics.globals": [
-        "love"
+        "love",
+        "bit",
+        "unpack",
+        "lenContext",
+        "len"
     ],
     "git.ignoreLimitWarning": true
 }

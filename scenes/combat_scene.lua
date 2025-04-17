@@ -25,15 +25,15 @@ local HAND_WIDTH = Settings.window_dimensions[1] / 3
 local HAND_SIZE = 5
 
 combat_scene_module.load = function()
-
+    math.randomseed(os.time())
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(arcaneCardEffects.A, CARD_SIZE_SCALE, "card 1 description"))
-    deck.addCard(Card.newCard(arcaneCardEffects.F, CARD_SIZE_SCALE, "card 2 description"))
-    deck.addCard(Card.newCard(hemoCardEffects.U, CARD_SIZE_SCALE, "card 3 description"))
-    deck.addCard(Card.newCard(holyCardEffects.M, CARD_SIZE_SCALE, "card 4 description"))
-    deck.addCard(Card.newCard(unholyCardEffects.A, CARD_SIZE_SCALE, "card 5 description"))
+    deck.addCard(Card.newCard(arcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(arcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(hemoCardEffects.U, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(holyCardEffects.M, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(unholyCardEffects.A, CARD_SIZE_SCALE))
     draw_pile.addDeck(deck)
     local hand_x = Settings.window_dimensions[1] - 200 - HAND_WIDTH
     local hand_y = 200
@@ -71,7 +71,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "p" then
         print(hand.draw_pile[1])
     end
-    if k == "a" then draw_pile.addCard(Card.newCard(holyCardEffects.Z, CARD_SIZE_SCALE, "card 4 description")) end
+    if k == "a" then draw_pile.addCard(Card.newCard(holyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)

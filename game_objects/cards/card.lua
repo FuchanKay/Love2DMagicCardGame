@@ -24,15 +24,16 @@ local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 local CARD_LETTER_FONT_FACTOR = 7 / 5
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
-local DESCRIPTION_BOX_X = 0
-local DESCRIPTION_BOX_Y = 600
+local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 3
+local DESCRIPTION_BOX_HEIGHT = 100
+local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 200
+local DESCRIPTION_BOX_Y = 400
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
-
-
-card_module.newCard = function(card_effect, scale, description, level)
+local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
+card_module.newCard = function(card_effect, scale, level)
     local card = {
     img = RED_CARD_HD_IMG,
     type = card_effect.type,
@@ -42,7 +43,7 @@ card_module.newCard = function(card_effect, scale, description, level)
     scale = scale,
     default_scale = scale,
     expanded_scale = scale * EXPANDED_SCALE,
-    description = description,
+    description = "When Drawn: "..card_effect.when_drawn_description,
     x = 0,
     y = 0,
     hot = false,
@@ -50,11 +51,17 @@ card_module.newCard = function(card_effect, scale, description, level)
     now = false,
     last = false
     }
+    if card_effect.retain then
+        card.description = card.description.."\n\nWhen Retained: "..card_effect.when_retained_description
+    end
+    if card_effect.discard then
+        card.description = card.description.."\n\nWhen Discarded"..card_effect.when_discarded_description
+    end
     card.description_box = Box.newBox(
     DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
-    100, 100,
+    DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
     DESCRIPTION_BOX_COLOR, card.description,
-    nil, DESCRIPTION_BOX_TEXT_COLOR,
+    DESCRIPTION_FONT, DESCRIPTION_BOX_TEXT_COLOR,
     false, false)
 
     -- if parameter is a negative number, unupgrades
@@ -118,7 +125,6 @@ card_module.newCard = function(card_effect, scale, description, level)
         local letter_height = font:getHeight(card.letter)
         local letter_x = card.x + card.width / 2 - letter_width / 2 + off_x
         local letter_y = card.y + card.height / 7 - letter_height / 2
-
         love.graphics.setColor(Colors.black)
         love.graphics.print(card.letter, font, letter_x, letter_y)
         love.graphics.setColor(brightness)

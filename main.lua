@@ -38,8 +38,6 @@ end
 function love.keypressed(k)
     -- exits game when esc is pressed no matter what scene
     -- if k == "escape" then love.event.quit() end
-
-
     if current_scene.keyboardpressed then current_scene.keyboardpressed(k) end
 end
 
