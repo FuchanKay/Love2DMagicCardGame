@@ -1,11 +1,10 @@
 local card_module = {}
 
-
-
 -- constants
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1
 
+-- TODO: create icon for curses and items
 local RED_CARD_HD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
 local ARCANE_HD_IMG = love.graphics.newImage("res/images/runes/arcane_hd.png")
 local HEMO_HD_IMG = love.graphics.newImage("res/images/runes/hemo_hd.png")
@@ -31,11 +30,15 @@ local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
-card_module.newCard = function(type, letter, scale, description)
+
+
+card_module.newCard = function(card_effect, scale, description, level)
     local card = {
     img = RED_CARD_HD_IMG,
-    type = type,
-    level = 1,
+    type = card_effect.type,
+    letter = card_effect.letter,
+    level = level or 1,
+    card_effect = card_effect,
     scale = scale,
     default_scale = scale,
     expanded_scale = scale * EXPANDED_SCALE,
@@ -53,6 +56,7 @@ card_module.newCard = function(type, letter, scale, description)
     DESCRIPTION_BOX_COLOR, card.description,
     nil, DESCRIPTION_BOX_TEXT_COLOR,
     false, false)
+
     -- if parameter is a negative number, unupgrades
     card.upgrade = function(num)
         card.level = card.level + (num or 1)
@@ -65,11 +69,6 @@ card_module.newCard = function(type, letter, scale, description)
     elseif type == CardTypes.holy then card.type_img = HOLY_HD_IMG
     elseif type == CardTypes.unholy then card.type_img = UNHOLY_HD_IMG
     else card.type_img = NOT_IMG end
-
-    -- if card_letter argument is invalid, sets letter to "!"
-    card.letter = letter or "!"
-    if string.len(card.letter) == 0 then card.letter = "!" end
-    if string.len(card.letter) > 1 then card.letter = "!" end
 
     card.update = function()
         card.last = card.now
@@ -90,7 +89,7 @@ card_module.newCard = function(type, letter, scale, description)
         -- calls function in parameter if button is clicked
         if card.now and not card.last and card.hot then
             card.selected = not card.selected
-            SoundEffects.playBell()
+            -- SoundEffects.playBell()
         end
         -- called again to make sure that everything is updated if scale is changed
         if card.selected then card.scale = card.expanded_scale

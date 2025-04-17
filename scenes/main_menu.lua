@@ -9,6 +9,10 @@ local MAIN_BUTTONS_HEIGHT = 120
 local MAIN_BUTTONS_SPACING = 20
 local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
+-- TODO: add blobreader and blobreader functions to game for saving
+BlobWriter = require "libraries.BlobWriter"
+BlobReader = require "libraries.BlobReader"
+
 local function addStartButton(off_x, off_y)
     if buttons == nil then error("buttons is nil") end
     local window_width, window_height = love.graphics.getDimensions()

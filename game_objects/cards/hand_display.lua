@@ -132,7 +132,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         end
     end
 
-    hand.discardCards = function(num)
+    hand.forceDiscardCards = function(num)
 
     end
 

@@ -14,6 +14,11 @@ Deck = require "game_objects.cards.deck"
 DrawPile = require "game_objects.cards.draw_pile"
 DiscardPile = require "game_objects.cards.discard_pile"
 
+local arcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
+local hemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
+local holyCardEffects = require "game_objects.cards.card_effects.holy_card_effects"
+local unholyCardEffects = require "game_objects.cards.card_effects.unholy_card_effects"
+
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
 local HAND_WIDTH = Settings.window_dimensions[1] / 3
@@ -24,11 +29,11 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(CardTypes.arcane, "A", CARD_SIZE_SCALE, "card 1 description"))
-    deck.addCard(Card.newCard(CardTypes.arcane, "F", CARD_SIZE_SCALE, "card 2 description"))
-    deck.addCard(Card.newCard(CardTypes.hemo, "U", CARD_SIZE_SCALE, "card 3 description"))
-    deck.addCard(Card.newCard(CardTypes.holy, "M", CARD_SIZE_SCALE, "card 4 description"))
-    deck.addCard(Card.newCard(CardTypes.unholy, "A", CARD_SIZE_SCALE, "card 5 description"))
+    deck.addCard(Card.newCard(arcaneCardEffects.A, CARD_SIZE_SCALE, "card 1 description"))
+    deck.addCard(Card.newCard(arcaneCardEffects.F, CARD_SIZE_SCALE, "card 2 description"))
+    deck.addCard(Card.newCard(hemoCardEffects.U, CARD_SIZE_SCALE, "card 3 description"))
+    deck.addCard(Card.newCard(holyCardEffects.M, CARD_SIZE_SCALE, "card 4 description"))
+    deck.addCard(Card.newCard(unholyCardEffects.A, CARD_SIZE_SCALE, "card 5 description"))
     draw_pile.addDeck(deck)
     local hand_x = Settings.window_dimensions[1] - 200 - HAND_WIDTH
     local hand_y = 200
@@ -66,7 +71,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "p" then
         print(hand.draw_pile[1])
     end
-    if k == "a" then draw_pile.addCard(Card.newCard(CardTypes.holy, "M", CARD_SIZE_SCALE, "card 4 description")) end
+    if k == "a" then draw_pile.addCard(Card.newCard(holyCardEffects.Z, CARD_SIZE_SCALE, "card 4 description")) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)

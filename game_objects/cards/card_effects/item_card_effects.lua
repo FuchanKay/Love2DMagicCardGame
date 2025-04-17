@@ -1,7 +1,7 @@
-local holy_card_effects_module = {}
+local item_card_effects_module = {}
 
-holy_card_effects_module.A = {
-    type = CardTypes.holy,
+item_card_effects_module.A = {
+    type = CardTypes.item,
     letter = "A",
     when_drawn_num = {},
     when_drawn = {},
@@ -10,8 +10,8 @@ holy_card_effects_module.A = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.B = {
-    type = CardTypes.holy,
+item_card_effects_module.B = {
+    type = CardTypes.item,
     letter = "B",
     when_drawn_num = {},
     when_drawn = {},
@@ -20,8 +20,8 @@ holy_card_effects_module.B = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.C = {
-    type = CardTypes.holy,
+item_card_effects_module.C = {
+    type = CardTypes.item,
     letter = "C",
     when_drawn_num = {},
     when_drawn = {},
@@ -30,8 +30,8 @@ holy_card_effects_module.C = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.D = {
-    type = CardTypes.holy,
+item_card_effects_module.D = {
+    type = CardTypes.item,
     letter = "D",
     when_drawn_num = {},
     when_drawn = {},
@@ -40,8 +40,8 @@ holy_card_effects_module.D = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.E = {
-    type = CardTypes.holy,
+item_card_effects_module.E = {
+    type = CardTypes.item,
     letter = "E",
     when_drawn_num = {},
     when_drawn = {},
@@ -50,8 +50,8 @@ holy_card_effects_module.E = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.F = {
-    type = CardTypes.holy,
+item_card_effects_module.F = {
+    type = CardTypes.item,
     letter = "F",
     when_drawn_num = {},
     when_drawn = {},
@@ -60,8 +60,8 @@ holy_card_effects_module.F = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.G = {
-    type = CardTypes.holy,
+item_card_effects_module.G = {
+    type = CardTypes.item,
     letter = "G",
     when_drawn_num = {},
     when_drawn = {},
@@ -70,8 +70,8 @@ holy_card_effects_module.G = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.H = {
-    type = CardTypes.holy,
+item_card_effects_module.H = {
+    type = CardTypes.item,
     letter = "H",
     when_drawn_num = {},
     when_drawn = {},
@@ -80,8 +80,8 @@ holy_card_effects_module.H = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.I = {
-    type = CardTypes.holy,
+item_card_effects_module.I = {
+    type = CardTypes.item,
     letter = "I",
     when_drawn_num = {},
     when_drawn = {},
@@ -90,8 +90,8 @@ holy_card_effects_module.I = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.J = {
-    type = CardTypes.holy,
+item_card_effects_module.J = {
+    type = CardTypes.item,
     letter = "J",
     when_drawn_num = {},
     when_drawn = {},
@@ -100,8 +100,8 @@ holy_card_effects_module.J = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.K = {
-    type = CardTypes.holy,
+item_card_effects_module.K = {
+    type = CardTypes.item,
     letter = "K",
     when_drawn_num = {},
     when_drawn = {},
@@ -110,8 +110,8 @@ holy_card_effects_module.K = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.L = {
-    type = CardTypes.holy,
+item_card_effects_module.L = {
+    type = CardTypes.item,
     letter = "L",
     when_drawn_num = {},
     when_drawn = {},
@@ -120,8 +120,8 @@ holy_card_effects_module.L = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.M = {
-    type = CardTypes.holy,
+item_card_effects_module.M = {
+    type = CardTypes.item,
     letter = "M",
     when_drawn_num = {},
     when_drawn = {},
@@ -130,8 +130,8 @@ holy_card_effects_module.M = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.N = {
-    type = CardTypes.holy,
+item_card_effects_module.N = {
+    type = CardTypes.item,
     letter = "N",
     when_drawn_num = {},
     when_drawn = {},
@@ -140,8 +140,8 @@ holy_card_effects_module.N = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.O = {
-    type = CardTypes.holy,
+item_card_effects_module.O = {
+    type = CardTypes.item,
     letter = "O",
     when_drawn_num = {},
     when_drawn = {},
@@ -150,8 +150,8 @@ holy_card_effects_module.O = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.P = {
-    type = CardTypes.holy,
+item_card_effects_module.P = {
+    type = CardTypes.item,
     letter = "P",
     when_drawn_num = {},
     when_drawn = {},
@@ -160,8 +160,8 @@ holy_card_effects_module.P = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.Q = {
-    type = CardTypes.holy,
+item_card_effects_module.Q = {
+    type = CardTypes.item,
     letter = "Q",
     when_drawn_num = {},
     when_drawn = {},
@@ -170,8 +170,8 @@ holy_card_effects_module.Q = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.R = {
-    type = CardTypes.holy,
+item_card_effects_module.R = {
+    type = CardTypes.item,
     letter = "R",
     when_drawn_num = {},
     when_drawn = {},
@@ -180,8 +180,8 @@ holy_card_effects_module.R = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.S = {
-    type = CardTypes.holy,
+item_card_effects_module.S = {
+    type = CardTypes.item,
     letter = "S",
     when_drawn_num = {},
     when_drawn = {},
@@ -190,8 +190,8 @@ holy_card_effects_module.S = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.T = {
-    type = CardTypes.holy,
+item_card_effects_module.T = {
+    type = CardTypes.item,
     letter = "T",
     when_drawn_num = {},
     when_drawn = {},
@@ -200,8 +200,8 @@ holy_card_effects_module.T = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.U = {
-    type = CardTypes.holy,
+item_card_effects_module.U = {
+    type = CardTypes.item,
     letter = "U",
     when_drawn_num = {},
     when_drawn = {},
@@ -210,8 +210,8 @@ holy_card_effects_module.U = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.V = {
-    type = CardTypes.holy,
+item_card_effects_module.V = {
+    type = CardTypes.item,
     letter = "V",
     when_drawn_num = {},
     when_drawn = {},
@@ -220,8 +220,8 @@ holy_card_effects_module.V = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.W = {
-    type = CardTypes.holy,
+item_card_effects_module.W = {
+    type = CardTypes.item,
     letter = "W",
     when_drawn_num = {},
     when_drawn = {},
@@ -230,8 +230,8 @@ holy_card_effects_module.W = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.X = {
-    type = CardTypes.holy,
+item_card_effects_module.X = {
+    type = CardTypes.item,
     letter = "X",
     when_drawn_num = {},
     when_drawn = {},
@@ -240,8 +240,8 @@ holy_card_effects_module.X = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.Y = {
-    type = CardTypes.holy,
+item_card_effects_module.Y = {
+    type = CardTypes.item,
     letter = "Y",
     when_drawn_num = {},
     when_drawn = {},
@@ -250,8 +250,8 @@ holy_card_effects_module.Y = {
     discard = false,
     when_discarded = {}
 }
-holy_card_effects_module.Z = {
-    type = CardTypes.holy,
+item_card_effects_module.Z = {
+    type = CardTypes.item,
     letter = "Z",
     when_drawn_num = {},
     when_drawn = {},
@@ -262,4 +262,4 @@ holy_card_effects_module.Z = {
 }
 
 
-return holy_card_effects_module
+return item_card_effects_module
