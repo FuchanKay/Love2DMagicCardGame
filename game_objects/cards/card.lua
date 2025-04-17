@@ -25,7 +25,10 @@ local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 local CARD_LETTER_FONT_FACTOR = 7 / 5
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
-
+local DESCRIPTION_BOX_X = 0
+local DESCRIPTION_BOX_Y = 600
+local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
+local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
 card_module.newCard = function(type, letter, scale, description)
@@ -44,6 +47,12 @@ card_module.newCard = function(type, letter, scale, description)
     now = false,
     last = false
     }
+    card.description_box = Box.newBox(
+    DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
+    100, 100,
+    DESCRIPTION_BOX_COLOR, card.description,
+    nil, DESCRIPTION_BOX_TEXT_COLOR,
+    false, false)
     -- if parameter is a negative number, unupgrades
     card.upgrade = function(num)
         card.level = card.level + (num or 1)

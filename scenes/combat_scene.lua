@@ -58,6 +58,7 @@ end
 combat_scene_module.keyboardreleased = function(k)
     if not resource_display then error "resource display is nil" end
     if not hand then error "hand is nil" end
+    if not draw_pile then error "draw pile is nil" end
     if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
     if k == "d" then hand.drawCards(1) end
@@ -65,6 +66,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "p" then
         print(hand.draw_pile[1])
     end
+    if k == "a" then draw_pile.addCard(Card.newCard(CardTypes.holy, "M", CARD_SIZE_SCALE, "card 4 description")) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)

@@ -3,6 +3,7 @@ local deck_module = {}
 deck_module.newDeck = function()
     local deck = {}
     deck.addCard = function(card)
+        card.ind = 1     
         table.insert(deck, card)
     end
     deck.removeCard = function(card)

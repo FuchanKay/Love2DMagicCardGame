@@ -13,6 +13,10 @@ discard_pile_module.newDiscardPile = function()
         return shuffled
     end
 
+    -- for adding a singular card to the draw pile
+    discard_pile.addCard = function(card)
+        table.insert(discard_pile, card)
+    end
     return discard_pile
 end
 
