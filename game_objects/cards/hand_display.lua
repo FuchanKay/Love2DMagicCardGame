@@ -89,18 +89,35 @@ hand_display_module.newHandDisplay = function(x, y, width, hand_size, draw_pile,
     -- draws cards from draw pile. num cannot be negative or 0
     hand.drawCards = function (num)
         if num <= 0 then error "num cannto be negative or 0" end
-
-
-        
+        for i = 1, num do
+            if #hand.draw_pile > 0 then
+                local card = hand.draw_pile.drawCard()
+                table.insert(hand, card)
+            elseif #hand.discard_pile > 0 then
+                local cards = hand.discard_pile.reshuffle()
+                hand.draw_pile.addCards(cards)
+                print(#hand.draw_pile)
+                for i = 1, #hand.draw_pile do
+                    -- print(hand.draw_pile[i])
+                end
+                local card = hand.draw_pile.drawCard()
+                table.insert(hand, card)
+            else
+                return
+            end
+        end
     end
 
     hand.discardHand = function()
         for i = 1, #hand do
             local removed = table.remove(hand, 1)
+            if removed == hand.selected_card then
+                hand.selected_card.selected = false
+                hand.selected_card = nil
+            end
             table.insert(hand.discard_pile, removed)
         end
     end
     return hand
 end
-
 return hand_display_module
