@@ -96,7 +96,8 @@ card_module.newCard = function(card_effect, scale, level)
         -- calls function in parameter if button is clicked
         if card.now and not card.last and card.hot then
             card.selected = not card.selected
-            -- SoundEffects.playBell()
+            -- TODO: find good click sound effect
+            -- SoundEffects.playClick()
         end
         -- called again to make sure that everything is updated if scale is changed
         if card.selected then card.scale = card.expanded_scale
