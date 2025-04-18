@@ -5,11 +5,15 @@ local Settings = require "settings"
 local Deck = require "game_objects.cards.deck"
 local DrawPile = require "game_objects.cards.draw_pile"
 local DiscardPile = require "game_objects.cards.discard_pile"
-local Card = require "card"
+local Card = require "game_objects.cards.card"
 local HandDisplay = require "game_objects.cards.hand_display"
 local ResourceDisplay = require "game_objects.cards.resource_display"
 local CardTypes = require "game_objects.cards.card_types"
 
+local ArcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
+local HemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
+local HolyCardEffects = require "game_objects.cards.card_effects.holy_card_effects"
+local UnholyCardEffects = require "game_objects.cards.card_effects.unholy_card_effects"
 
 local deck = nil
 local draw_pile = nil
@@ -17,10 +21,6 @@ local discard_pile = nil
 local hand = nil
 local resource_display = nil
 
-local arcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
-local hemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
-local holyCardEffects = require "game_objects.cards.card_effects.holy_card_effects"
-local unholyCardEffects = require "game_objects.cards.card_effects.unholy_card_effects"
 
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
@@ -47,11 +47,11 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(arcaneCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(arcaneCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(hemoCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(holyCardEffects.M, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(unholyCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
     draw_pile.addDeck(deck)
     local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
     local hand_y = 550
@@ -92,7 +92,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "p" then
         print(hand.draw_pile[1])
     end
-    if k == "a" then draw_pile.addCard(Card.newCard(holyCardEffects.Z, CARD_SIZE_SCALE)) end
+    if k == "a" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)

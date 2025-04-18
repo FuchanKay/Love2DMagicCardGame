@@ -1,7 +1,7 @@
 local main_menu_module = {}
 
 local Settings = require "settings"
-local Button = require "ui.button"
+local Button = require "game_objects.ui.button"
 local Colors = require "libraries.luacolors"
 
 -- if you want to do a private global variable like this,
