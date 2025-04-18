@@ -1,5 +1,11 @@
 local card_module = {}
 
+local Settings = require "settings"
+local Box = require "game_objects.ui.box"
+local CardTypes = require "game_objects.cards.card_types"
+local Colors = require "libraries.luacolors"
+
+
 -- constants
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1

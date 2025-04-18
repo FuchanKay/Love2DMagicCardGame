@@ -1,5 +1,10 @@
 local settings_scene_module = {}
 
+local Settings = require "settings"
+local Button = require "game_objects.ui.button"
+local Box = require "game_objects.ui.box"
+local Colors = require "libraries.luacolors"
+
 local buttons = nil
 local boxes = nil
 

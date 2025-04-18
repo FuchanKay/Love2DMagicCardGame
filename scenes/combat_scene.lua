@@ -1,6 +1,16 @@
 -- TODO: add loading scene and be able to construct this
 local combat_scene_module = {}
 
+local Settings = require "settings"
+local Deck = require "game_objects.cards.deck"
+local DrawPile = require "game_objects.cards.draw_pile"
+local DiscardPile = require "game_objects.cards.discard_pile"
+local Card = require "card"
+local HandDisplay = require "game_objects.cards.hand_display"
+local ResourceDisplay = require "game_objects.cards.resource_display"
+local CardTypes = require "game_objects.cards.card_types"
+
+
 local deck = nil
 local draw_pile = nil
 local discard_pile = nil

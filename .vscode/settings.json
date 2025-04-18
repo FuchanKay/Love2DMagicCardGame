@@ -6,5 +6,8 @@
         "lenContext",
         "len"
     ],
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "Lua.diagnostics.disable": [
+        "unused-local"
+    ]
 }

@@ -1,4 +1,9 @@
 local main_menu_module = {}
+
+local Settings = require "settings"
+local Button = require "ui.button"
+local Colors = require "libraries.luacolors"
+
 -- if you want to do a private global variable like this,
 -- make sure to set it to nil then assign a value in load()
 local buttons = nil
@@ -10,8 +15,8 @@ local MAIN_BUTTONS_SPACING = 20
 local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
 -- TODO: add blobreader and blobreader functions to game for saving
-BlobWriter = require "libraries.BlobWriter"
-BlobReader = require "libraries.BlobReader"
+-- local BlobWriter = require "libraries.BlobWriter"
+-- local BlobReader = require "libraries.BlobReader"
 
 local function addStartButton(off_x, off_y)
     if buttons == nil then error("buttons is nil") end

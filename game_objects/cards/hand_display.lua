@@ -1,5 +1,7 @@
 local hand_display_module = {}
 
+local Colors = require "libraries.luacolors"
+
 local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
 local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_rune_card_hd.png")
 -- constants

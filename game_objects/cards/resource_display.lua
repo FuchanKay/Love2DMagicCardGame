@@ -1,5 +1,9 @@
 local resource_display_module = {}
 
+local Settings = require "settings"
+local CardTypes = require "game_objects.cards.card_types"
+local Colors = require "libraries.luacolors"
+
 -- constants
 local RESOURCE_DISPLAY_WIDTH = Settings.window_dimensions[1] / 5
 local NUM_OF_CARD_TYPES = 4

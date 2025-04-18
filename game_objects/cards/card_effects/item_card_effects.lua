@@ -1,4 +1,5 @@
 local item_card_effects_module = {}
+local CardTypes = require "game_objects.cards.card_types"
 
 item_card_effects_module.A = {
     type = CardTypes.item,
