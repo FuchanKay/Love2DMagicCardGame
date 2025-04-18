@@ -2,7 +2,7 @@ local scenes = {}
 local current_scene = nil
 
 -- window setup
-Settings = require 'settings'
+local Settings = require 'settings'
 love.window.setTitle(Settings.title);
 Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
 love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
@@ -10,21 +10,21 @@ love.window.setFullscreen(Settings.fullscreen)
 
 -- play sound effects from here
 -- automatically sets volume before playing
-SoundEffects = require 'sound.sound_effects'
+local SoundEffects = require 'sound.sound_effects'
 
 -- ui
-Button = require "game_objects.ui.button"
-Box = require "game_objects.ui.box"
-Colors = require "libraries.luacolors"
+local Button = require "game_objects.ui.button"
+local Box = require "game_objects.ui.box"
+local Colors = require "libraries.luacolors"
 
 -- game mechanics
-Card = require "game_objects.cards.card"
-CardTypes = require "game_objects.cards.card_types"
-HandDisplay = require "game_objects.cards.hand_display"
-ResourceDisplay = require"game_objects.cards.resource_display"
-Deck = require "game_objects.cards.deck"
-DrawPile = require "game_objects.cards.draw_pile"
-DiscardPile = require "game_objects.cards.discard_pile"
+local Card = require "game_objects.cards.card"
+local CardTypes = require "game_objects.cards.card_types"
+local HandDisplay = require "game_objects.cards.hand_display"
+local ResourceDisplay = require"game_objects.cards.resource_display"
+local Deck = require "game_objects.cards.deck"
+local DrawPile = require "game_objects.cards.draw_pile"
+local DiscardPile = require "game_objects.cards.discard_pile"
 -- adds scenes from /scenes
 current_scene = require "scenes.main_menu"
 

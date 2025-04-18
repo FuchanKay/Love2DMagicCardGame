@@ -1,10 +1,20 @@
 local hand_display_module = {}
 
-local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
-local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_rune_card_hd.png")
+-- functions
+local newImage = love.graphics.newImage
+local newFont = love.graphics.newFont
+local isDown = love.keyboard.isDown
+local setColor = love.graphics.setColor
+local printText = love.graphics.print
+local insert = table.insert
+local remove = table.remove
+
 -- constants
+local WHITE = Colors.white
+local GRAY = Colors.gray
 -- for sprites
-local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 30)
+local GRAY_BLANK_CARD_IMG = newImage("res/images/cards/gray_blank_rune_card_hd.png")
+local FONT = newFont("res/fonts/Roman SD.ttf", 30)
 
 hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, discard_pile, card_scale)
     local hand = {
@@ -24,10 +34,10 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
     -- draw as in drawing sprites, not drawing cards
     hand.draw = function()
         local spacing = hand.width / hand.size
-        love.graphics.setColor(Colors.gray)
+        setColor(GRAY)
         for i = 1, hand.size do
             local card_x =  hand.x + (i - 1) * spacing
-            love.graphics.draw(GREY_BLANK_CARD_IMG, card_x, hand.y, 0, hand.card_scale, hand.card_scale)
+            love.graphics.draw(GRAY_BLANK_CARD_IMG, card_x, hand.y, 0, hand.card_scale, hand.card_scale)
         end
         for i, card in ipairs(hand) do
             local card_x = hand.x + (i - 1) * spacing
@@ -35,7 +45,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 if hand.selected_card ~= card then card.selected = false end
                 card.x = card_x
                 card.y = hand.y
-
                 card.update()
                 if not card.selected then card.draw() end
 
@@ -48,7 +57,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 card.update()
                 if not card.selected then card.draw() end
                 if card.selected then
-                    table.insert(hand.selected_cards, card)
+                    insert(hand.selected_cards, card)
                 end
             end
         end
@@ -62,8 +71,8 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         -- if now is true and late is false then trigger
         left_input_late = left_input_now
         right_input_late = right_input_now
-        left_input_now = love.keyboard.isDown("left")
-        right_input_now = love.keyboard.isDown("right")
+        left_input_now = isDown("left")
+        right_input_now = isDown("right")
 
         if hand.selected_card then
             hand.selected_card.description_box.draw()
@@ -80,9 +89,9 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         end
         local draw_pile_num = #hand.draw_pile
         local discard_pile_num = #hand.discard_pile
-        love.graphics.setColor(Colors.white)
-        love.graphics.print("Draw Pile: "..draw_pile_num, FONT, 30, 130)
-        love.graphics.print("Discard Pile: "..discard_pile_num, FONT, 30, 230)
+        setColor(WHITE)
+        printText("Draw Pile: "..draw_pile_num, FONT, 30, 130)
+        printText("Discard Pile: "..discard_pile_num, FONT, 30, 230)
     end
 
     -- draws cards from draw pile. num cannot be negative or 0
@@ -94,7 +103,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 -- if cards are available from draw pile
                 if #hand.draw_pile > 0 then
                     local card = hand.draw_pile.drawCard()
-                    table.insert(hand, card)
+                    insert(hand, card)
                     card.ind = #hand
                 -- if cards aren't available from draw pile and there are cards in the discard pile
                 elseif #hand.discard_pile > 0 then
@@ -102,7 +111,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                     local cards = hand.discard_pile.reshuffle()
                     hand.draw_pile.addCards(cards)
                     local card = hand.draw_pile.drawCard()
-                    table.insert(hand, card)
+                    insert(hand, card)
                     card.ind = #hand
                 -- if draw pile or discard pile have no cards
                 else
@@ -118,12 +127,12 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
     -- discards entire hand into discard pile
     hand.discardEntireHand = function()
         for i = 1, #hand do
-            local removed = table.remove(hand, 1)
+            local removed = remove(hand, 1)
             if removed == hand.selected_card then
                 hand.selected_card.selected = false
                 hand.selected_card = nil
             end
-            table.insert(hand.discard_pile, removed)
+            insert(hand.discard_pile, removed)
         end
     end
 

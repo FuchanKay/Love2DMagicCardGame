@@ -1,16 +1,32 @@
 local card_module = {}
 
+-- function
+local newImage = love.graphics.newImage
+local Window_width = Settings.window_dimensions[1]
+local newFont = love.graphics.newFont
+local setColor = love.graphics.setColor
+local draw = love.graphics.draw
+local printText = love.graphics.print
+local setFont = love.graphics.setFont
+local newBox = Box.newBox
+
+
 -- constants
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1
 
+local ARCANE = CardTypes.arcane
+local HEMO = CardTypes.hemo
+local HOLY = CardTypes.holy
+local UNHOLY = CardTypes.unholy
+
 -- TODO: create icon for curses and items
-local RED_CARD_HD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
-local ARCANE_HD_IMG = love.graphics.newImage("res/images/runes/arcane_hd.png")
-local HEMO_HD_IMG = love.graphics.newImage("res/images/runes/hemo_hd.png")
-local HOLY_HD_IMG = love.graphics.newImage("res/images/runes/holy_hd.png")
-local UNHOLY_HD_IMG = love.graphics.newImage("res/images/runes/unholy_hd.png")
-local NOT_IMG = love.graphics.newImage("res/images/etc/no.png")
+local RED_CARD_HD_IMG = newImage("res/images/cards/red_rune_card_hd.png")
+local ARCANE_HD_IMG = newImage("res/images/runes/arcane_hd.png")
+local HEMO_HD_IMG = newImage("res/images/runes/hemo_hd.png")
+local HOLY_HD_IMG = newImage("res/images/runes/holy_hd.png")
+local UNHOLY_HD_IMG = newImage("res/images/runes/unholy_hd.png")
+local NOT_IMG = newImage("res/images/etc/no.png")
 
 -- for sprites
 local CARD_WIDTH = RED_CARD_HD_IMG:getWidth()
@@ -24,15 +40,17 @@ local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 local CARD_LETTER_FONT_FACTOR = 7 / 5
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
-local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
+local DESCRIPTION_BOX_WIDTH = Window_width / 2
 local DESCRIPTION_BOX_HEIGHT = 100
-local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 50
+local DESCRIPTION_BOX_X = Window_width - DESCRIPTION_BOX_WIDTH - 50
 local DESCRIPTION_BOX_Y = 740
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
+local BLACK = Colors.black
+local WHITE = Colors.white
 
-local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
+local DESCRIPTION_FONT = newFont("res/fonts/Roman SD.ttf", 16)
 card_module.newCard = function(card_effect, scale, level)
     local card = {
         img = RED_CARD_HD_IMG,
@@ -57,7 +75,7 @@ card_module.newCard = function(card_effect, scale, level)
     if card_effect.discard then
         card.description = card.description .. "\n\nWhen Discarded" .. card_effect.when_discarded_description
     end
-    card.description_box = Box.newBox(
+    card.description_box = newBox(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
         DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
         DESCRIPTION_BOX_COLOR, card.description,
@@ -71,10 +89,10 @@ card_module.newCard = function(card_effect, scale, level)
         if card.level < 1 then card.level = 1 end
     end
     
-    if type == CardTypes.arcane then card.type_img = ARCANE_HD_IMG
-    elseif type == CardTypes.hemo then card.type_img = HEMO_HD_IMG
-    elseif type == CardTypes.holy then card.type_img = HOLY_HD_IMG
-    elseif type == CardTypes.unholy then card.type_img = UNHOLY_HD_IMG
+    if card.type == ARCANE then card.type_img = ARCANE_HD_IMG
+    elseif card.type == HEMO then card.type_img = HEMO_HD_IMG
+    elseif card.type == HOLY then card.type_img = HOLY_HD_IMG
+    elseif card.type == UNHOLY then card.type_img = UNHOLY_HD_IMG
     else card.type_img = NOT_IMG end
     
     card.update = function()
@@ -108,40 +126,40 @@ card_module.newCard = function(card_effect, scale, level)
 
     card.draw = function()
         local brightness = LIGHT_GREY
-        if card.hot then brightness = Colors.white end
+        if card.hot then brightness = WHITE end
 
         local off_x = 0
         if card.selected then off_x = -(card.width * (EXPANDED_SCALE / DEFAULT_SCALE - 1)) / 3 end
 
-        love.graphics.setColor(brightness)
+        setColor(brightness)
 
         local card_x = card.x + off_x
-        love.graphics.draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
+        draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
 
-        local font = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
+        local font = newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
 
-        love.graphics.setFont(font)
+        setFont(font)
 
         local letter_width = font:getWidth(card.letter)
         local letter_height = font:getHeight(card.letter)
         local letter_x = card.x + card.width / 2 - letter_width / 2 + off_x
         local letter_y = card.y + card.height / 7 - letter_height / 2
-        love.graphics.setColor(Colors.black)
-        love.graphics.print(card.letter, font, letter_x, letter_y)
-        love.graphics.setColor(brightness)
+        setColor(BLACK)
+        printText(card.letter, font, letter_x, letter_y)
+        setColor(brightness)
 
         local rune_img = NOT_IMG
-        if card.type == CardTypes.arcane then
+        if card.type == ARCANE then
             rune_img = ARCANE_HD_IMG
-        elseif card.type == CardTypes.hemo then
+        elseif card.type == HEMO then
             rune_img = HEMO_HD_IMG
-        elseif card.type == CardTypes.holy then
+        elseif card.type == HOLY then
             rune_img = HOLY_HD_IMG
-        elseif card.type == CardTypes.unholy then
+        elseif card.type == UNHOLY then
             rune_img = UNHOLY_HD_IMG
-        elseif card.type == CardTypes.mana then
+        -- elseif card.type == CardTypes.mana then
             -- no mana img because idk if im going to add it
-            elseif card.type == CardTypes.item then
+            -- elseif card.type == CardTypes.item then
             -- no img for item but ill definitely add items
             end
 
@@ -153,7 +171,7 @@ card_module.newCard = function(card_effect, scale, level)
             local rune_scale_x = card.scale * RUNE_SCALE
             local rune_scale_y = card.scale * RUNE_SCALE
 
-            love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
+            draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
     end
 
     return card

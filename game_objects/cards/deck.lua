@@ -1,15 +1,17 @@
 local deck_module = {}
+local insert = table.insert
+local remove = table.remove
 
 deck_module.newDeck = function()
     local deck = {}
     deck.addCard = function(card)
         card.ind = 1     
-        table.insert(deck, card)
+        insert(deck, card)
     end
     deck.removeCard = function(card)
         for i, c in ipairs(deck) do
             if c == card then
-                table.remove(deck, i)
+                remove(deck, i)
                 break
             end
         end

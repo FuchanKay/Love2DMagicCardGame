@@ -1,5 +1,5 @@
 local arcane_card_effects_module = {}
-
+local ARCANE = CardTypes.arcane
 -- general letter ideas
 -- the abilities differ from type to type but same letters have similar effects
 -- except for item??? not sure yet
@@ -30,7 +30,7 @@ local arcane_card_effects_module = {}
 -- Z:
 
 arcane_card_effects_module.A = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "A",
     when_drawn_num = {},
     when_drawn = {},
@@ -43,7 +43,7 @@ arcane_card_effects_module.A = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.B = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "B",
     when_drawn_num = {},
     when_drawn = {},
@@ -56,7 +56,7 @@ arcane_card_effects_module.B = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.C = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "C",
     when_drawn_num = {},
     when_drawn = {},
@@ -69,7 +69,7 @@ arcane_card_effects_module.C = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.D = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "D",
     when_drawn_num = {},
     when_drawn = {},
@@ -82,7 +82,7 @@ arcane_card_effects_module.D = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.E = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "E",
     when_drawn_num = {},
     when_drawn = {},
@@ -95,7 +95,7 @@ arcane_card_effects_module.E = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.F = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "F",
     when_drawn_num = {},
     when_drawn = {},
@@ -108,7 +108,7 @@ arcane_card_effects_module.F = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.G = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "G",
     when_drawn_num = {},
     when_drawn = {},
@@ -121,7 +121,7 @@ arcane_card_effects_module.G = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.H = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "H",
     when_drawn_num = {},
     when_drawn = {},
@@ -134,7 +134,7 @@ arcane_card_effects_module.H = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.I = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "I",
     when_drawn_num = {},
     when_drawn = {},
@@ -147,7 +147,7 @@ arcane_card_effects_module.I = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.J = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "J",
     when_drawn_num = {},
     when_drawn = {},
@@ -160,7 +160,7 @@ arcane_card_effects_module.J = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.K = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "K",
     when_drawn_num = {},
     when_drawn = {},
@@ -173,7 +173,7 @@ arcane_card_effects_module.K = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.L = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "L",
     when_drawn_num = {},
     when_drawn = {},
@@ -186,7 +186,7 @@ arcane_card_effects_module.L = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.M = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "M",
     when_drawn_num = {},
     when_drawn = {},
@@ -199,7 +199,7 @@ arcane_card_effects_module.M = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.N = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "N",
     when_drawn_num = {},
     when_drawn = {},
@@ -212,7 +212,7 @@ arcane_card_effects_module.N = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.O = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "O",
     when_drawn_num = {},
     when_drawn = {},
@@ -225,7 +225,7 @@ arcane_card_effects_module.O = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.P = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "P",
     when_drawn_num = {},
     when_drawn = {},
@@ -238,7 +238,7 @@ arcane_card_effects_module.P = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.Q = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "Q",
     when_drawn_num = {},
     when_drawn = {},
@@ -251,7 +251,7 @@ arcane_card_effects_module.Q = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.R = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "R",
     when_drawn_num = {},
     when_drawn = {},
@@ -264,7 +264,7 @@ arcane_card_effects_module.R = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.S = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "S",
     when_drawn_num = {},
     when_drawn = {},
@@ -277,7 +277,7 @@ arcane_card_effects_module.S = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.T = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "T",
     when_drawn_num = {},
     when_drawn = {},
@@ -290,7 +290,7 @@ arcane_card_effects_module.T = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.U = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "U",
     when_drawn_num = {},
     when_drawn = {},
@@ -303,7 +303,7 @@ arcane_card_effects_module.U = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.V = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "V",
     when_drawn_num = {},
     when_drawn = {},
@@ -316,7 +316,7 @@ arcane_card_effects_module.V = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.W = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "W",
     when_drawn_num = {},
     when_drawn = {},
@@ -329,7 +329,7 @@ arcane_card_effects_module.W = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.X = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "X",
     when_drawn_num = {},
     when_drawn = {},
@@ -342,7 +342,7 @@ arcane_card_effects_module.X = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.Y = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "Y",
     when_drawn_num = {},
     when_drawn = {},
@@ -355,7 +355,7 @@ arcane_card_effects_module.Y = {
     when_discarded_description = ""
 }
 arcane_card_effects_module.Z = {
-    type = CardTypes.arcane,
+    type = ARCANE,
     letter = "Z",
     when_drawn_num = {},
     when_drawn = {},

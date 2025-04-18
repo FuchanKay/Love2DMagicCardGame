@@ -1,4 +1,5 @@
 local sound_effects_module = {}
+local Settings = require "settings"
 local AUDIO_DIRECTORY = "res/audio/"
 sound_effects_module.playBell = function()
     local bell_audio = love.audio.newSource(AUDIO_DIRECTORY.."bell.wav", "static")

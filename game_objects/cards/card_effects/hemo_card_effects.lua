@@ -1,7 +1,9 @@
 local hemo_card_effects_module = {}
 
+local HEMO = CardTypes.hemo
+
 hemo_card_effects_module.A = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "A",
     when_drawn_num = {},
     when_drawn = {},
@@ -14,7 +16,7 @@ hemo_card_effects_module.A = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.B = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "B",
     when_drawn_num = {},
     when_drawn = {},
@@ -27,7 +29,7 @@ hemo_card_effects_module.B = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.C = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "C",
     when_drawn_num = {},
     when_drawn = {},
@@ -40,7 +42,7 @@ hemo_card_effects_module.C = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.D = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "D",
     when_drawn_num = {},
     when_drawn = {},
@@ -53,7 +55,7 @@ hemo_card_effects_module.D = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.E = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "E",
     when_drawn_num = {},
     when_drawn = {},
@@ -66,7 +68,7 @@ hemo_card_effects_module.E = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.F = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "F",
     when_drawn_num = {},
     when_drawn = {},
@@ -79,7 +81,7 @@ hemo_card_effects_module.F = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.G = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "G",
     when_drawn_num = {},
     when_drawn = {},
@@ -92,7 +94,7 @@ hemo_card_effects_module.G = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.H = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "H",
     when_drawn_num = {},
     when_drawn = {},
@@ -105,7 +107,7 @@ hemo_card_effects_module.H = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.I = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "I",
     when_drawn_num = {},
     when_drawn = {},
@@ -118,7 +120,7 @@ hemo_card_effects_module.I = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.J = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "J",
     when_drawn_num = {},
     when_drawn = {},
@@ -131,7 +133,7 @@ hemo_card_effects_module.J = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.K = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "K",
     when_drawn_num = {},
     when_drawn = {},
@@ -144,7 +146,7 @@ hemo_card_effects_module.K = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.L = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "L",
     when_drawn_num = {},
     when_drawn = {},
@@ -157,7 +159,7 @@ hemo_card_effects_module.L = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.M = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "M",
     when_drawn_num = {},
     when_drawn = {},
@@ -170,7 +172,7 @@ hemo_card_effects_module.M = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.N = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "N",
     when_drawn_num = {},
     when_drawn = {},
@@ -183,7 +185,7 @@ hemo_card_effects_module.N = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.O = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "O",
     when_drawn_num = {},
     when_drawn = {},
@@ -196,7 +198,7 @@ hemo_card_effects_module.O = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.P = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "P",
     when_drawn_num = {},
     when_drawn = {},
@@ -209,7 +211,7 @@ hemo_card_effects_module.P = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Q = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "Q",
     when_drawn_num = {},
     when_drawn = {},
@@ -222,7 +224,7 @@ hemo_card_effects_module.Q = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.R = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "R",
     when_drawn_num = {},
     when_drawn = {},
@@ -235,7 +237,7 @@ hemo_card_effects_module.R = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.S = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "S",
     when_drawn_num = {},
     when_drawn = {},
@@ -248,7 +250,7 @@ hemo_card_effects_module.S = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.T = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "T",
     when_drawn_num = {},
     when_drawn = {},
@@ -261,7 +263,7 @@ hemo_card_effects_module.T = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.U = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "U",
     when_drawn_num = {},
     when_drawn = {},
@@ -274,7 +276,7 @@ hemo_card_effects_module.U = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.V = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "V",
     when_drawn_num = {},
     when_drawn = {},
@@ -287,7 +289,7 @@ hemo_card_effects_module.V = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.W = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "W",
     when_drawn_num = {},
     when_drawn = {},
@@ -300,7 +302,7 @@ hemo_card_effects_module.W = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.X = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "X",
     when_drawn_num = {},
     when_drawn = {},
@@ -313,7 +315,7 @@ hemo_card_effects_module.X = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Y = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "Y",
     when_drawn_num = {},
     when_drawn = {},
@@ -326,7 +328,7 @@ hemo_card_effects_module.Y = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Z = {
-    type = CardTypes.hemo,
+    type = HEMO,
     letter = "Z",
     when_drawn_num = {},
     when_drawn = {},

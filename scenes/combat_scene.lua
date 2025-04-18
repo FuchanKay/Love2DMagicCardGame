@@ -1,6 +1,14 @@
 -- TODO: add loading scene and be able to construct this
 local combat_scene_module = {}
 
+local Card = require "game_objects.cards.card"
+local CardTypes = require "game_objects.cards.card_types"
+local Deck = require "game_objects.cards.deck"
+local DrawPile = require "game_objects.cards.draw_pile"
+local DiscardPile = require "game_objects.cards.discard_pile"
+local HandDisplay = require "hand_display"
+local ResourceDisplay = require "game_objects.cards.resource_display"
+
 local deck = nil
 local draw_pile = nil
 local discard_pile = nil
@@ -12,10 +20,19 @@ local hemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effec
 local holyCardEffects = require "game_objects.cards.card_effects.holy_card_effects"
 local unholyCardEffects = require "game_objects.cards.card_effects.unholy_card_effects"
 
+-- functions
+local newCard = Card.newCard
+local draw = love.graphics.draw
+
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
 local HAND_WIDTH = Settings.window_dimensions[1] / 2
 local HAND_SIZE = 6
+
+local ARCANE = CardTypes.arcane
+local HEMO = CardTypes.hemo
+local HOLY = CardTypes.holy
+local UNHOLY = CardTypes.unholy
 
 local COMBAT_BACKGROUND_IMG = love.graphics.newImage("res/images/backgrounds/combat_background_1.png")
 local BACKGROUND_IMG_X = 720
@@ -37,11 +54,11 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(arcaneCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(arcaneCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(hemoCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(holyCardEffects.M, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(unholyCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(newCard(arcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(newCard(arcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(newCard(hemoCardEffects.U, CARD_SIZE_SCALE))
+    deck.addCard(newCard(holyCardEffects.M, CARD_SIZE_SCALE))
+    deck.addCard(newCard(unholyCardEffects.A, CARD_SIZE_SCALE))
     draw_pile.addDeck(deck)
     local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
     local hand_y = 550
@@ -63,8 +80,8 @@ combat_scene_module.draw = function()
     hand.draw()
     if not resource_display then error "resource display is nil" end
     resource_display.draw()
-    love.graphics.draw(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, 0, BACKGROUND_IMG_SCALE, BACKGROUND_IMG_SCALE)
-    love.graphics.draw(BLACK_SKELETON_ENEMY_IMG, BACKGROUND_IMG_X + BACKGROUND_IMG_WIDTH / 4 - SKELETON_WIDTH / 2, BACKGROUND_IMG_Y + BACKGROUND_IMG_HEIGHT / 2, 0, SKELETON_SCALE, SKELETON_SCALE)
+    draw(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, 0, BACKGROUND_IMG_SCALE, BACKGROUND_IMG_SCALE)
+    draw(BLACK_SKELETON_ENEMY_IMG, BACKGROUND_IMG_X + BACKGROUND_IMG_WIDTH / 4 - SKELETON_WIDTH / 2, BACKGROUND_IMG_Y + BACKGROUND_IMG_HEIGHT / 2, 0, SKELETON_SCALE, SKELETON_SCALE)
 end
 
 combat_scene_module.keyboardpressed = function(k)
@@ -75,14 +92,11 @@ combat_scene_module.keyboardreleased = function(k)
     if not resource_display then error "resource display is nil" end
     if not hand then error "hand is nil" end
     if not draw_pile then error "draw pile is nil" end
-    if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
-    if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
+    if k == "up" then resource_display.addResource(UNHOLY, 5) end
+    if k == "down" then resource_display.subtractResource(UNHOLY, 1) end
     if k == "d" then hand.drawCards(1) end
     if k == "f" then hand.discardEntireHand() end
-    if k == "p" then
-        print(hand.draw_pile[1])
-    end
-    if k == "a" then draw_pile.addCard(Card.newCard(holyCardEffects.Z, CARD_SIZE_SCALE)) end
+    if k == "a" then draw_pile.addCard(newCard(holyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)
