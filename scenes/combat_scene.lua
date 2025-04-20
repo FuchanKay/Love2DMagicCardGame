@@ -77,9 +77,7 @@ combat_scene_module.load = function()
     enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE, skeleton_table)
 
     local spell_fn = function ()
-        for i, enemy in ipairs(skeleton_table) do
-            enemy.updateHp(-5)
-        end
+        enemy_screen.aoeUpdateHp(-5)
     end
     spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
 end
