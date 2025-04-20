@@ -9,6 +9,9 @@ local Card = require "game_objects.cards.card"
 local HandDisplay = require "game_objects.cards.hand_display"
 local ResourceDisplay = require "game_objects.cards.resource_display"
 local CardTypes = require "game_objects.cards.card_types"
+local EnemyScreen = require "game_objects.combat.enemy_screen"
+local Enemy = require "game_objects.combat.enemy"
+local Button = require "game_objects.ui.button"
 
 local ArcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
 local HemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
@@ -20,7 +23,8 @@ local draw_pile = nil
 local discard_pile = nil
 local hand = nil
 local resource_display = nil
-
+local enemy_screen = nil
+local spell_button = nil
 
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
@@ -52,18 +56,37 @@ combat_scene_module.load = function()
     deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
     draw_pile.addDeck(deck)
+
     local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
     local hand_y = 550
     hand = HandDisplay.newHandDisplay(hand_x, hand_y, HAND_WIDTH, HAND_SIZE, draw_pile, discard_pile, CARD_SIZE_SCALE)
-    if not hand then error "hand is nil" end
+
     local resource_display_x = 30
     local resource_display_y = 30
     resource_display = ResourceDisplay.newResourceDisplay(resource_display_x, resource_display_y, 1)
+
+    local skeleton_table = {}
+    table.insert(skeleton_table, Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, 0.025, 100, {}))
+    table.insert(skeleton_table, Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, 0.025, 100, {}))
+    enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE, skeleton_table)
+
+    local spell_fn = function ()
+        for i, enemy in ipairs(skeleton_table) do
+            enemy.updateHp(-5)
+        end
+    end
+    spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
 end
 
 combat_scene_module.update = function(dt)
-
+    if not spell_button then error "spell button is nil" end
+    spell_button.update()
 end
 
 combat_scene_module.draw = function()
@@ -73,8 +96,10 @@ combat_scene_module.draw = function()
     hand.draw()
     if not resource_display then error "resource display is nil" end
     resource_display.draw()
-    love.graphics.draw(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, 0, BACKGROUND_IMG_SCALE, BACKGROUND_IMG_SCALE)
-    love.graphics.draw(BLACK_SKELETON_ENEMY_IMG, BACKGROUND_IMG_X + BACKGROUND_IMG_WIDTH / 4 - SKELETON_WIDTH / 2, BACKGROUND_IMG_Y + BACKGROUND_IMG_HEIGHT / 2, 0, SKELETON_SCALE, SKELETON_SCALE)
+    if not enemy_screen then error "enemy screen is nil" end
+    enemy_screen.draw()
+    if not spell_button then error "spell button is nil" end
+    spell_button.draw()
 end
 
 combat_scene_module.keyboardpressed = function(k)
@@ -89,9 +114,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
     if k == "d" then hand.drawCards(1) end
     if k == "f" then hand.discardEntireHand() end
-    if k == "p" then
-        print(hand.draw_pile[1])
-    end
+    if k == "p" then print(hand.draw_pile[1]) end
     if k == "a" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 

@@ -48,15 +48,10 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
     end
 
     button.draw = function()
-        local button_color = button.default_color
+        button_color = button.default_color
         if button.hot then button_color = button.hot_color end
         love.graphics.setColor(button_color)
-        love.graphics.rectangle(
-        "fill",
-        button.x,
-        button.y,
-        button.width,
-        button.height)
+        love.graphics.rectangle("fill", button.x, button.y, button.width, button.height)
 
         -- prints Colors.black text
         love.graphics.setColor(button.text_color)
@@ -71,12 +66,7 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
             local text_height = button.font:getHeight(button.text)
             text_offset_y = (button.height - text_height) / 2
         end
-        love.graphics.print(
-        button.text,
-        button.font,
-        button.x + text_offset_x,
-        button.y + text_offset_y
-        )
+        love.graphics.print(button.text, button.font, button.x + text_offset_x, button.y + text_offset_y)
     end
     return button
 end

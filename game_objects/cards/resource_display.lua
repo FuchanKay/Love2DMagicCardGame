@@ -7,6 +7,8 @@ local Colors = require "libraries.luacolors"
 -- constants
 local RESOURCE_DISPLAY_WIDTH = Settings.window_dimensions[1] / 5
 local NUM_OF_CARD_TYPES = 4
+local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
+
 -- for now
 local CARD_LETTER_FONT_FACTOR = 30
 local RESOURCE_CAP = 99
@@ -22,7 +24,7 @@ local CARD_TYPE_HEIGHT = ARCANE_IMG:getHeight()
 -- for if resource display has to start with a certain amount of resources
 resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, init_hemo, init_holy, init_unholy)
     local resource_display = {
-        x = x, y = y, scale = scale, 
+        x = x, y = y, scale = scale,
         font = love.graphics.newFont("res/fonts/Roman SD.ttf", math.floor(CARD_LETTER_FONT_FACTOR * scale)),
         arcane_num = init_arcane or 0,
         hemo_num = init_hemo or 0,
@@ -70,7 +72,7 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
         local resource_x = resource_display.x
         local resource_y = resource_display.y
         local text_x = resource_display.x + offset_x / 2 - font:getWidth(""..resource_display.arcane_num) / 2
-        local text_y = CARD_TYPE_HEIGHT * scale * 1.2
+        local text_y = CARD_TYPE_HEIGHT * scale * 1.5
 
         love.graphics.draw(ARCANE_IMG, resource_x, resource_y, 0, resource_scale, resource_scale)
         if resource_display.arcane_num == RESOURCE_CAP then
