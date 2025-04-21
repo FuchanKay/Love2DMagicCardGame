@@ -28,12 +28,12 @@ draw_pile_module.newDrawPile = function()
     -- for adding multiple cards at once
     draw_pile.addCards = function(cards)
         for i, card in ipairs(cards) do
-            table.insert(draw_pile, card)
+            table.insert(draw_pile, math.random(#draw_pile), card)
         end
     end
     -- for adding a singular card to the draw pile
     draw_pile.addCard = function(card)
-        table.insert(draw_pile, card)
+        table.insert(draw_pile, math.random(#draw_pile), card)
     end
 
     -- removes and returns the first card in draw pile

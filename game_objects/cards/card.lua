@@ -1,4 +1,4 @@
-local card_module = {}
+local card_module = {EMPTY = {}}
 
 local Settings = require "settings"
 local Box = require "game_objects.ui.box"
@@ -26,6 +26,7 @@ local CARD_HEIGHT = RED_CARD_HD_IMG:getHeight()
 local RUNE_SCALE = 1 / 2
 local RUNE_WIDTH = ARCANE_HD_IMG:getWidth() * RUNE_SCALE
 local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
+
 -- card leter bigger than usual so its easier to see for now. will update visuals later
 local CARD_LETTER_FONT_FACTOR = 7 / 5
 local DEFAULT_SCALE = 1.0
@@ -50,6 +51,7 @@ card_module.newCard = function(card_effect, scale, level)
         default_scale = scale,
         expanded_scale = scale * EXPANDED_SCALE,
         description = "When Drawn: " .. card_effect.when_drawn_description,
+        enabled = true,
         x = 0,
         y = 0,
         hot = false,
@@ -63,6 +65,7 @@ card_module.newCard = function(card_effect, scale, level)
     if card_effect.discard then
         card.description = card.description .. "\n\nWhen Discarded" .. card_effect.when_discarded_description
     end
+
     card.description_box = Box.newBox(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
         DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
@@ -77,11 +80,7 @@ card_module.newCard = function(card_effect, scale, level)
         if card.level < 1 then card.level = 1 end
     end
     
-    if type == CardTypes.arcane then card.type_img = ARCANE_HD_IMG
-    elseif type == CardTypes.hemo then card.type_img = HEMO_HD_IMG
-    elseif type == CardTypes.holy then card.type_img = HOLY_HD_IMG
-    elseif type == CardTypes.unholy then card.type_img = UNHOLY_HD_IMG
-    else card.type_img = NOT_IMG end
+
     
     card.update = function()
         card.last = card.now

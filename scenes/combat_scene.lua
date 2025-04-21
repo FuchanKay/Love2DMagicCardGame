@@ -12,6 +12,7 @@ local CardTypes = require "game_objects.cards.card_types"
 local EnemyScreen = require "game_objects.combat.enemy_screen"
 local Enemy = require "game_objects.combat.enemy"
 local Button = require "game_objects.ui.button"
+local Controller = require "game_objects.combat.combat_controller"
 
 local ArcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
 local HemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
@@ -24,7 +25,8 @@ local discard_pile = nil
 local hand = nil
 local resource_display = nil
 local enemy_screen = nil
-local spell_button = nil
+local spell_buttons = nil
+local controller = nil
 
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
@@ -45,13 +47,13 @@ local SKELETON_WIDTH = BLACK_SKELETON_ENEMY_IMG:getWidth() * SKELETON_SCALE
 local SKELETON_HEIGHT = BLACK_SKELETON_ENEMY_IMG:getHeight() * SKELETON_SCALE
 
 combat_scene_module.load = function()
+    -- TODO: implement seed stuff
     local seed = os.time()
     print(seed)
     math.randomseed(seed)
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
@@ -76,28 +78,34 @@ combat_scene_module.load = function()
     table.insert(skeleton_table, Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, 0.025, 100, {}))
     enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE, skeleton_table)
 
+    spell_buttons = {}
     local spell_fn = function ()
         enemy_screen.aoeUpdateHp(-5)
     end
-    spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
+    local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
+    table.insert(spell_buttons, spell_button)
+
+    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, nil)
+    ArcaneCardEffects.controller = controller
+    HemoCardEffects.controller = controller
+    HolyCardEffects.controller = controller
+    UnholyCardEffects.controller = controller
 end
 
 combat_scene_module.update = function(dt)
-    if not spell_button then error "spell button is nil" end
-    spell_button.update()
+    -- if not spell_buttons then error "spell buttons is nil" end
+    -- for i, spell_button in ipairs(spell_buttons) do
+    --     spell_button.update()
+    --     spell_button.draw()
+    -- end
+    if not controller then error "controller is nil" end
+    controller.update()
 end
 
 combat_scene_module.draw = function()
-    -- draws graphics at 100% brightness
     love.graphics.setBackgroundColor(0.4, 0.4, 0.5)
-    if not hand then error "hand is nil" end
-    hand.draw()
-    if not resource_display then error "resource display is nil" end
-    resource_display.draw()
-    if not enemy_screen then error "enemy screen is nil" end
-    enemy_screen.draw()
-    if not spell_button then error "spell button is nil" end
-    spell_button.draw()
+    if not controller then error "controller is nil" end
+    controller.draw()
 end
 
 combat_scene_module.keyboardpressed = function(k)
@@ -106,13 +114,12 @@ end
 
 combat_scene_module.keyboardreleased = function(k)
     if not resource_display then error "resource display is nil" end
-    if not hand then error "hand is nil" end
+    if not controller then error "controller is nil" end
     if not draw_pile then error "draw pile is nil" end
     if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
-    if k == "d" then hand.drawCards(1) end
-    if k == "f" then hand.discardEntireHand() end
-    if k == "p" then print(hand.draw_pile[1]) end
+    if k == "d" then controller.drawCard() end
+    if k == "f" then controller.discardEntireHand() end
     if k == "a" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 

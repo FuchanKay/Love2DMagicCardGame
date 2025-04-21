@@ -1,0 +1,104 @@
+local combat_controller_module = {}
+
+local Card = require "game_objects.cards.card"
+
+-- constants
+local EMPTY = Card.EMPTY
+
+combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, end_turn_button)
+    local controller = {
+        deck = deck, draw_pile = draw_pile, discard_pile = discard_pile,
+        enemy_screen = enemy_screen,
+        resource_display = resource_display,
+        spell_buttons = spell_buttons,
+        end_turn_button = end_turn_button
+    }
+
+    -- although these methods have already been implemented in these objects, its convenient to have these methods be accessible in controller
+    controller.addResource = function(card_type, num)
+        resource_display.addResource(card_type, num)
+    end
+
+    controller.addCardToDrawPile = function(card)
+        draw_pile.addCard(card)
+    end
+
+    controller.addCardsToDrawPile = function(cards)
+        draw_pile.addCards(cards)
+    end
+
+    controller.addCardToDiscardPile = function(card)
+        discard_pile.addCard(card)
+    end
+
+    controller.addCardsToDiscardPile = function(cards)
+        discard_pile.addCards(cards)
+    end
+
+    controller.update = function()
+        for i, button in ipairs(spell_buttons) do
+            button.update()
+        end
+    end
+
+    controller.draw = function()
+        enemy_screen.draw()
+        resource_display.draw()
+        for i, button in ipairs(spell_buttons) do
+            button.draw()
+        end
+        hand.draw()
+    end
+
+    -- draws cards from draw pile. returns the card drawn or nil if no card is drawn
+    controller.drawCard = function ()
+        -- if there is space in hand
+        local card = nil
+        local empty_ind = nil
+        for i = 1, #hand do
+            local c = hand[i]
+            if c == EMPTY then
+                empty_ind = i
+                break
+            end
+        end
+        if not empty_ind then return end
+        if #hand.draw_pile > 0 then
+            card = hand.draw_pile.drawCard()
+            hand[empty_ind] = card
+            card.ind = empty_ind
+            card.card_effect.whenDrawn()
+        -- if cards aren't available from draw pile and there are cards in the discard pile
+        elseif #hand.discard_pile > 0 then
+            -- reshuffles discard pile into draw pile and draw a card
+            local cards = hand.discard_pile.reshuffle()
+            hand.draw_pile.addCards(cards)
+            card = hand.draw_pile.drawCard()
+            hand[empty_ind] = card
+            card.ind = empty_ind
+            card.card_effect.whenDrawn()
+        end
+        return card
+    end
+
+    -- discards entire hand into discard pile
+    controller.discardEntireHand = function()
+        for i = 1, #hand do
+            local card = hand[i]
+            if card ~= EMPTY and not card.card_effect.retain then
+                hand[i] = EMPTY
+                card.selected = false
+                if hand.selected_card == card then hand.selected_card = nil end
+                table.insert(hand.discard_pile, card)
+            end
+        end
+    end
+
+    controller.forceDiscardCards = function(num)
+
+    end
+
+    return controller
+end
+
+return combat_controller_module
