@@ -40,9 +40,9 @@ local BACKGROUND_IMG_SCALE = 2.25
 local BACKGROUND_IMG_WIDTH = COMBAT_BACKGROUND_IMG:getWidth() * BACKGROUND_IMG_SCALE
 local BACKGROUND_IMG_HEIGHT = COMBAT_BACKGROUND_IMG:getHeight() * BACKGROUND_IMG_SCALE
 
-local BLACK_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/sample_skeleton_enemy_black.png")
-local WHITE_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/sample_skeleton_enemy_white.png")
-local SKELETON_SCALE = 0.02
+local BLACK_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/skeleton_enemy_black.png")
+local WHITE_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/skeleton_enemy_white.png")
+local SKELETON_SCALE = 0.2
 local SKELETON_WIDTH = BLACK_SKELETON_ENEMY_IMG:getWidth() * SKELETON_SCALE
 local SKELETON_HEIGHT = BLACK_SKELETON_ENEMY_IMG:getHeight() * SKELETON_SCALE
 
@@ -74,8 +74,8 @@ combat_scene_module.load = function()
     resource_display = ResourceDisplay.newResourceDisplay(resource_display_x, resource_display_y, 1)
 
     local skeleton_table = {}
-    table.insert(skeleton_table, Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, 0.025, 100, {}))
-    table.insert(skeleton_table, Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, 0.025, 100, {}))
+    table.insert(skeleton_table, Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    table.insert(skeleton_table, Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
     enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE, skeleton_table)
 
     spell_buttons = {}

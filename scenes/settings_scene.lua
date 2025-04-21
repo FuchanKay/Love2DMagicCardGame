@@ -178,7 +178,7 @@ local function addRightAudioArrow()
         end
     )
 
-    if not buttons then error("buttons is nil") end
+    if not buttons then error "buttons is nil" end
     table.insert(buttons, right_audio_arrow_button)
 end
 

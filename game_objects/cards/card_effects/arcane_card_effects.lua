@@ -1,4 +1,4 @@
-local arcane_card_effects_module = {}
+local arcane_card_effects_module = {controller = nil}
 local CardTypes = require "game_objects.cards.card_types"
 -- general letter ideas
 -- the abilities differ from type to type but same letters have similar effects

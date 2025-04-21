@@ -15,6 +15,7 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale, enemy_tabl
     local BACKGROUND_HEIGHT = background_img:getHeight() * scale
 
     screen.draw = function()
+        love.graphics.setColor(Colors.white)
         love.graphics.draw(background_img, x, y, 0, scale, scale)
         local num_of_enemies = #screen.enemy_table
         for i, enemy in ipairs(screen.enemy_table) do
@@ -25,7 +26,7 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale, enemy_tabl
             love.graphics.setColor(Colors.red)
             love.graphics.setFont(FONT)
             -- TODO: make a working healthbar instead of text
-            love.graphics.print(""..enemy.hp.."/"..enemy.max_hp, enemy_x, BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2)
+            love.graphics.print(""..enemy.hp.."/"..enemy.max_hp, enemy_x, BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2 - 20)
 
             -- TODO: center the enemy name better. text size should scale with sprite width and height
             love.graphics.print(enemy.name, enemy_x, BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2 + 140)

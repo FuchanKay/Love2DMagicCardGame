@@ -5,7 +5,6 @@ local Box = require "game_objects.ui.box"
 local CardTypes = require "game_objects.cards.card_types"
 local Colors = require "libraries.luacolors"
 
-
 -- constants
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1
@@ -80,8 +79,6 @@ card_module.newCard = function(card_effect, scale, level)
         if card.level < 1 then card.level = 1 end
     end
     
-
-    
     card.update = function()
         card.last = card.now
         if card.selected then card.scale = card.expanded_scale
@@ -146,19 +143,19 @@ card_module.newCard = function(card_effect, scale, level)
             rune_img = UNHOLY_HD_IMG
         elseif card.type == CardTypes.mana then
             -- no mana img because idk if im going to add it
-            elseif card.type == CardTypes.item then
-            -- no img for item but ill definitely add items
-            end
+        elseif card.type == CardTypes.item then
+        -- no img for item but ill definitely add items
+        end
 
-            local rune_width = RUNE_WIDTH * card.scale
-            local rune_height = RUNE_HEIGHT * card.scale
+        local rune_width = RUNE_WIDTH * card.scale
+        local rune_height = RUNE_HEIGHT * card.scale
 
-            local rune_x = card.x + card.width / 2 - rune_width / 2 + off_x
-            local rune_y = card.y + card.height / 2 - rune_height / 2
-            local rune_scale_x = card.scale * RUNE_SCALE
-            local rune_scale_y = card.scale * RUNE_SCALE
+        local rune_x = card.x + card.width / 2 - rune_width / 2 + off_x
+        local rune_y = card.y + card.height / 2 - rune_height / 2
+        local rune_scale_x = card.scale * RUNE_SCALE
+        local rune_scale_y = card.scale * RUNE_SCALE
 
-            love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
+        love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
     end
 
     return card
