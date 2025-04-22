@@ -29,6 +29,8 @@ local CardTypes = require "game_objects.cards.card_types"
 -- Y:
 -- Z:
 
+
+-- A
 arcane_card_effects_module.A = {
     type = CardTypes.arcane,
     letter = "A",
