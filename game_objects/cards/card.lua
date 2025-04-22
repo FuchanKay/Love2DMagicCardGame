@@ -17,6 +17,8 @@ local HOLY_HD_IMG = love.graphics.newImage("res/images/runes/holy_hd.png")
 local UNHOLY_HD_IMG = love.graphics.newImage("res/images/runes/unholy_hd.png")
 local NOT_IMG = love.graphics.newImage("res/images/etc/no.png")
 
+local FONT = nil
+
 -- for sprites
 local CARD_WIDTH = RED_CARD_HD_IMG:getWidth()
 local CARD_HEIGHT = RED_CARD_HD_IMG:getHeight()
@@ -27,7 +29,7 @@ local RUNE_WIDTH = ARCANE_HD_IMG:getWidth() * RUNE_SCALE
 local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 
 -- card leter bigger than usual so its easier to see for now. will update visuals later
-local CARD_LETTER_FONT_FACTOR = 7 / 5
+local CARD_LETTER_FONT_FACTOR = 7
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
 local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
@@ -64,6 +66,9 @@ card_module.newCard = function(card_effect, scale, level)
     if card_effect.discard then
         card.description = card.description .. "\n\nWhen Discarded" .. card_effect.when_discarded_description
     end
+    card.width = CARD_WIDTH * card.scale
+    card.height = CARD_HEIGHT * card.scale
+    FONT = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
 
     card.description_box = Box.newBox(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
@@ -71,26 +76,24 @@ card_module.newCard = function(card_effect, scale, level)
         DESCRIPTION_BOX_COLOR, card.description,
         DESCRIPTION_FONT, DESCRIPTION_BOX_TEXT_COLOR,
         false, false)
-    
+
     -- if parameter is a negative number, unupgrades
     card.upgrade = function(num)
         card.level = card.level + (num or 1)
         if card.level > CARD_LEVEL_MAX then card.level = CARD_LEVEL_MAX end
         if card.level < 1 then card.level = 1 end
     end
-    
+
     card.update = function()
         card.last = card.now
         if card.selected then card.scale = card.expanded_scale
         else card.scale = card.default_scale end
-        card.width = CARD_WIDTH * card.scale
-        card.height = CARD_HEIGHT * card.scale
-        
+
         card.width = CARD_WIDTH * card.scale
         card.height = CARD_HEIGHT * card.scale
         local off_x = 0
         if card.selected then off_x = -(card.width * (EXPANDED_SCALE / DEFAULT_SCALE - 1)) / 3 end
-        
+
         local mouse_x, mouse_y = love.mouse.getPosition()
         card.hot = mouse_x > card.x + off_x and mouse_x < card.x + card.width + off_x and
             mouse_y > card.y and mouse_y < card.y + card.height
@@ -98,12 +101,11 @@ card_module.newCard = function(card_effect, scale, level)
         -- calls function in parameter if button is clicked
         if card.now and not card.last and card.hot then
             card.selected = not card.selected
+            card.scale = card.expanded_scale
         -- TODO: find good click sound effect 
         -- SoundEffects.playClick()
         end
         -- called again to make sure that everything is updated if scale is changed
-        if card.selected then card.scale = card.expanded_scale
-        else card.scale = card.default_scale end
         card.width = CARD_WIDTH * card.scale
         card.height = CARD_HEIGHT * card.scale
     end
@@ -117,20 +119,13 @@ card_module.newCard = function(card_effect, scale, level)
 
         love.graphics.setColor(brightness)
 
-        local card_x = card.x + off_x
-        love.graphics.draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
+        love.graphics.setFont(FONT)
 
-        local font = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
-
-        love.graphics.setFont(font)
-
-        local letter_width = font:getWidth(card.letter)
-        local letter_height = font:getHeight(card.letter)
+        local letter_width = FONT:getWidth(card.letter) * card.scale
+        local letter_height = FONT:getHeight(card.letter) * card.scale
         local letter_x = card.x + card.width / 2 - letter_width / 2 + off_x
         local letter_y = card.y + card.height / 7 - letter_height / 2
-        love.graphics.setColor(Colors.black)
-        love.graphics.print(card.letter, font, letter_x, letter_y)
-        love.graphics.setColor(brightness)
+
 
         local rune_img = NOT_IMG
         if card.type == CardTypes.arcane then
@@ -155,6 +150,11 @@ card_module.newCard = function(card_effect, scale, level)
         local rune_scale_x = card.scale * RUNE_SCALE
         local rune_scale_y = card.scale * RUNE_SCALE
 
+        local card_x = card.x + off_x
+        love.graphics.draw(RED_CARD_HD_IMG, card_x, card.y, 0, card.scale, card.scale)
+        love.graphics.setColor(Colors.black)
+        love.graphics.print(card.letter, FONT, letter_x, letter_y, 0, card.scale, card.scale)
+        love.graphics.setColor(brightness)
         love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
     end
 

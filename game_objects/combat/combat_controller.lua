@@ -19,7 +19,13 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
 
     -- although these methods have already been implemented in these objects, its convenient to have these methods be accessible in controller
     controller.addResource = function(card_type, num)
+        if num < 0 then error "num cannot be less than 0." end
         resource_display.addResource(card_type, num)
+    end
+
+    controller.subtractResource = function(card_type, num)
+        if num < 0 then error "num cannot be less than 0." end
+        resource_display.subtractResource(card_type, num)
     end
 
     controller.addCardToDrawPile = function(card)
@@ -36,6 +42,14 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
 
     controller.addCardsToDiscardPile = function(cards)
         discard_pile.addCards(cards)
+    end
+
+    controller.aoeUpdateHp = function(num)
+        enemy_screen.aoeUpdateHp(num)
+    end
+
+    controller.updateRandomHp = function(num)
+        enemy_screen.updateRandomHp(num)
     end
 
     controller.update = function()

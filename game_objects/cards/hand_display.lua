@@ -35,32 +35,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
     SPACING = hand.width / hand.size
 
     hand.update = function()
-        for i, card in ipairs(hand) do
-            local card_x = hand.x + (i - 1) * SPACING
-            -- TODO: implement multiple selection for cards
-            -- if not hand.selecting_multiple then
-            --     if hand.selected_card ~= card then card.selected = false end
-            --     card.x = card_x
-            --     card.y = hand.y
-
-            --     card.update()
-            --     if not card.selected then card.draw() end
-
-            --     if card.selected then
-            --         hand.selected_card = card
-            --     end
-            -- else
-            if card ~= EMPTY then
-                card.x = card_x
-                card.y = hand.y
-                card.update()
-                if not card.selected then card.draw() end
-                if card.selected and card ~= hand.selected_card then
-                    if hand.selected_card then hand.selected_card.selected = false end
-                    hand.selected_card = card
-                end
-            end
-        end
         left_input_late = left_input_now
         right_input_late = right_input_now
         left_input_now = love.keyboard.isDown("left")
@@ -80,7 +54,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 hand.selected_card = left_card
                 hand.selected_card.scale = hand.selected_card.expanded_scale
                 hand.selected_card.selected = true
-                hand.selected_card.update()
             end
         end
         if hand.selected_card and right_input_now and not right_input_late and hand.selected_card.ind < #hand then
@@ -99,7 +72,31 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 hand.selected_card = right_card
                 hand.selected_card.scale = hand.selected_card.expanded_scale
                 hand.selected_card.selected = true
-                hand.selected_card.update()
+            end
+        end
+        for i, card in ipairs(hand) do
+            local card_x = hand.x + (i - 1) * SPACING
+            -- TODO: implement multiple selection for cards
+            -- if not hand.selecting_multiple then
+            --     if hand.selected_card ~= card then card.selected = false end
+            --     card.x = card_x
+            --     card.y = hand.y
+
+            --     card.update()
+            --     if not card.selected then card.draw() end
+
+            --     if card.selected then
+            --         hand.selected_card = card
+            --     end
+            -- else
+            if card ~= EMPTY then
+                card.x = card_x
+                card.y = hand.y
+                card.update()
+                if card.selected and card ~= hand.selected_card then
+                    if hand.selected_card then hand.selected_card.selected = false end
+                    hand.selected_card = card
+                end
             end
         end
     end
@@ -127,7 +124,10 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             --         hand.selected_card = card
             --     end
             -- else
-            if not card.selected and card ~= EMPTY then card.draw() end
+            if not card.selected and card ~= EMPTY then
+                card.scale = card.default_scale
+                card.draw()
+            end
             love.graphics.setFont(FONT)
             local num_width = FONT:getWidth(i)
             love.graphics.print(i, card_x + CARD_WIDTH / 2 - num_width / 2, hand.y - 40, 0, 1, 1)

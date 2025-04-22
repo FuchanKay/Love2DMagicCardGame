@@ -1,5 +1,9 @@
 local arcane_card_effects_module = {controller = nil}
 local CardTypes = require "game_objects.cards.card_types"
+
+arcane_card_effects_module.setController = function(controller)
+    arcane_card_effects_module.controller = controller
+end
 -- general letter ideas
 -- the abilities differ from type to type but same letters have similar effects
 -- except for item??? not sure yet
@@ -379,8 +383,9 @@ arcane_card_effects_module.U = {
         if not arcane_card_effects_module.controller then error "controller is nil" end
         local controller = arcane_card_effects_module.controller
         controller.addResource(CardTypes.arcane, 2)
+        controller.aoeUpdateHp(-3)
     end,
-    when_drawn_description = "+2 arcane",
+    when_drawn_description = "+2 arcane, deal 3 dmg to all enemies",
     retain = false,
     when_retained = {},
     when_retained_description = "",

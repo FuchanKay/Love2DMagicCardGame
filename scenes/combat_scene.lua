@@ -54,12 +54,11 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
@@ -73,23 +72,27 @@ combat_scene_module.load = function()
     local resource_display_y = 30
     resource_display = ResourceDisplay.newResourceDisplay(resource_display_x, resource_display_y, 1)
 
-    local skeleton_table = {}
-    table.insert(skeleton_table, Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
-    table.insert(skeleton_table, Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
-    enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE, skeleton_table)
+    enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
+    enemy_screen.addEnemy(Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
     spell_buttons = {}
-    local spell_fn = function ()
-        enemy_screen.aoeUpdateHp(-5)
-    end
-    local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
-    table.insert(spell_buttons, spell_button)
 
     controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, nil)
     ArcaneCardEffects.controller = controller
     HemoCardEffects.controller = controller
     HolyCardEffects.controller = controller
     UnholyCardEffects.controller = controller
+
+    local spell_fn = function ()
+        local arcane_spell_cost = 5
+        if controller.resource_display.arcane_num >= arcane_spell_cost then
+            controller.updateRandomHp(-5)
+            controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
+        end
+    end
+    local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
+    table.insert(spell_buttons, spell_button)
 end
 
 combat_scene_module.update = function(dt)
