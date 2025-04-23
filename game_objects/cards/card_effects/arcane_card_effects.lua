@@ -479,5 +479,4 @@ arcane_card_effects_module.Z = {
     when_discarded_description = ""
 }
 
-
 return arcane_card_effects_module

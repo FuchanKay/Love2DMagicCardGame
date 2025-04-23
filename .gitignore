@@ -3,4 +3,4 @@ luac.out
 .vscode/settings.json
 ideas.txt
 yandere.txt
-./game_progress
+/game_progress/*

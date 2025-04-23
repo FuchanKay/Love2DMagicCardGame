@@ -90,6 +90,7 @@ combat_scene_module.load = function()
             controller.updateRandomHp(-5)
             controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
         end
+        controller.forceDiscardCard(2)
     end
     local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
     table.insert(spell_buttons, spell_button)
@@ -121,8 +122,8 @@ combat_scene_module.keyboardreleased = function(k)
     if not draw_pile then error "draw pile is nil" end
     if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
-    if k == "d" then controller.drawCard() end
-    if k == "f" then controller.discardEntireHand() end
+    if k == "f" then controller.drawCard() end
+    if k == "g" then controller.discardEntireHand() end
     if k == "a" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 

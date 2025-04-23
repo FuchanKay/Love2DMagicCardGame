@@ -105,6 +105,8 @@ card_module.newCard = function(card_effect, scale, level)
         -- TODO: find good click sound effect 
         -- SoundEffects.playClick()
         end
+        if card.selected then card.scale = card.expanded_scale
+        else card.scale = card.default_scale end
         -- called again to make sure that everything is updated if scale is changed
         card.width = CARD_WIDTH * card.scale
         card.height = CARD_HEIGHT * card.scale

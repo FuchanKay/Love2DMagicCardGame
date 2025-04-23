@@ -6,7 +6,7 @@ local Settings = require "settings"
 -- constants
 local EMPTY = Card.EMPTY
 
-local DARKER_SCREEN_COLOR = {0.1, 0.1, 0.1, 0.2}
+local DARKER_SCREEN_COLOR = {0.1, 0.1, 0.1, 0.6}
 combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, end_turn_button)
     local controller = {
         deck = deck, draw_pile = draw_pile, discard_pile = discard_pile,
@@ -54,22 +54,25 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
 
     controller.update = function()
         hand.update()
-        for i, button in ipairs(spell_buttons) do
-            button.update()
+        if not controller.paused_for_discard then
+            for i, button in ipairs(spell_buttons) do
+                button.update()
+            end
         end
+
     end
 
     controller.draw = function()
-        if controller.paused_for_discard then
-            love.graphics.setColor(DARKER_SCREEN_COLOR)
-            love.graphics.rectangle("fill", 0, 0, Settings.window_dimensions[1], Settings.window_dimensions[2])
-        end
         enemy_screen.draw()
         resource_display.draw()
         for i, button in ipairs(spell_buttons) do
             button.draw()
         end
         hand.draw()
+        if controller.paused_for_discard then
+            love.graphics.setColor(DARKER_SCREEN_COLOR)
+            love.graphics.rectangle("fill", 0, 0, Settings.window_dimensions[1], Settings.window_dimensions[2])
+        end
     end
 
     -- draws cards from draw pile. returns the card drawn or nil if no card is drawn
@@ -116,8 +119,10 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         end
     end
 
-    controller.forceDiscardCard = function()
-
+    controller.forceDiscardCard = function(num)
+        controller.paused_for_discard = true
+        hand.deselectAll()
+        hand.select_num = num
     end
 
     return controller

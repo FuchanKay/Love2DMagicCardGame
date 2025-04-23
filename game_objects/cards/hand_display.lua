@@ -22,7 +22,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         draw_pile = draw_pile, discard_pile = discard_pile,
         card_scale = card_scale,
         selected_card = nil, selected_cards = {},
-        selecting_multiple = false
+        select_num = 1
     }
     for i = 1, size do
         table.insert(hand, EMPTY)
@@ -37,8 +37,8 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
     hand.update = function()
         left_input_late = left_input_now
         right_input_late = right_input_now
-        left_input_now = love.keyboard.isDown("left")
-        right_input_now = love.keyboard.isDown("right")
+        left_input_now = love.keyboard.isDown("left") or love.keyboard.isDown("a")
+        right_input_now = love.keyboard.isDown("right") or love.keyboard.isDown("d")
         if hand.selected_card and left_input_now and not left_input_late then
             local left_card = nil
             local ind = 1
@@ -77,22 +77,42 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         for i, card in ipairs(hand) do
             local card_x = hand.x + (i - 1) * SPACING
             -- TODO: implement multiple selection for cards
-            -- if not hand.selecting_multiple then
-            --     if hand.selected_card ~= card then card.selected = false end
-            --     card.x = card_x
-            --     card.y = hand.y
+            if hand.select_num > 1 then
+                if hand.selected_card then hand.selected_card = nil end
+                if card ~= EMPTY then
+                    card.x = card_x
+                    card.y = hand.y
+                    card.update()
+                end
+                if card.selected then
+                    print(#hand.selected_cards)
+                end
+                -- card is selected and there is space in selected cards
+                local is_in_selected_cards = false
+                for j, c in ipairs(hand.selected_cards) do
+                    is_in_selected_cards = c == card
+                end
 
-            --     card.update()
-            --     if not card.selected then card.draw() end
-
-            --     if card.selected then
-            --         hand.selected_card = card
-            --     end
-            -- else
-            if card ~= EMPTY then
-                card.x = card_x
-                card.y = hand.y
-                card.update()
+                if card.selected and #hand.selected_cards < hand.select_num and not is_in_selected_cards then
+                    table.insert(hand.selected_cards, card)
+                -- card is selected and no more cards can be selected
+                elseif card.selected and not is_in_selected_cards then
+                    table.insert(hand.selected_cards, #hand.selected_cards, card)
+                    local c = table.remove(hand.selected_cards, 1)
+                    c.selected = false
+                end
+            else
+                -- clears selected cards if only one card is being selected
+                if #hand.selected_cards > 0 then
+                    for j = 0, #hand.selected_cards do
+                        table.remove(hand.selected_cards, 1)
+                    end
+                end
+                if card ~= EMPTY then
+                    card.x = card_x
+                    card.y = hand.y
+                    card.update()
+                end
                 if card.selected and card ~= hand.selected_card then
                     if hand.selected_card then hand.selected_card.selected = false end
                     hand.selected_card = card
@@ -111,19 +131,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         -- for some reason using i doesnt work
         for i, card in ipairs(hand) do
             local card_x = hand.x + (i - 1) * SPACING
-            -- TODO: implement multiple selection for cards
-            -- if not hand.selecting_multiple then
-            --     if hand.selected_card ~= card then card.selected = false end
-            --     card.x = card_x
-            --     card.y = hand.y
-
-            --     card.update()
-            --     if not card.selected then card.draw() end
-
-            --     if card.selected then
-            --         hand.selected_card = card
-            --     end
-            -- else
             if not card.selected and card ~= EMPTY then
                 card.scale = card.default_scale
                 card.draw()
@@ -132,8 +139,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             local num_width = FONT:getWidth(i)
             love.graphics.print(i, card_x + CARD_WIDTH / 2 - num_width / 2, hand.y - 40, 0, 1, 1)
         end
-
-        if hand.selected_card then hand.selected_card.draw() end
         -- for i, card in ipairs(hand.selected_cards) do
         --     card.draw()
         -- end
@@ -142,10 +147,16 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         -- create boolean variables now and late and set late to now before checking whether the key is down.
         -- if now is true and late is false then trigger
 
-
         if hand.selected_card then
+            hand.selected_card.draw()
             if not hand.selected_card.description_box then error "no description box" end
             hand.selected_card.description_box.draw()
+        end
+        if #hand.selected_cards > 0 then
+            for i, card in ipairs(hand.selected_cards) do
+                card.scale = card.expanded_scale
+                card.draw()
+            end
         end
 
         local draw_pile_num = #hand.draw_pile
