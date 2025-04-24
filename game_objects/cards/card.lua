@@ -99,12 +99,15 @@ card_module.newCard = function(card_effect, scale, level)
             mouse_y > card.y and mouse_y < card.y + card.height
         card.now = love.mouse.isDown(LEFT_CLICK)
         -- calls function in parameter if button is clicked
-        if card.now and not card.last and card.hot then
+        local being_selected = card.now and not card.last and card.hot
+        if being_selected then
             card.selected = not card.selected
             card.scale = card.expanded_scale
         -- TODO: find good click sound effect 
         -- SoundEffects.playClick()
         end
+
+        -- updates scale size of card if selected
         if card.selected then card.scale = card.expanded_scale
         else card.scale = card.default_scale end
         -- called again to make sure that everything is updated if scale is changed
@@ -113,6 +116,8 @@ card_module.newCard = function(card_effect, scale, level)
     end
 
     card.draw = function()
+        if card.selected then card.scale = card.expanded_scale
+        else card.scale = card.default_scale end
         local brightness = LIGHT_GREY
         if card.hot then brightness = Colors.white end
 
@@ -141,7 +146,7 @@ card_module.newCard = function(card_effect, scale, level)
         elseif card.type == CardTypes.mana then
             -- no mana img because idk if im going to add it
         elseif card.type == CardTypes.item then
-        -- no img for item but ill definitely add items
+            -- no img for item but ill definitely add items
         end
 
         local rune_width = RUNE_WIDTH * card.scale

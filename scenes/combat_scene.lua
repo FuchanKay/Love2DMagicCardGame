@@ -27,6 +27,7 @@ local resource_display = nil
 local enemy_screen = nil
 local spell_buttons = nil
 local controller = nil
+local confirm_button = nil
 
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
@@ -54,14 +55,14 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(ArcaneCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(ArcaneCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(HemoCardEffects.U, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(HolyCardEffects.M, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(UnholyCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.E, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
     draw_pile.addDeck(deck)
 
     local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
@@ -79,6 +80,7 @@ combat_scene_module.load = function()
     spell_buttons = {}
 
     controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, nil)
+    -- dont really know how to pass controller to card effects without doing this
     ArcaneCardEffects.controller = controller
     HemoCardEffects.controller = controller
     HolyCardEffects.controller = controller
@@ -90,18 +92,13 @@ combat_scene_module.load = function()
             controller.updateRandomHp(-5)
             controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
         end
-        controller.forceDiscardCard(2)
+        controller.forceDiscardCard(3)
     end
     local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
     table.insert(spell_buttons, spell_button)
 end
 
 combat_scene_module.update = function(dt)
-    -- if not spell_buttons then error "spell buttons is nil" end
-    -- for i, spell_button in ipairs(spell_buttons) do
-    --     spell_button.update()
-    --     spell_button.draw()
-    -- end
     if not controller then error "controller is nil" end
     controller.update()
 end
@@ -124,7 +121,7 @@ combat_scene_module.keyboardreleased = function(k)
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
     if k == "f" then controller.drawCard() end
     if k == "g" then controller.discardEntireHand() end
-    if k == "a" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
+    if k == "q" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 
 combat_scene_module.mousepressed = function(x, y, button)
