@@ -90,10 +90,14 @@ combat_scene_module.load = function()
         local arcane_spell_cost = 2
         if controller.resource_display.arcane_num >= arcane_spell_cost then
             controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
-            controller.forceDiscardCard(3)
-            controller.aoeUpdateHp(-50)
+            controller.forceDiscardCard(1)
+            local fn = function ()
+                local card = controller.hand.discarded_cards[#controller.hand.discarded_cards]
+                if card.type == CardTypes.arcane then controller.aoeUpdateHp(-20)
+                else controller.aoeUpdateHp(-10) end
+            end
+            controller.addEvent(fn)
         end
-
     end
     local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
     table.insert(spell_buttons, spell_button)

@@ -22,6 +22,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         draw_pile = draw_pile, discard_pile = discard_pile,
         card_scale = card_scale,
         selected_cards = {},
+        discarded_cards = {},
         select_num = 1,
         left_input_now = false, left_input_late = false,
         right_input_now = false, right_input_late = false,
@@ -217,6 +218,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         for i, c in ipairs(hand) do
             if c == card then
                 c.selected = false
+                table.insert(hand.discarded_cards, c)
                 hand.discard_pile.addCard(c)
                 hand[i] = EMPTY
             end

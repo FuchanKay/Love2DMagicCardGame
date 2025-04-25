@@ -58,6 +58,10 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         controller.event_queue.addEvent(fn)
     end
 
+    controller.addEvent = function(event)
+        controller.event_queue.addEvent(event)
+    end
+    
     controller.subtractResource = function(card_type, num)
         if num < 0 then error "num cannot be less than 0." end
         local fn = function()
@@ -157,7 +161,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
 
     -- discards entire hand into discard pile
     controller.discardEntireHand = function()
-        local fn = function ()        
+        local fn = function ()
             for i = 1, #controller.hand do
                 local card = controller.hand[i]
                 if card ~= EMPTY and not card.card_effect.retain then
