@@ -195,6 +195,22 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
         end
     end
 
+    hand.addCard = function(card)
+        local empty_ind = 0
+        for i, c in ipairs(hand) do
+            if c == EMPTY then
+                empty_ind = i
+                break
+            end
+        end
+        if empty_ind ~= 0 then
+            local card_x = hand.x + (empty_ind - 1) * SPACING
+            card.x = card_x
+            card.y = hand.y
+            hand[empty_ind] = card
+        end
+    end
+
     hand.discard = function(card)
         -- TODO: implement when discarded functions
         -- card.card_effect.whenDiscarded(card)

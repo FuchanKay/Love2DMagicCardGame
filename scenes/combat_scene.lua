@@ -87,12 +87,13 @@ combat_scene_module.load = function()
     UnholyCardEffects.controller = controller
 
     local spell_fn = function ()
-        local arcane_spell_cost = 5
+        local arcane_spell_cost = 2
         if controller.resource_display.arcane_num >= arcane_spell_cost then
-            controller.updateRandomHp(-5)
             controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
+            controller.forceDiscardCard(3)
+            controller.aoeUpdateHp(-50)
         end
-        controller.forceDiscardCard(3)
+
     end
     local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
     table.insert(spell_buttons, spell_button)
