@@ -3,9 +3,18 @@ local combat_controller_module = {}
 local Card = require "game_objects.cards.card"
 local EventQueue = require "game_objects.combat.event_queue"
 local Settings = require "settings"
+local Box = require "game_objects.ui.box"
 
 -- constants
 local EMPTY = Card.EMPTY
+
+local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
+local DESCRIPTION_BOX_HEIGHT = 100
+local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 50
+local DESCRIPTION_BOX_Y = 740
+local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
+local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
+local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
 
 local DARKER_SCREEN_COLOR = {0.1, 0.1, 0.1, 0.6}
 combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, end_turn_button)
@@ -15,7 +24,16 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         resource_display = resource_display,
         spell_buttons = spell_buttons,
         end_turn_button = end_turn_button,
+        description_box = nil
     }
+    controller.description = ""
+    controller.description_box = Box.newBox(
+        DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
+        DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
+        DESCRIPTION_BOX_COLOR, controller.description,
+        DESCRIPTION_FONT, DESCRIPTION_BOX_TEXT_COLOR,
+        false, false)
+    controller.hand.description_box = controller.description_box
     controller.event_queue = EventQueue.newEventQueue()
 
     controller.update = function()
@@ -30,6 +48,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         if not controller.hand.discarding then
             for i, button in ipairs(spell_buttons) do
                 button.update()
+                if button.hot then controller.description_box.text = "spell description" end
             end
         end
         controller.hand.update()
@@ -47,6 +66,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
             button.draw()
         end
         controller.hand.draw()
+        controller.description_box.draw()
     end
 
     -- although these methods have already been implemented in these objects, its convenient to have these methods be accessible in controller
@@ -176,6 +196,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     end
 
     controller.forceDiscardCard = function(num)
+        controller.description_box.text = "aslkdjf"
         -- TODO: make the number of non empty cards a property that updates when hand changes because having to do this every time is really tedious
         -- counts the number of non_empty_cards
         local num_of_nonempty_cards = 0

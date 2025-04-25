@@ -58,6 +58,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 end
                 hand.select_num = 1
                 hand.discard_confirm = true
+            hand.description_box.text = ""
             end
         end
 
@@ -84,6 +85,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 table.insert(hand.selected_cards, left_card)
                 left_card.scale = left_card.expanded_scale
                 left_card.selected = true
+                hand.description_box.text = left_card.description
             end
         end
         if #hand.selected_cards == 1 and hand.right_input_now and not hand.right_input_late and hand.selected_cards[1].ind < #hand then
@@ -104,6 +106,7 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 table.insert(hand.selected_cards, right_card)
                 right_card.scale = right_card.expanded_scale
                 right_card.selected = true
+                hand.description_box.text = right_card.description
             end
         end
 
@@ -128,10 +131,12 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             if not card.selected and is_in_selected_cards then
                 table.remove(hand.selected_cards, selected_ind)
             elseif card.selected and space_available and not is_in_selected_cards then
+                hand.description_box.text = card.description
                 table.insert(hand.selected_cards, card)
             -- -- card is selected and no more cards can be selected
             elseif card.selected and not is_in_selected_cards then
                 table.insert(hand.selected_cards, card)
+                hand.description_box.text = card.description
                 local removed = table.remove(hand.selected_cards, 1)
                 removed.selected = false
             end
@@ -158,7 +163,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             -- if card ~= EMPTY then card.update() end
         end
     end
-
     -- draw as in drawing sprites, not drawing cards
     hand.draw = function()
         love.graphics.setColor(Colors.white)
@@ -177,10 +181,11 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             love.graphics.print(i, card_x + CARD_WIDTH / 2 - num_width / 2, hand.y - 40, 0, 1, 1)
         end
 
-        if hand.selected_cards[#hand.selected_cards] then
-            if not hand.selected_cards[#hand.selected_cards].description_box then error "no description box" end
-            hand.selected_cards[#hand.selected_cards].description_box.draw()
-        end
+
+        -- if hand.selected_cards[#hand.selected_cards] then
+        --     if not hand.selected_cards[#hand.selected_cards].description_box then error "no description box" end
+        --     hand.selected_cards[#hand.selected_cards].description_box.draw()
+        -- end
 
         local draw_pile_num = #hand.draw_pile
         local discard_pile_num = #hand.discard_pile

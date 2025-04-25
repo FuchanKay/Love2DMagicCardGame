@@ -32,15 +32,8 @@ local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 local CARD_LETTER_FONT_FACTOR = 7
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.4
-local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
-local DESCRIPTION_BOX_HEIGHT = 100
-local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 50
-local DESCRIPTION_BOX_Y = 740
-local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
-local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
-local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
 card_module.newCard = function(card_effect, scale, level)
     local card = {
         img = RED_CARD_HD_IMG,
@@ -70,12 +63,6 @@ card_module.newCard = function(card_effect, scale, level)
     card.height = CARD_HEIGHT * card.scale
     FONT = love.graphics.newFont("res/fonts/Runicesque.ttf", math.floor(card.width * CARD_LETTER_FONT_FACTOR * card.scale))
 
-    card.description_box = Box.newBox(
-        DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
-        DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
-        DESCRIPTION_BOX_COLOR, card.description,
-        DESCRIPTION_FONT, DESCRIPTION_BOX_TEXT_COLOR,
-        false, false)
 
     -- if parameter is a negative number, unupgrades
     card.upgrade = function(num)

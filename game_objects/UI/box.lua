@@ -1,4 +1,5 @@
 local box_module = {}
+local Colors = require "libraries.luacolors"
 -- bluish grey
 local DEFAULT_COLOR = {0.4, 0.4, 0.5, 1.0}
 -- Colors.black
@@ -48,6 +49,7 @@ box_module.newBox = function(x, y, width, height, box_color, text, font, text_co
             box.x + text_offset_x,
             box.y + text_offset_y
         )
+        love.graphics.setColor(Colors.white)
     end
     return box
 end
