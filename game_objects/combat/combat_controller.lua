@@ -4,6 +4,7 @@ local Card = require "game_objects.cards.card"
 local EventQueue = require "game_objects.combat.event_queue"
 local Settings = require "settings"
 local Box = require "game_objects.ui.box"
+local Button = require "game_objects.ui.button"
 
 -- constants
 local EMPTY = Card.EMPTY
@@ -17,15 +18,23 @@ local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
 
 local DARKER_SCREEN_COLOR = {0.1, 0.1, 0.1, 0.6}
-combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, end_turn_button)
+combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, end_turn_button)
     local controller = {
         hand = hand, deck = deck, draw_pile = draw_pile, discard_pile = discard_pile,
         enemy_screen = enemy_screen,
         resource_display = resource_display,
-        spell_buttons = spell_buttons,
+        spells = spells,
         end_turn_button = end_turn_button,
         description_box = nil
     }
+    controller.spell_buttons = {}
+    local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
+
+    for i, spell in ipairs(controller.spells) do
+        local spell_button = Button.newButton(100, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        spell_button.spell = spell
+        table.insert(controller.spell_buttons, spell_button)
+    end
     controller.description = ""
     controller.description_box = Box.newBox(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
@@ -46,9 +55,9 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
             controller.event_queue.setPause(false)
         end
         if not controller.hand.discarding then
-            for i, button in ipairs(spell_buttons) do
+            for i, button in ipairs(controller.spell_buttons) do
                 button.update()
-                if button.hot then controller.description_box.text = "spell description" end
+                if button.hot then controller.description_box.text = controller.spells[i].description end
             end
         end
         controller.hand.update()
@@ -62,7 +71,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     controller.draw = function()
         controller.enemy_screen.draw()
         controller.resource_display.draw()
-        for i, button in ipairs(spell_buttons) do
+        for i, button in ipairs(controller.spell_buttons) do
             button.draw()
         end
         controller.hand.draw()

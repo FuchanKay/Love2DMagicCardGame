@@ -13,6 +13,7 @@ local EnemyScreen = require "game_objects.combat.enemy_screen"
 local Enemy = require "game_objects.combat.enemy"
 local Button = require "game_objects.ui.button"
 local Controller = require "game_objects.combat.combat_controller"
+local Spells = require "game_objects.spells.spells"
 
 local ArcaneCardEffects = require "game_objects.cards.card_effects.arcane_card_effects"
 local HemoCardEffects = require "game_objects.cards.card_effects.hemo_card_effects"
@@ -25,7 +26,7 @@ local discard_pile = nil
 local hand = nil
 local resource_display = nil
 local enemy_screen = nil
-local spell_buttons = nil
+local spells = nil
 local controller = nil
 local confirm_button = nil
 
@@ -77,30 +78,17 @@ combat_scene_module.load = function()
     enemy_screen.addEnemy(Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
     enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
-    spell_buttons = {}
+    spells = {}
+    table.insert(spells, Spells.fireBall)
 
-    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spell_buttons, nil)
+    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, nil)
+    Spells.controller = controller
     -- dont really know how to pass controller to card effects without doing this
     ArcaneCardEffects.controller = controller
     HemoCardEffects.controller = controller
     HolyCardEffects.controller = controller
     UnholyCardEffects.controller = controller
 
-    local spell_fn = function ()
-        local arcane_spell_cost = 2
-        if controller.resource_display.arcane_num >= arcane_spell_cost then
-            controller.subtractResource(CardTypes.arcane, arcane_spell_cost)
-            controller.forceDiscardCard(1)
-            local fn = function ()
-                local card = controller.hand.discarded_cards[#controller.hand.discarded_cards]
-                if card.type == CardTypes.arcane then controller.aoeUpdateHp(-20)
-                else controller.aoeUpdateHp(-10) end
-            end
-            controller.addEvent(fn)
-        end
-    end
-    local spell_button = Button.newButton(0, 500, 100, 100, nil, nil, "spell", nil, nil, true, true, spell_fn)
-    table.insert(spell_buttons, spell_button)
 end
 
 combat_scene_module.update = function(dt)
