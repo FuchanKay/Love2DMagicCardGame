@@ -8,7 +8,8 @@ local SCREEN_HEIGHT = Settings.window_dimensions[2]
 -- constants
 local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 local DIM_COLOR = {0.3, 0.3, 0.3, 0.5}
-
+local SEELCT_IMG = love.graphics.newImage("res/images/enemies/enemy_selection.png")
+local SELECT_WIDTH, SELECT_HEIGHT = SEELCT_IMG:getWidth(), SEELCT_IMG:getHeight()
 
 enemy_screen_module.newScreen = function(background_img, x, y, scale)
     local screen = {
@@ -30,28 +31,41 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
 
     screen.addEnemy = function(enemy)
         table.insert(screen, enemy)
-        enemy.ind = #screen
+        for i, e in ipairs(screen) do
+            e.ind = i
+            e.x = BACKGROUND_WIDTH / (#screen + 1) * i + screen.x - e.width / 2
+            e.y =  BACKGROUND_HEIGHT / 2 + screen.y - e.height / 2
+        end
+    end
+
+    screen.update = function()
+        for i, enemy in ipairs(screen) do
+            enemy.update()
+        end
     end
 
     screen.draw = function()
         love.graphics.draw(background_img, x, y, 0, scale, scale)
         local num_of_enemies = #screen
         for i, enemy in ipairs(screen) do
-            local enemy_sprite_width = enemy.img:getWidth() * enemy.scale
-            local enemy_sprite_height = enemy.img:getHeight() * enemy.scale
-            local enemy_x = BACKGROUND_WIDTH / (num_of_enemies + 1) * i + screen.x - enemy_sprite_width / 2
-            local enemy_y =  BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2
-            love.graphics.draw(enemy.img, enemy_x, enemy_y, 0, enemy.scale, enemy.scale)
+            love.graphics.draw(enemy.img, enemy.x, enemy.y, 0, enemy.scale, enemy.scale)
             love.graphics.setColor(Colors.red)
             love.graphics.setFont(FONT)
             -- TODO: make a working healthbar instead of text
             local hp_text = enemy.hp.."/"..enemy.max_hp
-            local hp_x = enemy_x - 15
-            local hp_y = BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2 - 20
+            local hp_x = enemy.x - 15
+            local hp_y = BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 - 20
             love.graphics.print(hp_text, hp_x , hp_y)
             -- TODO: center the enemy name better. text size should scale with sprite width and height
-            love.graphics.print(enemy.name, enemy_x, BACKGROUND_HEIGHT / 2 + screen.y - enemy_sprite_height / 2 + 140)
+            love.graphics.print(enemy.name, enemy.x, BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 + 140)
             love.graphics.setColor(Colors.white)
+            if enemy.hot then
+                screen.description_box.text = enemy.name
+                -- TODO: make selection box a little bigger (like 1.2 scale)
+                local scale_x = enemy.width / SELECT_WIDTH
+                local scale_y = enemy.height / SELECT_HEIGHT
+                love.graphics.draw(SEELCT_IMG, enemy.x, enemy.y, 0, scale_x, scale_y)
+            end
         end
         if screen.dim then
             love.graphics.setColor(DIM_COLOR)
