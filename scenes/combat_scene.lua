@@ -83,8 +83,8 @@ combat_scene_module.load = function()
     resource_display = ResourceDisplay.newResourceDisplay(resource_display_x, resource_display_y, 1)
 
     enemy_screen = EnemyScreen.newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
-    enemy_screen.addEnemy(Enemy.newEnemy("skelly", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
-    enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    enemy_screen.addEnemy(Enemy.newEnemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    enemy_screen.addEnemy(Enemy.newEnemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
     spells = {}
     table.insert(spells, Spells.fire_ball)
@@ -118,10 +118,12 @@ combat_scene_module.keyboardreleased = function(k)
     if not resource_display then error "resource display is nil" end
     if not controller then error "controller is nil" end
     if not draw_pile then error "draw pile is nil" end
+    if not enemy_screen then error "enemy screen is nil" end
     if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
     if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
     if k == "f" then controller.drawCard() end
     if k == "g" then controller.discardEntireHand() end
+    -- if k == "h" then enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {})) end
     if k == "q" then draw_pile.addCard(Card.newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
 end
 

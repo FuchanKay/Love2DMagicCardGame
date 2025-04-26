@@ -43,6 +43,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         DESCRIPTION_FONT, DESCRIPTION_BOX_TEXT_COLOR,
         false, false)
     controller.hand.description_box = controller.description_box
+    controller.enemy_screen.description_box = controller.description_box
     controller.event_queue = EventQueue.newEventQueue()
 
     controller.update = function()
@@ -59,6 +60,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
                 button.update()
                 if button.hot then controller.description_box.text = controller.spells[i].description end
             end
+            controller.enemy_screen.update()
         end
         controller.hand.update()
         local fight_victory = true
