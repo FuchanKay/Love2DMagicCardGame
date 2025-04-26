@@ -2,9 +2,9 @@ local spell_module = {}
 
 local CardTypes = require "game_objects.cards.card_types"
 
-spell_module.fireBall = {
-    name = "FireBall",
-    description = "Discard 1 card.\nDo 10 dmg to all enemies.\nDouble if discarded card is arcane type",
+spell_module.fire_ball = {
+    name = "Fireball",
+    description = "Discard 1 card.\n\nDo 10 dmg to all enemies. Double if discarded card is arcane type",
     effect = function ()
         local controller = spell_module.controller
         if not controller then error "controller is nil" end

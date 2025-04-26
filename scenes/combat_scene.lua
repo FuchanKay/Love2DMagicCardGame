@@ -79,7 +79,7 @@ combat_scene_module.load = function()
     enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
     spells = {}
-    table.insert(spells, Spells.fireBall)
+    table.insert(spells, Spells.fire_ball)
 
     controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, nil)
     Spells.controller = controller
