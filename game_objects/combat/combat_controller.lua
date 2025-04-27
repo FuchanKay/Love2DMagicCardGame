@@ -25,13 +25,14 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         resource_display = resource_display,
         spells = spells,
         end_turn_button = end_turn_button,
-        description_box = nil
+        description_box = nil,
+        mode = "normal",
     }
     controller.spell_buttons = {}
     local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 
     for i, spell in ipairs(controller.spells) do
-        local spell_button = Button.newButton(100, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        local spell_button = Button.newButton(i * 200, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
         spell_button.spell = spell
         table.insert(controller.spell_buttons, spell_button)
     end
@@ -46,28 +47,46 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     controller.enemy_screen.description_box = controller.description_box
     controller.event_queue = EventQueue.newEventQueue()
 
-    controller.update = function()
-        controller.event_queue.update()
-        if controller.hand.discard_confirm then
+    controller.update = function(dt)
+        controller.event_queue.update(dt)
+        if controller.hand.discard_confirm and controller.mode == "discarding" then controller.setMode("finished_discarding") end
+        if controller.enemy_screen.selected_enemy and controller.mode == "targeting" then controller.setMode("finished_targeting") end
+        
+        -- probably should fix up how this works because these variables are really unintuitive and confusing. should be more simple
+        -- this code is not clean. please clean up if you have time
+        if controller.mode == "finished_discarding" then
             controller.hand.discard_confirm = false
             controller.enemy_screen.setDim(false)
             controller.setEnemyScreenText("")
             controller.hand.discarding = false
             controller.event_queue.setPause(false)
-        end
-        if not controller.hand.discarding then
+            controller.setMode("normal")
+        elseif controller.mode == "finished_targeting" then
+            controller.enemy_screen.setDim(false)
+            controller.setEnemyScreenText("")
+            controller.event_queue.setPause(false)
+            controller.setMode("normal")
+        elseif controller.mode == "discarding" then
+            controller.hand.update()
+        elseif controller.mode == "targeting" then
+            controller.enemy_screen.update()
+        elseif controller.mode == "normal" then
             for i, button in ipairs(controller.spell_buttons) do
                 button.update()
                 if button.hot then controller.description_box.text = controller.spells[i].description end
             end
+            controller.hand.update()
             controller.enemy_screen.update()
         end
-        controller.hand.update()
+
         local fight_victory = true
         for i, enemy in ipairs(controller.enemy_screen) do
             if enemy.hp > 0 then fight_victory = false end
         end
-        if fight_victory then controller.enemy_screen.setText("You Win!") end
+        if fight_victory then
+            controller.enemy_screen.setText("You Win!")
+            controller.event_queue.setPause(true)
+        end
     end
 
     controller.draw = function()
@@ -78,6 +97,10 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         end
         controller.hand.draw()
         controller.description_box.draw()
+    end
+
+    controller.setMode = function(mode)
+        controller.mode = mode
     end
 
     -- although these methods have already been implemented in these objects, its convenient to have these methods be accessible in controller
@@ -136,6 +159,13 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         controller.event_queue.addEvent(fn)
     end
 
+    controller.updateHp = function(enemy, num)
+        local fn = function()
+            controller.enemy_screen.updateHp(enemy, num)
+        end
+        controller.event_queue.addEvent(fn)
+    end
+
     controller.updateRandomHp = function(num)
         local fn = function()
             controller.enemy_screen.updateRandomHp(num)
@@ -190,6 +220,18 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         controller.event_queue.addEvent(fn)
     end
 
+    controller.targetEnemy = function()
+        local fn = function()
+            -- if you want to call a function without adding to event, call the function from the object, not the controller functions
+            controller.setMode("targeting")
+            controller.enemy_screen.deselectAll()
+            controller.enemy_screen.setText("Select Enemy")
+            controller.enemy_screen.setDim(true)
+            controller.event_queue.setPause(true)
+        end
+        controller.event_queue.addEvent(fn)
+    end
+
     -- discards entire hand into discard pile
     controller.discardEntireHand = function()
         local fn = function ()
@@ -230,6 +272,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
             local fn = function()
                 -- if you want to call a function without adding to event, call the function from the object, not the controller functions
                 controller.hand.discarding = true
+                controller.setMode("discarding")
                 controller.hand.deselectAll()
                 controller.enemy_screen.setText("Discard "..num.." cards. (Press enter to confirm)")
                 controller.enemy_screen.setDim(true)

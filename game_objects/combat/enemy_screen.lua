@@ -38,9 +38,21 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
         end
     end
 
+    screen.deselectAll = function()
+        screen.selected_enemy = nil
+        for i, enemy in ipairs(screen) do
+            enemy.selected = false
+        end
+    end
+
     screen.update = function()
         for i, enemy in ipairs(screen) do
             enemy.update()
+            if enemy.selected and not screen.selected_enemy then screen.selected_enemy = enemy
+            elseif enemy.selected and screen.selected_enemy ~= enemy then
+                screen.selected_enemy.selected = false
+                screen.selected_enemy = enemy
+            end
         end
     end
 
@@ -58,6 +70,7 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
             love.graphics.print(hp_text, hp_x , hp_y)
             -- TODO: center the enemy name better. text size should scale with sprite width and height
             love.graphics.print(enemy.name, enemy.x, BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 + 140)
+            love.graphics.print(enemy.selected and "true" or "false", enemy.x + 150, BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 + 140)
             love.graphics.setColor(Colors.white)
             if enemy.hot then
                 screen.description_box.text = enemy.name
@@ -84,9 +97,12 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
         end
     end
 
-    screen.updateHp = function(ind, num)
-        local enemy = screen[ind]
-        enemy.updateHp(num)
+    screen.updateHp = function(enemy, num)
+        for i, e in ipairs(screen) do
+            if e == enemy then
+                enemy.updateHp(num)
+            end
+        end
     end
 
     screen.updateRandomHp = function(num)

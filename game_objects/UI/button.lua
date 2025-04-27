@@ -58,7 +58,7 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
         -- centers text
         local text_offset_x = 0
         if button.centered_x then
-            local text_width = button.font:getWidth(button.text)
+            local text_width = button.font:getWidth(button.text)    
             text_offset_x = (button.width - text_width) / 2
         end
         local text_offset_y = 0

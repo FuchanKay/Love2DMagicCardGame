@@ -1,5 +1,5 @@
-_RELEASE_MODE = true
-_DEMO = false
+_RELEASE_MODE = false
+_DEMO = true
 
 function love.conf(t)
 	t.console = not _RELEASE_MODE
@@ -8,4 +8,4 @@ function love.conf(t)
     t.window.height = 0
 	t.window.minwidth = 100
 	t.window.minheight = 100
-end 
+end

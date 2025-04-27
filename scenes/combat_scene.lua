@@ -87,7 +87,8 @@ combat_scene_module.load = function()
     enemy_screen.addEnemy(Enemy.newEnemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
     spells = {}
-    table.insert(spells, Spells.fire_ball)
+    table.insert(spells, Spells.fireball)
+    table.insert(spells, Spells.arrows_of_light)
 
     controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, nil)
     Spells.controller = controller
@@ -101,7 +102,7 @@ end
 
 combat_scene_module.update = function(dt)
     if not controller then error "controller is nil" end
-    controller.update()
+    controller.update(dt)
 end
 
 combat_scene_module.draw = function()
