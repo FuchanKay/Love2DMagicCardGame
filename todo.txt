@@ -1,0 +1,19 @@
+- CURRENT PRIORITIES
+create spell channeling
+create enemy attack patterns
+create game outside of combat screen and come up with ideas for it to make it unique
+plan a new combat ui format (more popup description text)
+implement hp bar (starting to lean on mana not being a thing)
+add turn system
+
+- FUTURE TODOS
+make game look prettier <- important
+implement shaders somehow
+make sure to fix bugs
+imeplement items
+implement relics 
+add all card effects
+more sound effects
+draw and discard pile sprites
+implement more spells
+integrate spell animations

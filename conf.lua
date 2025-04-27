@@ -1,4 +1,11 @@
---this file deploys the console on game launch
+_RELEASE_MODE = true
+_DEMO = false
+
 function love.conf(t)
-    t.console = true
-end
+	t.console = not _RELEASE_MODE
+	t.title = 'Fumatro'
+	t.window.width = 0
+    t.window.height = 0
+	t.window.minwidth = 100
+	t.window.minheight = 100
+end 
