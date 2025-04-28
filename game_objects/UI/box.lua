@@ -43,11 +43,12 @@ box_module.newBox = function(x, y, width, height, box_color, text, font, text_co
             local text_height = box.font:getHeight(box.text)
             text_offset_y = (box.height - text_height) / 2
         end
-        love.graphics.print(
+        love.graphics.setFont(box.font)
+        love.graphics.printf(
             box.text,
-            box.font,
             box.x + text_offset_x,
-            box.y + text_offset_y
+            box.y + text_offset_y,
+            box.width
         )
         love.graphics.setColor(Colors.white)
     end

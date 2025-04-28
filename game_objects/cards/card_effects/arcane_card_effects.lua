@@ -334,13 +334,21 @@ arcane_card_effects_module.R = {
         controller.addResource(CardTypes.arcane, 2)
     end,
     when_drawn_description = "+2 arcane",
-    retain = false,
-    when_retained = {},
-    when_retained_description = "",
+    retain = true,
+    retain_num = 1,
     discard = false,
     when_discarded = {},
     when_discarded_description = ""
 }
+arcane_card_effects_module.R.when_retained_description = "Gives +"..arcane_card_effects_module.R.retain_num.." arcane. Increased by 1 for every turn retained"
+arcane_card_effects_module.R.whenRetained = function(card)
+    if not arcane_card_effects_module.controller then error "controller is nil" end
+    local controller = arcane_card_effects_module.controller
+    arcane_card_effects_module.R.retain_num = arcane_card_effects_module.R.retain_num + 1
+    arcane_card_effects_module.R.when_retained_description = "Gives +"..arcane_card_effects_module.R.retain_num.." arcane. Increased by 1 for every turn retained"
+    card.updateDescription()
+    controller.addResource(CardTypes.arcane, arcane_card_effects_module.R.retain_num)
+end
 arcane_card_effects_module.S = {
     type = CardTypes.arcane,
     letter = "S",

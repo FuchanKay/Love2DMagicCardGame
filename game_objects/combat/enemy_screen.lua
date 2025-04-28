@@ -70,8 +70,15 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
             love.graphics.print(hp_text, hp_x , hp_y)
             -- TODO: center the enemy name better. text size should scale with sprite width and height
             love.graphics.print(enemy.name, enemy.x, BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 + 140)
-            love.graphics.print(enemy.selected and "true" or "false", enemy.x + 150, BACKGROUND_HEIGHT / 2 + screen.y - enemy.height / 2 + 140)
             love.graphics.setColor(Colors.white)
+
+        end
+        if screen.dim then
+            love.graphics.setColor(DIM_COLOR)
+            love.graphics.rectangle("fill", x, y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT)
+            love.graphics.setColor(Colors.white)
+        end
+        for i, enemy in ipairs(screen) do
             if enemy.hot then
                 screen.description_box.text = enemy.name
                 -- TODO: make selection box a little bigger (like 1.2 scale)
@@ -79,11 +86,6 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
                 local scale_y = enemy.height / SELECT_HEIGHT
                 love.graphics.draw(SEELCT_IMG, enemy.x, enemy.y, 0, scale_x, scale_y)
             end
-        end
-        if screen.dim then
-            love.graphics.setColor(DIM_COLOR)
-            love.graphics.rectangle("fill", x, y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT)
-            love.graphics.setColor(Colors.white)
         end
         local text_width = FONT:getWidth(screen.text)
         local text_x = screen.x + BACKGROUND_WIDTH / 2 - text_width / 2

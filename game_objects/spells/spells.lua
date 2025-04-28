@@ -18,7 +18,7 @@ spell_module.fireball = {
                 local dmg = 10
                 for i = 0, DISCARD_NUM - 1 do
                     local card = controller.hand.discarded_cards[#controller.hand.discarded_cards - i]
-                    if card.type == CardTypes.arcane then dmg = dmg + 10 end
+                    if card and card.type == CardTypes.arcane then dmg = dmg + 10 end
                 end
                 controller.aoeUpdateHp(dmg)
             end

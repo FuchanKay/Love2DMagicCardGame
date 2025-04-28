@@ -56,7 +56,7 @@ combat_scene_module.load = function()
     deck = Deck.newDeck()
     draw_pile = DrawPile.newDrawPile()
     discard_pile = DiscardPile.newDiscardPile()
-    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.R, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
@@ -64,7 +64,7 @@ combat_scene_module.load = function()
     deck.addCard(Card.newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.R, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
@@ -75,7 +75,7 @@ combat_scene_module.load = function()
     draw_pile.addDeck(deck)
 
     local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
-    local hand_y = 550
+    local hand_y = 520
     hand = HandDisplay.newHandDisplay(hand_x, hand_y, HAND_WIDTH, HAND_SIZE, draw_pile, discard_pile, CARD_SIZE_SCALE)
 
     local resource_display_x = 30

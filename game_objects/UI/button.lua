@@ -66,7 +66,8 @@ button_module.newButton = function(x, y, width, height, button_color, hot_color,
             local text_height = button.font:getHeight(button.text)
             text_offset_y = (button.height - text_height) / 2
         end
-        love.graphics.print(button.text, button.font, button.x + text_offset_x, button.y + text_offset_y)
+        love.graphics.setFont(button.font)
+        love.graphics.print(button.text, button.x + text_offset_x, button.y + text_offset_y)
     end
     return button
 end

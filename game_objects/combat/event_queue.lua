@@ -3,19 +3,23 @@ local event_queue_module = {}
 local DELAY = 0.05
 
 event_queue_module.newEventQueue = function()
-    local queue = {pause = false, t = 0}
+    local queue = {pause = false, closed = false, t = 0}
     -- TODO: make event an config table with more properties such as whether event should be delayed or not
     queue.addEvent = function(event)
-        table.insert(queue, event)
+        if not queue.closed then table.insert(queue, event) end
     end
 
     queue.addEventAndPause = function(event)
-        table.insert(queue, event)
+        if queue.closed then table.insert(queue, event) end
         queue.pause = true
     end
 
     queue.setPause = function(pause)
         queue.pause = pause
+    end
+    
+    queue.setClosed = function(closed)
+        queue.closed = closed
     end
 
     queue.triggerEvent = function()

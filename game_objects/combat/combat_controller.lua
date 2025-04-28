@@ -32,7 +32,7 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 
     for i, spell in ipairs(controller.spells) do
-        local spell_button = Button.newButton(i * 200, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        local spell_button = Button.newButton(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
         spell_button.spell = spell
         table.insert(controller.spell_buttons, spell_button)
     end
@@ -51,7 +51,6 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
         controller.event_queue.update(dt)
         if controller.hand.discard_confirm and controller.mode == "discarding" then controller.setMode("finished_discarding") end
         if controller.enemy_screen.selected_enemy and controller.mode == "targeting" then controller.setMode("finished_targeting") end
-        
         -- probably should fix up how this works because these variables are really unintuitive and confusing. should be more simple
         -- this code is not clean. please clean up if you have time
         if controller.mode == "finished_discarding" then
@@ -242,6 +241,9 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
                     card.selected = false
                     if controller.hand.selected_card == card then controller.hand.selected_card = nil end
                     table.insert(controller.hand.discard_pile, card)
+                elseif card ~= EMPTY and card.card_effect.retain then
+                    card.selected = false
+                    card.card_effect.whenRetained(card)
                 end
             end
         end
@@ -249,7 +251,6 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     end
 
     controller.forceDiscardCard = function(num)
-        controller.description_box.text = "aslkdjf"
         -- TODO: make the number of non empty cards a property that updates when hand changes because having to do this every time is really tedious
         -- counts the number of non_empty_cards
         local num_of_nonempty_cards = 0

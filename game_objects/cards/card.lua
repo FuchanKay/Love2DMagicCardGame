@@ -31,7 +31,7 @@ local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 -- card leter bigger than usual so its easier to see for now. will update visuals later
 local CARD_LETTER_FONT_FACTOR = 7
 local DEFAULT_SCALE = 1.0
-local EXPANDED_SCALE = 1.4
+local EXPANDED_SCALE = 1.2
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
 card_module.newCard = function(card_effect, scale, level)
@@ -150,6 +150,16 @@ card_module.newCard = function(card_effect, scale, level)
         love.graphics.print(card.letter, FONT, letter_x, letter_y, 0, card.scale, card.scale)
         love.graphics.setColor(brightness)
         love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
+    end
+
+    card.updateDescription = function()
+        card.description = "When Drawn: " .. card_effect.when_drawn_description
+        if card_effect.retain then
+            card.description = card.description .. "\n\nWhen Retained: " .. card_effect.when_retained_description
+        end
+        if card_effect.discard then
+            card.description = card.description .. "\n\nWhen Discarded" .. card_effect.when_discarded_description
+        end
     end
 
     return card
