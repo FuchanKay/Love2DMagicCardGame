@@ -62,12 +62,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             end
         end
 
-        if hand.left_input_now and not hand.left_input_late then
-            for i, card in ipairs(hand.selected_cards) do
-                print("Card "..i..": "..card.letter)
-            end
-        end
-
         if #hand.selected_cards == 1 and hand.left_input_now and not hand.left_input_late then
             local left_card = nil
             local ind = 1

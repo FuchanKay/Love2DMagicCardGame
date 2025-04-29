@@ -304,13 +304,21 @@ hemo_card_effects_module.R = {
         controller.addResource(CardTypes.hemo, 2)
     end,
     when_drawn_description = "+2 hemo",
-    retain = false,
-    when_retained = {},
-    when_retained_description = "",
+    retain = true,
+    retain_num = 1,
     discard = false,
     when_discarded = {},
     when_discarded_description = ""
 }
+hemo_card_effects_module.R.when_retained_description = "Gives +"..hemo_card_effects_module.R.retain_num.." hemo. Increased by 1 for every turn retained"
+hemo_card_effects_module.R.whenRetained = function(card)
+    if not hemo_card_effects_module.controller then error "controller is nil" end
+    local controller = hemo_card_effects_module.controller
+    hemo_card_effects_module.R.retain_num = hemo_card_effects_module.R.retain_num + 1
+    hemo_card_effects_module.R.when_retained_description = "Gives +"..hemo_card_effects_module.R.retain_num.." hemo. Increased by 1 for every turn retained"
+    card.updateDescription()
+    controller.addResource(CardTypes.hemo, hemo_card_effects_module.R.retain_num)
+end
 hemo_card_effects_module.S = {
     type = CardTypes.hemo,
     letter = "S",

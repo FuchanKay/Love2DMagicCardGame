@@ -304,13 +304,21 @@ unholy_card_effects_module.R = {
         controller.addResource(CardTypes.unholy, 2)
     end,
     when_drawn_description = "+2 unholy",
-    retain = false,
-    when_retained = {},
-    when_retained_description = "",
+    retain = true,
+    retain_num = 1,
     discard = false,
     when_discarded = {},
     when_discarded_description = ""
 }
+unholy_card_effects_module.R.when_retained_description = "Gives +"..unholy_card_effects_module.R.retain_num.." unholy. Increased by 1 for every turn retained"
+unholy_card_effects_module.R.whenRetained = function(card)
+    if not unholy_card_effects_module.controller then error "controller is nil" end
+    local controller = unholy_card_effects_module.controller
+    unholy_card_effects_module.R.retain_num = unholy_card_effects_module.R.retain_num + 1
+    unholy_card_effects_module.R.when_retained_description = "Gives +"..unholy_card_effects_module.R.retain_num.." unholy. Increased by 1 for every turn retained"
+    card.updateDescription()
+    controller.addResource(CardTypes.unholy, unholy_card_effects_module.R.retain_num)
+end
 unholy_card_effects_module.S = {
     type = CardTypes.unholy,
     letter = "S",

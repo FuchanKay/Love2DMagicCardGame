@@ -2,9 +2,9 @@
 -- == in lua evaluates whether both variables are the same object. not the object value.
 -- card_types.arcane == card_types.hemo will return false
 local card_types_module = {
-    arcane = {},
+    unholy = {},
     hemo = {},
-    holy = {},
+    unholy = {},
     unholy = {},
     mana = {},
     item = {},

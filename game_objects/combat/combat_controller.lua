@@ -10,9 +10,9 @@ local Button = require "game_objects.ui.button"
 local EMPTY = Card.EMPTY
 
 local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
-local DESCRIPTION_BOX_HEIGHT = 100
+local DESCRIPTION_BOX_HEIGHT = 160
 local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 50
-local DESCRIPTION_BOX_Y = 740
+local DESCRIPTION_BOX_Y = 680
 local DESCRIPTION_BOX_COLOR = {0.6, 0.6, 0.7, 0.5}
 local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)

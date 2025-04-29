@@ -38,12 +38,12 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
         -- make sure to not not perform functions because it can lead to some weird side effects
         -- also lua doesnt support += which sucks
         if num < 0 then error "num cannot be negative" end
-        if card_type == CardTypes.arcane then
+        if card_type == CardTypes.unholy then
             -- makes sure that if the num goes over the resource cap then the num is set to the resource cap
             resource_display.arcane_num = resource_display.arcane_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.arcane_num + num
         elseif card_type == CardTypes.hemo then
             resource_display.hemo_num = resource_display.hemo_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.hemo_num + num
-        elseif card_type == CardTypes.holy then
+        elseif card_type == CardTypes.unholy then
             resource_display.holy_num = resource_display.holy_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.holy_num + num
         elseif card_type == CardTypes.unholy then
             resource_display.unholy_num = resource_display.unholy_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.unholy_num + num
@@ -53,11 +53,11 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
     -- subtracts num to resource specified. num cannot be negative
     resource_display.subtractResource = function(card_type, num)
         if num < 0 then error "num cannot be negative" end
-        if card_type == CardTypes.arcane then
+        if card_type == CardTypes.unholy then
             resource_display.arcane_num = resource_display.arcane_num - num < 0 and 0 or resource_display.arcane_num - num
         elseif card_type == CardTypes.hemo then
             resource_display.hemo_num = resource_display.hemo_num - num < 0 and 0 or resource_display.hemo_num - num
-        elseif card_type == CardTypes.holy then
+        elseif card_type == CardTypes.unholy then
             resource_display.holy_num = resource_display.holy_num - num < 0 and 0 or resource_display.holy_num - num
         elseif card_type == CardTypes.unholy then
             resource_display.unholy_num = resource_display.unholy_num - num < 0 and 0 or resource_display.unholy_num - num
