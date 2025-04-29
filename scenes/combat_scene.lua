@@ -60,7 +60,15 @@ combat_scene_module.load = function()
     deck.addCard(Card.newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
-    deck.addCard(Card.newCard(ArcaneCardEffects.E, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
+    deck.addCard(Card.newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
     deck.addCard(Card.newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
@@ -82,7 +90,7 @@ combat_scene_module.load = function()
     table.insert(spells, Spells.fireball)
     table.insert(spells, Spells.arrows_of_light)
 
-    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, nil)
+    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells)
     Spells.controller = controller
     -- dont really know how to pass controller to card effects without doing this
     ArcaneCardEffects.controller = controller
@@ -112,8 +120,6 @@ combat_scene_module.keyboardreleased = function(k)
     if not controller then error "controller is nil" end
     if not draw_pile then error "draw pile is nil" end
     if not enemy_screen then error "enemy screen is nil" end
-    if k == "up" then resource_display.addResource(CardTypes.unholy, 5) end
-    if k == "down" then resource_display.subtractResource(CardTypes.unholy, 1) end
     if k == "f" then controller.drawCard() end
     if k == "g" then controller.discardEntireHand() end
     -- if k == "h" then enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {})) end
