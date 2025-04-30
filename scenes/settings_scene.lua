@@ -33,6 +33,7 @@ local SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR = 1/5
 local SETTINGS_BLOCKS_HEIGHT = 120
 local SETTINGS_BLOCKS_SPACING = 20
 local MAX_AUDIO = 100
+local WINDOW_WIDTH, WINDOW_HEIGHT = 1536, 864
 local SCREEN_RESOLUTIONS = {
     {1280, 720},
     {1366, 768},
@@ -66,10 +67,9 @@ local function updateApplyButton()
 end
 
 local function addFullScreenButton(off_x, off_y)
-    local window_width, window_height = love.graphics.getDimensions()
-    local fullscreen_button_width = window_width / 2
-    local highest_settings_button_y = window_height * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
-    local button_x = (window_width - fullscreen_button_width) * 0.5 + (off_x or 0)
+    local fullscreen_button_width = WINDOW_WIDTH / 2
+    local highest_settings_button_y = WINDOW_HEIGHT * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
+    local button_x = (WINDOW_WIDTH - fullscreen_button_width) * 0.5 + (off_x or 0)
     local button_y = highest_settings_button_y + (off_y or 0)
     local text = nil
     if Settings.fullscreen then text = "FullScreen" end
@@ -121,9 +121,8 @@ local function addBackButton(off_x, off_y)
 end
 
 local function addLeftAudioArrow()
-    local window_width= love.graphics.getWidth()
-    local audio_arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local audio_controller_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local audio_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local audio_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
     if not audio_level_display_box then error("audio level display box is nil") end
     local button_x = audio_level_display_box.x - audio_arrow_width - audio_controller_spacing
     local button_y = audio_level_display_box.y
@@ -152,9 +151,8 @@ local function addLeftAudioArrow()
 end
 
 local function addRightAudioArrow()
-    local window_width = love.graphics.getWidth()
-    local audio_arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local audio_controller_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local audio_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local audio_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
     if not audio_level_display_box then error("audio level display box is nil") end
     local button_x = audio_level_display_box.x + audio_level_display_box.width + audio_controller_spacing
     local button_y = audio_level_display_box.y
@@ -183,12 +181,11 @@ local function addRightAudioArrow()
 end
 
 local function addAudioController(off_x, off_y)
-    local window_width, window_height = love.graphics.getDimensions()
-    local audio_arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local audio_controller_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
-    local audio_display_box_width = (window_width / 2) - 2 * (audio_arrow_width + audio_controller_spacing)
-    local highest_settings_block_y = window_height * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
-    local box_x = (window_width - audio_display_box_width) / 2 + (off_x or 0)
+    local audio_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local audio_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local audio_display_box_width = (WINDOW_WIDTH / 2) - 2 * (audio_arrow_width + audio_controller_spacing)
+    local highest_settings_block_y = WINDOW_HEIGHT * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
+    local box_x = (WINDOW_WIDTH - audio_display_box_width) / 2 + (off_x or 0)
     local box_y = highest_settings_block_y + (off_y or 0)
 
     audio_level_display_box = Box.newBox(
@@ -208,9 +205,8 @@ end
 -- default windowed screen resolution is 1280 x 720
 local screen_res_ind = 1
 local function addLeftDimensionArrow()
-    local window_width = love.graphics.getWidth()
-    local dimension_arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local dimension_controller_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local dimension_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local dimension_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
     if not dimension_display_box then error("dimension display box is nil") end
     local button_x = dimension_display_box.x - dimension_arrow_width - dimension_controller_spacing
     local button_y = dimension_display_box.y
@@ -240,9 +236,8 @@ local function addLeftDimensionArrow()
 end
 
 local function addRightDimensionArrow()
-    local window_width = love.graphics.getWidth()
-    local dimension_arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local dimension_controller_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local dimension_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local dimension_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
     if not dimension_display_box then error("dimension display box is nil") end
     local button_x = dimension_display_box.x + dimension_display_box.width + dimension_controller_spacing
     local button_y = dimension_display_box.y
@@ -272,14 +267,12 @@ local function addRightDimensionArrow()
 end
 
 local addScreenDimensionController = function(off_x, off_y)
-    local window_width, window_height = love.graphics.getDimensions()
+    local arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
+    local arrow_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
+    local audio_display_box_width = (WINDOW_WIDTH / 2) - 2 * (arrow_width + arrow_spacing)
 
-    local arrow_width = window_width * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
-    local arrow_spacing = window_width * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
-    local audio_display_box_width = (window_width / 2) - 2 * (arrow_width + arrow_spacing)
-
-    local highest_settings_block_y = window_height / 5
-    local box_x = (window_width - audio_display_box_width) / 2 + (off_x or 0)
+    local highest_settings_block_y = WINDOW_HEIGHT / 5
+    local box_x = (WINDOW_WIDTH - audio_display_box_width) / 2 + (off_x or 0)
     local box_y = highest_settings_block_y + (off_y or 0)
 
     dimension_display_box = Box.newBox(
@@ -298,10 +291,9 @@ local addScreenDimensionController = function(off_x, off_y)
 end
 
 local function addSettingsApplyButton(off_x, off_y)
-    local window_width, window_height = love.graphics.getDimensions()
-    local fullscreen_button_width = window_width / 2
-    local highest_settings_button_y = window_height * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
-    local button_x = (window_width - fullscreen_button_width) * 0.5 + (off_x or 0)
+    local fullscreen_button_width = WINDOW_WIDTH / 2
+    local highest_settings_button_y = WINDOW_HEIGHT * SETTINGS_BLOCK_HIGHEST_SCREEN_FACTOR
+    local button_x = (WINDOW_WIDTH - fullscreen_button_width) * 0.5 + (off_x or 0)
     local button_y = highest_settings_button_y + (off_y or 0)
     local text = "Apply Settings"
 
@@ -349,7 +341,10 @@ settings_scene_module.load = function()
 end
 
 settings_scene_module.update = function(dt)
-
+    if not buttons then error "buttons is nil" end
+    for i, button in ipairs(buttons) do
+        button.update()
+    end
 end
 
 settings_scene_module.draw = function()

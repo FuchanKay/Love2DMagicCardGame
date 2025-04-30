@@ -29,7 +29,7 @@ spell_module.fireball = {
 
 spell_module.arrows_of_light = {
     name = "Arrows of Light",
-    type = CardTypes.arcaen,
+    type = CardTypes.holy,
     description = "Do 10 - 30 dmg.\n\nDeal an additional 10 dmg for every holy card in hand",
     effect = function()
         local controller = spell_module.controller
@@ -40,23 +40,17 @@ spell_module.arrows_of_light = {
         local base_dmg = math.random(LOWEST, HIGHEST)
         local ADD_DMG = 10
         if controller.resource_display.holy_num >= HOLY_COST then
-            controller.subtractResource(CardTypes.arcane, HOLY_COST)
+            controller.subtractResource(CardTypes.holy, HOLY_COST)
             controller.targetEnemy()
             local fn = function()
                 for i, card in ipairs(controller.hand) do
-                    if card.type == CardTypes.arcane then controller.updateHp(controller.enemy_screen.selected_enemy, ADD_DMG) end
+                    if card.type == CardTypes.holy then controller.updateHp(controller.enemy_screen.selected_enemy, ADD_DMG) end
                 end
                 controller.updateHp(controller.enemy_screen.selected_enemy, base_dmg)
             end
             controller.addEvent(fn)
         end
-
-
-
-
-        
     end
-
 }
 
 return spell_module

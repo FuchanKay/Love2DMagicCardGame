@@ -13,6 +13,8 @@ local buttons = nil
 local MAIN_BUTTONS_HEIGHT = 120
 local MAIN_BUTTONS_SPACING = 20
 local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
+local WINDOW_WIDTH, WINDOW_HEIGHT = 1536, 864
+
 
 -- TODO: add blobreader and blobreader functions to game for saving
 -- local BlobWriter = require "libraries.BlobWriter"
@@ -20,10 +22,9 @@ local BUTTON_TEXT_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 32)
 
 local function addStartButton(off_x, off_y)
     if buttons == nil then error("buttons is nil") end
-    local window_width, window_height = love.graphics.getDimensions()
-    local main_buttons_width = window_width / 2
-    local highest_main_button_y = window_height / 5
-    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local main_buttons_width = WINDOW_WIDTH / 2
+    local highest_main_button_y = WINDOW_HEIGHT / 5
+    local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, Button.newButton(
     button_x, button_y,
@@ -39,10 +40,9 @@ local function addStartButton(off_x, off_y)
 end
 local function addLoadButton(off_x, off_y)
     if buttons == nil then error("buttons is nil") end
-    local window_width, window_height = love.graphics.getDimensions()
-    local main_buttons_width = window_width / 2
-    local highest_main_button_y = window_height / 5
-    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local main_buttons_width = WINDOW_WIDTH / 2
+    local highest_main_button_y = WINDOW_HEIGHT / 5
+    local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, Button.newButton(
     button_x, button_y,
@@ -58,10 +58,9 @@ local function addLoadButton(off_x, off_y)
 end
 local function addSettingsButton(off_x, off_y)
     if buttons == nil then error("buttons is nil") end
-    local window_width, window_height = love.graphics.getDimensions()
-    local main_buttons_width = window_width / 2
-    local highest_main_button_y = window_height / 5
-    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local main_buttons_width = WINDOW_WIDTH / 2
+    local highest_main_button_y = WINDOW_HEIGHT / 5
+    local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, Button.newButton(
     button_x, button_y,
@@ -77,10 +76,9 @@ local function addSettingsButton(off_x, off_y)
 end
 local function addQuitButton(off_x, off_y)
     if buttons == nil then error("Buttons is nil") end
-    local window_width, window_height = love.graphics.getDimensions()
-    local main_buttons_width = window_width / 2
-    local highest_main_button_y = window_height / 5
-    local button_x = (window_width - main_buttons_width) * 0.5 + (off_x or 0)
+    local main_buttons_width = WINDOW_WIDTH / 2
+    local highest_main_button_y = WINDOW_HEIGHT / 5
+    local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
     table.insert(buttons, Button.newButton(
     button_x, button_y,

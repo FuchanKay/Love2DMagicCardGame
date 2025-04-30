@@ -134,27 +134,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
                 local removed = table.remove(hand.selected_cards, 1)
                 removed.selected = false
             end
-            -- TODO: remove this code
-            -- else
-            --     -- clears selected cards if only one card is being selected
-            --     local has_selected_cards =  #hand.selected_cards > 0 
-            --     if has_selected_cards then
-            --         for j = 0, #hand.selected_cards do
-            --             table.remove(hand.selected_cards, 1)
-            --         end
-            --     end
-            --     if card ~= EMPTY then
-            --         card.x = card_x
-            --         card.y = hand.y
-            --         card.update()
-            --     end
-            --     local has_new_selected_card = card.selected and card ~= hand.selected_card
-            --     if has_new_selected_card then
-            --         if hand.selected_card then hand.selected_card.selected = false end
-            --         hand.selected_card = card
-            --     end
-            -- end
-            -- if card ~= EMPTY then card.update() end
         end
     end
     -- draw as in drawing sprites, not drawing cards
@@ -174,7 +153,6 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
             local num_width = FONT:getWidth(i)
             love.graphics.print(i, card_x + CARD_WIDTH / 2 - num_width / 2, hand.y - 40, 0, 1, 1)
         end
-
 
         -- if hand.selected_cards[#hand.selected_cards] then
         --     if not hand.selected_cards[#hand.selected_cards].description_box then error "no description box" end

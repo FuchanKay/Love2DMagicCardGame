@@ -32,7 +32,7 @@ local confirm_button = nil
 
 -- constants
 local CARD_SIZE_SCALE = 1 / 5
-local HAND_WIDTH = Settings.window_dimensions[1] / 2
+local HAND_WIDTH = 768
 local HAND_SIZE = 6
 
 local COMBAT_BACKGROUND_IMG = love.graphics.newImage("res/images/backgrounds/combat_background_1.png")
