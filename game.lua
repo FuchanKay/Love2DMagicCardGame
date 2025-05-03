@@ -148,13 +148,20 @@ trigger = {
 }
 
 triggers: 
-- "last drawn"
+- last drawn
     - type = "type" if the last drawn card is not of type, do not trigger
     - prev = # if prev = 1, skips the last drawn card and checks the second to last drawn card. for checking multiple drawn cards
 
-- "last discarded"
+- last discarded
     - type = "type" if the last discarded card is not of type, do not trigger
     - prev = # if prev = 1, skips the last discarded card and checks the second to last discarded card. for checking multiple discarded cards
+
+- random
+    - prob = 0.## probability of effect triggering
+
+- held
+    - type = "type" type of card held
+    - num = # number of cards held in hand for the effect to trigger 
 
 extra_condition and extra properties will increase the effect of the card if the extra_condition is met. depending on spell effect, the extra condition will be a table that includes the configs for the extra effect
 the difference between a trigger and an extra condition is that the trigger will decide whether the effect will take place or not, while the extra_condition increases the power of the effect that is about to take place
@@ -169,6 +176,9 @@ extra conditions:
     - prev = # if prev = 1, skips the last discarded card and checks the second to last discarded card. for checking multiple discarded cards
 
 - "+1" this extra condition must be added to a spell of "+1" type. if the spell is casted with +1, then the spell effect will be modified
+
+- cards drawn
+    - type = "type" if this type of card is drawn, then the extra is added to the spell effect works while channeling
 
 - "held"
     - pos = {...} or {} checks for certain hand positions. if table is empty, check all hand positions
@@ -216,45 +226,69 @@ channels:
 ]]
 
     self.arcame_spells = {
+        -- fireball is an arcane instant cast aoe damage spell that first force discards two cards. for every arcane card discarded by this card, the damage will be increased by ten
         fireball = {
-            name = "Fireball", type = "arcane", set = "spell", unlocked = true, order = 1, pos = {x = 0, y = 0},
+            name = "Fireball", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
+            tier = 1,
             channel = "instant",
             effects = {
                 {type = "cards", effect = "force discard", discard = 2},
-                {type = "dmg", effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
+                {type = "damage", effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
             }
         },
+        -- lightning arc is an arcane instant cast single target damage spell where the damage increases for every arcane card held in hand. max of 3 cards held  
         lightning_arc = {
-            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, order = 2, pos = {x = 1, y = 0},
+            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0},
+            tier = 1,
             channel = "instant",
             effects = {
-                {type = "dmg", effect = "single target damage", aoe = true, dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max_held = 2}},
+                {type = "damage", effect = "single target damage", aoe = true, dmg = 10, extra_condition = "held", extra = {dmg = 10, type = "arcane", max_held = 3}},
             }
         },
+        -- mega laser is an arcane channel cast single target damage spell where the card does extra damage for every arcane card held in hand when the spell takes effect (not when it is initially cast)
         mega_laser = {
-            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, order = 3, pos = {x = 2, y = 0},
+            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 3, pos = {x = 2, y = 0},
+            tier = 3,
             channel = "channel", length = 3,
             effects = {
-                {type = "dmg", effect = "single target damage", dmg = 200, extra_condition = "held cards", extra = {dmg = 30, type = "arcane", max = -1}}
+                {type = "damage", effect = "single target damage", dmg = 200, extra_condition = "held cards", extra = {dmg = 30, type = "arcane", max = -1}}
+            }
+        },
+    }
+
+    self.hemo_spells = {
+        -- blood spikes is a hemo +1 cast single target damage spell that draws a card once damage has been dealt
+        blood_spikes = {
+            name = "Blood Spikes", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
+            tier = 2,
+            channel = "+1", length = 2,
+            effects = {
+                {type = "damage", effect = "single target damage", dmg = 50, extra_condition = "cards drawn", extra = {dmg = 10, type = "hemo"}},
+            },
+        },
+        -- dash is a hemo instant cast spell that force discards 2 cards and draws 1 card
+        dash = {
+            name = "Dash", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0},
+            tier = 2,
+            channel = "instant",
+            effects = {
+                {type = "cards", effect = "force discard", discard = 2},
+                {type = "cards", effect = "draw", draw = 1}
             }
         }
     }
 
-    self.hemo_spells = {
-        blood_spikes = {
-            name = "Blood Spikes", type = "hemo", set = "spell", order = 1, pos = {x = 0, y = 0},
-            channel = "+1", length = 2,
-            effects = {
-                {type = "dmg", effect = "single target damage", aoe = true, dmg = 50, extra_condition = "held cards", extra = {dmg = 30, type = "hemo", max_held = 2}}
-            },
-        },
-        dash = {
-            name = "Dash", type = "hemo", set = "spell", order = 2, pos = {x = 1, y = 0},
+    self.holy_spells = {
+        arrows_of_light = {
+            name = "Arrows of Light", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
+            tier = 1,
             channel = "instant",
             effects = {
-                {type = "cards", effect = "force discard", discard = 1},
-                {type = "cards", effect = "draw", draw = 2}
+                {type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
+                {trigger = {condition = "held", type = "holy", num = 1},type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
+                {trigger = {condition = "held", type = "holy", num = 2},type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
             }
         }
     }
+
 end
