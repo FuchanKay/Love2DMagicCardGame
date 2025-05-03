@@ -1,10 +1,13 @@
 local scenes = {}
 local current_scene = nil
 
+require "engine.object"
+require "game"
+
 local Settings = require 'settings'
 
 love.window.setTitle(Settings.title);
-Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
+-- Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
 love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
 love.window.setFullscreen(Settings.fullscreen)
 
