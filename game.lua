@@ -135,67 +135,126 @@ this is a very bare-bones description of how the spell will work. treat it more 
 For common effects such as aoe damage or force-discards, the card effect can be easily implemented. for more complex spell effects, theyre effects will beginning hard coded based on name.
 spell descriptions will be externally generated since they are mutable
 
-effect types:
-
 * means property is optional
 OR means an effect cannot have both properties
+AND means that both properties must exist or the spell will /set to some default value
 
 every effect has an optional trigger property where the effect will not take place if the trigger condition is not met. 
 trigger = {
-    condition = "last drawn cards",
+    condition = "condition",
     config = {
-        num = 1,
-        type = "arcane"
+        *configs*
     }
 }
 
-- "draw"
+triggers: 
+- "last drawn"
+    - type = "type" if the last drawn card is not of type, do not trigger
+    - prev = # if prev = 1, skips the last drawn card and checks the second to last drawn card. for checking multiple drawn cards
+
+- "last discarded"
+    - type = "type" if the last discarded card is not of type, do not trigger
+    - prev = # if prev = 1, skips the last discarded card and checks the second to last discarded card. for checking multiple discarded cards
+
+extra_condition and extra properties will increase the effect of the card if the extra_condition is met. depending on spell effect, the extra condition will be a table that includes the configs for the extra effect
+the difference between a trigger and an extra condition is that the trigger will decide whether the effect will take place or not, while the extra_condition increases the power of the effect that is about to take place
+
+extra conditions: 
+- "last drawn"
+    - type = "type" if the last drawn card is not of type, do not trigger
+    - prev = # if prev = 1, skips the last drawn card and checks the second to last drawn card. for checking multiple drawn cards
+
+- "last discarded"
+    - type = "type" if the last discarded card is not of type, do not trigger
+    - prev = # if prev = 1, skips the last discarded card and checks the second to last discarded card. for checking multiple discarded cards
+
+- "+1" this extra condition must be added to a spell of "+1" type. if the spell is casted with +1, then the spell effect will be modified
+
+- "held"
+    - pos = {...} or {} checks for certain hand positions. if table is empty, check all hand positions
+    - type = "type" if the held hand 
+    - max = # max number of times the extra can be added
+
+effects: 
+- draw
     - num = # number of cards to force discard OR range = {min = #, max = #} range of random # of cards that it can drawn
     - specific* = "type" draw specific type of card from draw pile, if not in draw pile then dont draw anything
     - save* = bool saves the drawn card(s) to some variable so that it can be accessed in later spell effects
 
-- "force discard"
+- force discard
     - num = # number of cards to force discard OR range = {min = #, max = #} range of random # of cards that it can discard
     - specific* = "type" discard specific type of card from hand
     - save* = bool saves saves the discarded card(s) to some variable so that it can be accessed in later spell effects
+
+- swap: swaps two cards positions
 
 - aoe damage and single target damage
     - dmg = # amount of damage OR range = {min = #, max = #} range of damage to randomly select
 
 - random target damage
     - dmg = # number of cards to force discard OR range = {min = #, max = #} range of damage to randomly select
-    - num = # number of random enemies that it (cannot trigger multiple times on same enemy)
+    - num* = # number of random enemies that it (cannot trigger multiple times on same enemy) defaults to 1 if nil
 
 - aoe shielding and single target shielding
     - shield = # number of cards to force discard OR range = {min = #, max = #} range of shielding to randomly select
 
 - random target shielding
     - shield = # number of cards to force discard OR range = {min = #, max = #} range of shielding to randomly select
-    - num = # number of random enemies that it (cannot trigger multiple times on same enemy)
+    - num* = # number of random enemies that it (cannot trigger multiple times on same enemy) defaults to 1 if nil
+
+there are different types of channels for spells. This affects the time it takes for a spell to take place in terms of turn numbers
+
+channels:
+- instant: the spell will immediately take place without any countdown. Typically a weaker effect but good short-term gain
+- channel: the spell takes a certain number of turns to take effect
+    - cancel* = bool: determines whether a spell can be canceled in the middle of casting
+    - length = # number of turns it takes for the spell to take place
+- hold: the spell will channel and not cast after the channel has ended. the player now has an opportunity to cancel the held spell whenever they want and trigger its full effect\
+    - length = # number of turns it takes for the spell to take place
+- +1: the user can decide while casting whether the spell can take one extra turn to take place. this can be for strategic purposes or can increase effectiveness of spell if specified in effect
 
 ]]
 
     self.arcame_spells = {
         fireball = {
-            name = "Fireball", type = "arcane", set = "spell", order = 1, pos = {x = 0, y = 0},
+            name = "Fireball", type = "arcane", set = "spell", unlocked = true, order = 1, pos = {x = 0, y = 0},
+            channel = "instant",
             effects = {
-                {effect = "force discard", type = "any", discard = 2},
-                {effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
+                {type = "cards", effect = "force discard", discard = 2},
+                {type = "dmg", effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
             }
         },
         lightning_arc = {
-            name = "Lightning Arc", type = "arcane", set = "spell", order = 2, pos = {x = 1, y = 0},
+            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, order = 2, pos = {x = 1, y = 0},
+            channel = "instant",
             effects = {
-                {effect = "single target damage", aoe = true, dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max_held = 2}},
+                {type = "dmg", effect = "single target damage", aoe = true, dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max_held = 2}},
             }
         },
+        mega_laser = {
+            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, order = 3, pos = {x = 2, y = 0},
+            channel = "channel", length = 3,
+            effects = {
+                {type = "dmg", effect = "single target damage", dmg = 200, extra_condition = "held cards", extra = {dmg = 30, type = "arcane", max = -1}}
+            }
+        }
     }
-    
+
     self.hemo_spells = {
-        -- 
-        blood_spikes = {name = "Blood Spikes", type = "hemo", set = "spell", order = 1, pos = {x = 0, y = 0}, config = {effects = {effect = "single target damage extra when held", aoe = true, dmg = 10, extra = {dmg = 10, type = "hemo", max_held = 2}}}},
-
-
+        blood_spikes = {
+            name = "Blood Spikes", type = "hemo", set = "spell", order = 1, pos = {x = 0, y = 0},
+            channel = "+1", length = 2,
+            effects = {
+                {type = "dmg", effect = "single target damage", aoe = true, dmg = 50, extra_condition = "held cards", extra = {dmg = 30, type = "hemo", max_held = 2}}
+            },
+        },
+        dash = {
+            name = "Dash", type = "hemo", set = "spell", order = 2, pos = {x = 1, y = 0},
+            channel = "instant",
+            effects = {
+                {type = "cards", effect = "force discard", discard = 1},
+                {type = "cards", effect = "draw", draw = 2}
+            }
+        }
     }
-
 end
