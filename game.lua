@@ -6,7 +6,7 @@ function Game:init()
     G:setGlobals()
 end
 
-function Game:init_item_prototypes()
+function Game:initItemPrototypes()
 
     self.arcane_cards = {
         a = {name = "A", type = "arcane", set = "card", level = 1, order = 1, config = {drawn = true, retained = false, discarded = false, swapped = false}},
@@ -186,6 +186,8 @@ extra conditions:
     - max = # max number of times the extra can be added
 
 effects: 
+- buff spell
+    - WIP
 - draw
     - num = # number of cards to force discard OR range = {min = #, max = #} range of random # of cards that it can drawn
     - specific* = "type" draw specific type of card from draw pile, if not in draw pile then dont draw anything
@@ -232,7 +234,7 @@ channels:
             tier = 1,
             channel = "instant",
             effects = {
-                {type = "cards", effect = "force discard", discard = 2},
+                {type = "cards", effect = "force discard", num = 2},
                 {type = "damage", effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
             }
         },
@@ -251,7 +253,7 @@ channels:
             tier = 3,
             channel = "channel", length = 3,
             effects = {
-                {type = "damage", effect = "single target damage", dmg = 200, extra_condition = "held cards", extra = {dmg = 30, type = "arcane", max = -1}}
+                {type = "damage", effect = "single target damage", dmg = 200, extra_condition = "held", extra = {dmg = 30, type = "arcane", max = -1}}
             }
         },
     }
@@ -272,23 +274,45 @@ channels:
             tier = 2,
             channel = "instant",
             effects = {
-                {type = "cards", effect = "force discard", discard = 2},
-                {type = "cards", effect = "draw", draw = 1}
+                {type = "cards", effect = "force discard", num = 2},
+                {type = "cards", effect = "draw", num = 1}
             }
         }
     }
 
     self.holy_spells = {
+        -- arrows of light is a tier 1 holy channel cast spell that does 20 to 30 damage. Repeats 0 - 2 times for every holy card held in hand
         arrows_of_light = {
             name = "Arrows of Light", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
             tier = 1,
-            channel = "instant",
+            channel = "channel", length = 2,
             effects = {
                 {type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
-                {trigger = {condition = "held", type = "holy", num = 1},type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
-                {trigger = {condition = "held", type = "holy", num = 2},type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
+                {trigger = {condition = "held", type = "holy", num = 1}, type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
+                {trigger = {condition = "held", type = "holy", num = 2}, type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
             }
-        }
+        },
+        meditate = {
+            name = "Meditate", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0},
+            tier = 2,
+            channel = "instant",
+            effects = {
+                {type = "cards", effect = "draw", num = 1, specific = "holy"},
+                {type = "buff", effect = "buff shield channels", num = 1.2}
+            }
+        },
+    }
+
+    self.unholy_spells = {
+        brimstone_explosion = {
+            name = "Brimstone Explosion", type = "unholy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
+            tier = 1,
+            channel = "channel", length = 3,
+            effects = {
+                {type = "damage", effect = "aoe damage", dmg = 60},
+                {type = "card", effect = "swap"}
+            }
+        },
     }
 
 end
