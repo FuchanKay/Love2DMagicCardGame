@@ -342,10 +342,10 @@ end
 
 function Game:initProfile()
 
-    ArcaneCardEffects = require "game.cards.card_effects.arcane_card_effects"
-    HemoCardEffects = require "game.cards.card_effects.hemo_card_effects"
-    HolyCardEffects = require "game.cards.card_effects.holy_card_effects"
-    UnholyCardEffects = require "game.cards.card_effects.unholy_card_effects"
+    ArcaneCardEffects = require "game.cards.arcane_card_effects"
+    HemoCardEffects = require "game.cards.hemo_card_effects"
+    HolyCardEffects = require "game.cards.holy_card_effects"
+    UnholyCardEffects = require "game.cards.unholy_card_effects"
     -- TODO: implement seed stuff
     local seed = os.time()
     print(seed)

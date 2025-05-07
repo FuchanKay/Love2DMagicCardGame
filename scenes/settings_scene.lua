@@ -198,7 +198,7 @@ local function addAudioController(off_x, off_y)
     table.insert(boxes, audio_level_display_box)
 end
 -- default windowed screen resolution is 1280 x 720
-local screen_res_ind = 1
+local screen_res_ind = 4
 local function addLeftDimensionArrow()
     local dimension_arrow_width = WINDOW_WIDTH * CONTROLLER_ARROW_WIDTH_SCREEN_FACTOR
     local dimension_controller_spacing = WINDOW_WIDTH * CONTROLLER_ARROW_SPACING_SCREEN_FACTOR
