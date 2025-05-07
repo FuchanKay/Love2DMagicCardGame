@@ -1,6 +1,6 @@
 local spell_module = {}
 
-local CardTypes = require "game_objects.cards.card_types"
+local CardTypes = require "game.cards.card_types"
 
 spell_module.fireball = {
     name = "Fireball",

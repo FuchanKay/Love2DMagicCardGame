@@ -1,10 +1,15 @@
 local scenes = {}
 local current_scene = nil
 
+
+Colors = require "libraries.luacolors"
 require "engine.object"
 require "game"
+require "globals"
+require "game.ui"
+require "settings"
 
-local Settings = require 'settings'
+print(Settings.title)
 
 love.window.setTitle(Settings.title);
 -- Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
@@ -54,5 +59,10 @@ function ChangeScene(nextScene)
 end
 
 function ReloadScene()
+    current_scene.load()
+end
+
+function CombatScene(enemy_table)
+    current_scene = require("scenes/combat_scene")
     current_scene.load()
 end

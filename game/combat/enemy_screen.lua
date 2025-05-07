@@ -1,7 +1,5 @@
-local enemy_screen_module = {}
+EnemyScreen = Object:extend()
 
-local Colors = require "libraries.luacolors"
-local Settings = require "settings"
 local SCREEN_WIDTH = Settings.window_dimensions[1]
 local SCREEN_HEIGHT = Settings.window_dimensions[2]
 
@@ -11,7 +9,7 @@ local DIM_COLOR = {0.3, 0.3, 0.3, 0.5}
 local SEELCT_IMG = love.graphics.newImage("res/images/enemies/enemy_selection.png")
 local SELECT_WIDTH, SELECT_HEIGHT = SEELCT_IMG:getWidth(), SEELCT_IMG:getHeight()
 
-enemy_screen_module.newScreen = function(background_img, x, y, scale)
+function EnemyScreen:newScreen(background_img, x, y, scale)
     local screen = {
         background_img = background_img,
         x = x, y = y, scale = scale,
@@ -115,5 +113,3 @@ enemy_screen_module.newScreen = function(background_img, x, y, scale)
 
     return screen
 end
-
-return enemy_screen_module

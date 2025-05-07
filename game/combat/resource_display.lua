@@ -1,9 +1,3 @@
-local resource_display_module = {}
-
-local Settings = require "settings"
-local CardTypes = require "game_objects.cards.card_types"
-local Colors = require "libraries.luacolors"
-
 -- constants
 local RESOURCE_DISPLAY_WIDTH = Settings.window_dimensions[1] / 5
 local NUM_OF_CARD_TYPES = 4
@@ -22,7 +16,7 @@ local CARD_TYPE_HEIGHT = ARCANE_IMG:getHeight()
 
 
 -- for if resource display has to start with a certain amount of resources
-resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, init_hemo, init_holy, init_unholy)
+function newResourceDisplay(x, y, scale, init_arcane, init_hemo, init_holy, init_unholy)
     local resource_display = {
         x = x, y = y, scale = scale,
         font = love.graphics.newFont("res/fonts/Roman SD.ttf", math.floor(CARD_LETTER_FONT_FACTOR * scale)),
@@ -38,14 +32,14 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
         -- make sure to not not perform functions because it can lead to some weird side effects
         -- also lua doesnt support += which sucks
         if num < 0 then error "num cannot be negative" end
-        if card_type == CardTypes.arcane then
+        if card_type == "arcane" then
             -- makes sure that if the num goes over the resource cap then the num is set to the resource cap
             resource_display.arcane_num = resource_display.arcane_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.arcane_num + num
-        elseif card_type == CardTypes.hemo then
+        elseif card_type == "hemo" then
             resource_display.hemo_num = resource_display.hemo_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.hemo_num + num
-        elseif card_type == CardTypes.holy then
+        elseif card_type == "holy" then
             resource_display.holy_num = resource_display.holy_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.holy_num + num
-        elseif card_type == CardTypes.unholy then
+        elseif card_type == "unholy" then
             resource_display.unholy_num = resource_display.unholy_num + num > RESOURCE_CAP and RESOURCE_CAP or resource_display.unholy_num + num
         end
     end
@@ -53,13 +47,13 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
     -- subtracts num to resource specified. num cannot be negative
     resource_display.subtractResource = function(card_type, num)
         if num < 0 then error "num cannot be negative" end
-        if card_type == CardTypes.arcane then
+        if card_type == "arcane" then
             resource_display.arcane_num = resource_display.arcane_num - num < 0 and 0 or resource_display.arcane_num - num
-        elseif card_type == CardTypes.hemo then
+        elseif card_type == "hemo" then
             resource_display.hemo_num = resource_display.hemo_num - num < 0 and 0 or resource_display.hemo_num - num
-        elseif card_type == CardTypes.holy then
+        elseif card_type == "holy" then
             resource_display.holy_num = resource_display.holy_num - num < 0 and 0 or resource_display.holy_num - num
-        elseif card_type == CardTypes.unholy then
+        elseif card_type == "unholy" then
             resource_display.unholy_num = resource_display.unholy_num - num < 0 and 0 or resource_display.unholy_num - num
         end
     end
@@ -112,5 +106,3 @@ resource_display_module.newResourceDisplay = function(x, y, scale, init_arcane, 
     end
     return resource_display
 end
-
-return resource_display_module

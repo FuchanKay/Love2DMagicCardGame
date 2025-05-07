@@ -1,9 +1,8 @@
-local enemy_module = {}
-
+Enemy = Object:extend()
 -- constants
 local LEFT_CLICK = 1
 
-enemy_module.newEnemy = function(name, img, scale, hp, behavior)
+function Enemy:init(name, img, scale, hp, behavior)
     local enemy = {
         name = name,
         img = img,
@@ -40,5 +39,3 @@ enemy_module.newEnemy = function(name, img, scale, hp, behavior)
     end
     return enemy
 end
-
-return enemy_module

@@ -1,14 +1,14 @@
+DrawPile = Object:extend()
 
-local draw_pile_module = {}
-local red_card_img = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
+local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
 
 -- constants
 -- for sprites
-local CARD_WIDTH = red_card_img:getWidth()
-local CARD_HEIGHT = red_card_img:getHeight()
+local CARD_WIDTH = RED_CARD_IMG:getWidth()
+local CARD_HEIGHT = RED_CARD_IMG:getHeight()
 
 
-draw_pile_module.newDrawPile = function()
+function DrawPile:newDrawPile()
     local draw_pile = {}
 
     draw_pile.addDeck = function(deck)

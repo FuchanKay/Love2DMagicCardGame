@@ -1,6 +1,6 @@
-local deck_module = {}
+Deck = Object:extend()
 
-deck_module.newDeck = function()
+function Deck:newDeck()
     local deck = {}
     deck.addCard = function(card)
         card.ind = 1     
@@ -16,5 +16,3 @@ deck_module.newDeck = function()
     end
     return deck
 end
-
-return deck_module

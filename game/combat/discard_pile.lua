@@ -1,6 +1,6 @@
-local discard_pile_module = {}
+DiscardPile = Object:extend()
 
-discard_pile_module.newDiscardPile = function()
+function DiscardPile:newDiscardPile()
     local discard_pile = {}
     -- removes and returns all cards in discard pile shuffled as a table
     discard_pile.reshuffle = function()
@@ -25,5 +25,3 @@ discard_pile_module.newDiscardPile = function()
     end
     return discard_pile
 end
-
-return discard_pile_module

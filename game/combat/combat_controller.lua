@@ -1,14 +1,7 @@
-local combat_controller_module = {}
-
-local Card = require "game_objects.cards.card"
-local EventQueue = require "game_objects.combat.event_queue"
-local Settings = require "settings"
-local Box = require "game_objects.ui.box"
-local Button = require "game_objects.ui.button"
+CombatController = Object:extend()
+local EventQueue = require "game.combat.event_queue"
 
 -- constants
-local EMPTY = Card.EMPTY
-
 local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
 local DESCRIPTION_BOX_HEIGHT = 160
 local DESCRIPTION_BOX_X = Settings.window_dimensions[1] - DESCRIPTION_BOX_WIDTH - 50
@@ -18,7 +11,7 @@ local DESCRIPTION_BOX_TEXT_COLOR = {0.1, 0.1, 0.1, 0.5}
 local DESCRIPTION_FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 16)
 
 local DARKER_SCREEN_COLOR = {0.1, 0.1, 0.1, 0.6}
-combat_controller_module.newController = function(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, end_turn_button)
+function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells, end_turn_button)
     local controller = {
         hand = hand, deck = deck, draw_pile = draw_pile, discard_pile = discard_pile,
         enemy_screen = enemy_screen,
@@ -32,12 +25,12 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 
     for i, spell in ipairs(controller.spells) do
-        local spell_button = Button.newButton(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        local spell_button = newButton(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
         spell_button.spell = spell
         table.insert(controller.spell_buttons, spell_button)
     end
     controller.description = ""
-    controller.description_box = Box.newBox(
+    controller.description_box = newBox(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
         DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
         DESCRIPTION_BOX_COLOR, controller.description,
@@ -285,5 +278,3 @@ combat_controller_module.newController = function(deck, hand, draw_pile, discard
     end
     return controller
 end
-
-return combat_controller_module

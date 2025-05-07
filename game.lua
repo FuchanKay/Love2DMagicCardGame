@@ -18,7 +18,7 @@ function Game:initItemPrototypes()
         g = {name = "G", type = "arcane", set = "card", level = 1, order = 7, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         h = {name = "H", type = "arcane", set = "card", level = 1, order = 8, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         i = {name = "I", type = "arcane", set = "card", level = 1, order = 9, config = {drawn = true, retained = false, discarded = false, swapped = false}},
-        j = {name = "J", type = "arcane", set = "card", level = 1, order = 10, config = {drawn = true, retained = false, discarded = false, swapped = false}},
+        j = {name = "J", type = "arcane", set = "card", level = 1, order = 10, config = {drawn = true, retained = false,     discarded = false, swapped = false}},
         k = {name = "K", type = "arcane", set = "card", level = 1, order = 11, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         l = {name = "L", type = "arcane", set = "card", level = 1, order = 12, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         m = {name = "M", type = "arcane", set = "card", level = 1, order = 13, config = {drawn = true, retained = false, discarded = false, swapped = false}},
@@ -124,6 +124,38 @@ function Game:initItemPrototypes()
         z = {name = "Z", type = "unholy", set = "card", level = 1, order = 26, config = {drawn = true, retained = false, discarded = false, swapped = false}},
     }
 
+    self.triggers = {
+        held = {condition = "held", type = "any", num = 1},
+        draw = {condition = "draw", type = "any", num = 1},
+        discard = {condition = "discard", type = "any", num = 1},
+        rand = {condition = "random", prob = 1.0},
+    }
+
+    self.extra_conditions = {
+        -- max determines the number of times that the extra effect can trigger. if condition should be infinite, set to 999 to prevent infinite loops (or set to 999 in implementation)
+        held = {condition = "held", type = "any", pos = {}, max = 1},
+        discard = {condition = "discard", type = "any", max = 1},
+        draw = {condition = "draw", type = "any", max = 1},
+        res = {condition = "resource", type = "any", max = 1}
+    }
+
+    self.spell_effects = {
+        draw = {trigger = nil, set = "cards", effect = "draw", type = "any", num = 1, extra_condition = nil, extra = {num = 1}},
+        discard = {trigger = nil, set = "cards", effect = "discard", type = "any", extra_condition = nil, num = 1, extra = {num = 1}},
+        swap = {trigger = nil, set = "swap", effect = "swap", type = "any"},
+        aoe_dmg = {trigger = nil, set = "damage", effect = "aoe damage", num = 1, extra_condition = nil, extra = {num = 1}},
+        st_dmg = {trigger = nil, set = "damage", effect = "single target damage", extra_condition = nil, num = 1, extra = {num = 1}},
+        shield = {trigger = nil, set = "shield", effect = "shield", num = 1, extra_condition = nil, extra = {num = 1}},
+    }
+
+    self.channels = {
+        instant = {channel = "instant"},
+        standard = {channel = "standard", length = 1},
+        channel = {channel = "channel", length = 2},
+        plus_one = {channel = "+1", length = 2},
+        hold = {channel = "hold", length = 2},
+    }
+
 --[[
 
 table formatting for spells:
@@ -207,17 +239,13 @@ effects:
     - dmg = # number of cards to force discard OR range = {min = #, max = #} range of damage to randomly select
     - num* = # number of random enemies that it (cannot trigger multiple times on same enemy) defaults to 1 if nil
 
-- aoe shielding and single target shielding
+- shielding
     - shield = # number of cards to force discard OR range = {min = #, max = #} range of shielding to randomly select
-
-- random target shielding
-    - shield = # number of cards to force discard OR range = {min = #, max = #} range of shielding to randomly select
-    - num* = # number of random enemies that it (cannot trigger multiple times on same enemy) defaults to 1 if nil
 
 there are different types of channels for spells. This affects the time it takes for a spell to take place in terms of turn numbers
 
 channels:
-- instant: the spell will immediately take place without any countdown. Typically a weaker effect but good short-term gain
+- instant: the spell will immediately take place without any countdown. Typically a weaker effect but good short-term gain. If drawing/discarding/swapping cards, more satisfying if it is a instant cast so that it can benefit channeled spells
 - channel: the spell takes a certain number of turns to take effect
     - cancel* = bool: determines whether a spell can be canceled in the middle of casting
     - length = # number of turns it takes for the spell to take place
@@ -227,92 +255,96 @@ channels:
 
 ]]
 
-    self.arcame_spells = {
+    self.arcane_dmg_spells = {
         -- fireball is an arcane instant cast aoe damage spell that first force discards two cards. for every arcane card discarded by this card, the damage will be increased by ten
         fireball = {
-            name = "Fireball", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
-            tier = 1,
-            channel = "instant",
-            effects = {
-                {type = "cards", effect = "force discard", num = 2},
-                {type = "damage", effect = "aoe damage", dmg = 10, extra_condition = "discarded cards", extra = {dmg = 10, type = "arcane", max = 2}},
-            }
+            name = "Fireball", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
         },
         -- lightning arc is an arcane instant cast single target damage spell where the damage increases for every arcane card held in hand. max of 3 cards held  
         lightning_arc = {
-            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0},
-            tier = 1,
-            channel = "instant",
-            effects = {
-                {type = "damage", effect = "single target damage", aoe = true, dmg = 10, extra_condition = "held", extra = {dmg = 10, type = "arcane", max_held = 3}},
-            }
+            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0} , tier = 1, effects = {}
         },
         -- mega laser is an arcane channel cast single target damage spell where the card does extra damage for every arcane card held in hand when the spell takes effect (not when it is initially cast)
         mega_laser = {
-            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 3, pos = {x = 2, y = 0},
-            tier = 3,
-            channel = "channel", length = 3,
-            effects = {
-                {type = "damage", effect = "single target damage", dmg = 200, extra_condition = "held", extra = {dmg = 30, type = "arcane", max = -1}}
-            }
+            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 3, pos = {x = 2, y = 0}, tier = 3, effects = {}
         },
     }
 
-    self.hemo_spells = {
-        -- blood spikes is a hemo +1 cast single target damage spell that draws a card once damage has been dealt
+    self.arcane_card_spells = {
+
+    }
+
+    self.arcane_buff_spells = {
+
+    }
+
+    self.arcane_shield_spells = {
+
+    }
+
+    self.hemo_dmg_spells = {
+        -- blood spikes is a hemo +1 cast single target damage spell
         blood_spikes = {
-            name = "Blood Spikes", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
-            tier = 2,
-            channel = "+1", length = 2,
-            effects = {
-                {type = "damage", effect = "single target damage", dmg = 50, extra_condition = "cards drawn", extra = {dmg = 10, type = "hemo"}},
-            },
+            name = "Blood Spikes", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {},
         },
-        -- dash is a hemo instant cast spell that force discards 2 cards and draws 1 card
-        dash = {
-            name = "Dash", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0},
-            tier = 2,
-            channel = "instant",
-            effects = {
-                {type = "cards", effect = "force discard", num = 2},
-                {type = "cards", effect = "draw", num = 1}
-            }
-        }
     }
 
-    self.holy_spells = {
+    self.hemo_card_spells = {
+        -- dash is a hemo instant cast spell that force discards 2 cards then draws 1 card
+        dash = {
+            name = "Dash", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}
+        },
+        -- jump is a hemo instant cast spell that force draws 2 cards then discards 1 card 
+        jump = {
+            name = "Jump", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}
+        },
+    }
+
+    self.hemo_buff_spells = {
+
+        harden_blood = {
+            name = "Harden Blood", type = "hemo", set = "spell", unlocked = true, discovered = false,  order = 3, pos = {x = 3, y = 0}, tier = 1, effects = {}
+        },
+    }
+
+    self.hemo_shield_spells = {
+
+    }
+
+    self.holy_dmg_spells = {
         -- arrows of light is a tier 1 holy channel cast spell that does 20 to 30 damage. Repeats 0 - 2 times for every holy card held in hand
         arrows_of_light = {
-            name = "Arrows of Light", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
-            tier = 1,
-            channel = "channel", length = 2,
-            effects = {
-                {type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
-                {trigger = {condition = "held", type = "holy", num = 1}, type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
-                {trigger = {condition = "held", type = "holy", num = 2}, type = "damage", effect = "single target damage", range = {min = 20, max = 30}},
-            }
-        },
-        meditate = {
-            name = "Meditate", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0},
-            tier = 2,
-            channel = "instant",
-            effects = {
-                {type = "cards", effect = "draw", num = 1, specific = "holy"},
-                {type = "buff", effect = "buff shield channels", num = 1.2}
-            }
+            name = "Arrows of Light", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
         },
     }
 
-    self.unholy_spells = {
-        brimstone_explosion = {
-            name = "Brimstone Explosion", type = "unholy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0},
-            tier = 1,
-            channel = "channel", length = 3,
-            effects = {
-                {type = "damage", effect = "aoe damage", dmg = 60},
-                {type = "card", effect = "swap"}
-            }
+    self.holy_card_spells = {
+
+    }
+
+    self.holy_buff_spells = {
+        meditate = {
+            name = "Meditate", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 2, effects = {}
         },
+    }
+
+    self.unholy_dmg_spells = {
+        brimstone_explosion = {
+            name = "Brimstone Explosion", type = "unholy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
+        },
+    }
+
+    self.unholy_card_spells = {
+
+    }
+
+    self.unholy_buff_spells = {
+
+    }
+
+    self.unholy_shield_spells = {
+
     }
 
 end
+

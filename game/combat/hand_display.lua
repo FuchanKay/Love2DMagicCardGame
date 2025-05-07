@@ -1,6 +1,4 @@
-local hand_display_module = {}
-
-local Colors = require "libraries.luacolors"
+HandDisplay = Object:extend()
 
 local RED_CARD_IMG = love.graphics.newImage("res/images/cards/red_rune_card_hd.png")
 local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_rune_card_hd.png")
@@ -9,13 +7,10 @@ local GREY_BLANK_CARD_IMG = love.graphics.newImage("res/images/cards/gray_blank_
 local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 30)
 local CARD_WIDTH = nil
 
-local Card = require "game_objects.cards.card"
-
 -- table that represents no card
-local EMPTY = Card.EMPTY
 local SPACING = nil
 
-hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, discard_pile, card_scale)
+function HandDisplay:init(x, y, width, size, draw_pile, discard_pile, card_scale)
     local hand = {
         x = x, y = y, width = width,
         size = size,
@@ -210,4 +205,3 @@ hand_display_module.newHandDisplay = function(x, y, width, size, draw_pile, disc
 
     return hand
 end
-return hand_display_module

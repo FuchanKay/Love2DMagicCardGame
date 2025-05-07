@@ -1,7 +1,5 @@
 local main_menu_module = {}
 
-local Settings = require "settings"
-local Button = require "game_objects.ui.button"
 local Colors = require "libraries.luacolors"
 
 -- if you want to do a private global variable like this,
@@ -26,7 +24,7 @@ local function addStartButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, Button.newButton(
+    table.insert(buttons, newButton(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -44,7 +42,7 @@ local function addLoadButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, Button.newButton(
+    table.insert(buttons, newButton(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -62,7 +60,7 @@ local function addSettingsButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, Button.newButton(
+    table.insert(buttons, newButton(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -80,7 +78,7 @@ local function addQuitButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, Button.newButton(
+    table.insert(buttons, newButton(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,

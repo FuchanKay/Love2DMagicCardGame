@@ -1,5 +1,5 @@
 local hemo_card_effects_module = {}
-local CardTypes = require "game_objects.cards.card_types"
+local CardTypes = require "game.cards.card_types"
 
 hemo_card_effects_module.setController = function(controller)
     hemo_card_effects_module.controller = controller

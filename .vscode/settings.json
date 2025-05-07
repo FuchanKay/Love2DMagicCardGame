@@ -4,7 +4,7 @@
         "bit",
         "unpack",
         "lenContext",
-        "len"
+        "len",
     ],
     "git.ignoreLimitWarning": true,
     "Lua.diagnostics.disable": [

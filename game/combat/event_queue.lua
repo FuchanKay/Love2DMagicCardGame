@@ -1,8 +1,8 @@
-local event_queue_module = {}
+EventQueue = Object:extend()
 
 local DELAY = 0.05
 
-event_queue_module.newEventQueue = function()
+function EventQueue:init()
     local queue = {pause = false, closed = false, t = 0}
     -- TODO: make event an config table with more properties such as whether event should be delayed or not
     queue.addEvent = function(event)
@@ -39,6 +39,3 @@ event_queue_module.newEventQueue = function()
 
     return queue
 end
-
-
-return event_queue_module

@@ -1,10 +1,5 @@
-local card_module = {EMPTY = {}}
-
-local Settings = require "settings"
-local Box = require "game_objects.ui.box"
-local CardTypes = require "game_objects.cards.card_types"
-local Colors = require "libraries.luacolors"
-
+EMPTY = {}
+Card = Object:extend()
 -- constants
 local CARD_LEVEL_MAX = 10
 local LEFT_CLICK = 1
@@ -34,7 +29,7 @@ local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.2
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}
 
-card_module.newCard = function(card_effect, scale, level)
+function Card:init(card_effect, scale, level)
     local card = {
         img = RED_CARD_HD_IMG,
         type = card_effect.type,
@@ -122,17 +117,15 @@ card_module.newCard = function(card_effect, scale, level)
 
 
         local rune_img = NOT_IMG
-        if card.type == CardTypes.arcane then
+        if card.type == "arcane" then
             rune_img = ARCANE_HD_IMG
-        elseif card.type == CardTypes.hemo then
+        elseif card.type == "hemo" then
             rune_img = HEMO_HD_IMG
-        elseif card.type == CardTypes.holy then
+        elseif card.type == "holy" then
             rune_img = HOLY_HD_IMG
-        elseif card.type == CardTypes.unholy then
+        elseif card.type == "unholy" then
             rune_img = UNHOLY_HD_IMG
-        elseif card.type == CardTypes.mana then
-            -- no mana img because idk if im going to add it
-        elseif card.type == CardTypes.item then
+        elseif card.type == "item" then
             -- no img for item but ill definitely add items
         end
 
@@ -164,5 +157,3 @@ card_module.newCard = function(card_effect, scale, level)
 
     return card
 end
-
-return card_module

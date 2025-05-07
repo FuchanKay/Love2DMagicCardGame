@@ -1,5 +1,5 @@
 local arcane_card_effects_module = {controller = nil}
-local CardTypes = require "game_objects.cards.card_types"
+local CardTypes = require "game.cards.card_types"
 
 arcane_card_effects_module.setController = function(controller)
     arcane_card_effects_module.controller = controller
