@@ -62,7 +62,7 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
             controller.enemy_screen.update()
         elseif controller.mode == "normal" then
             for i, button in ipairs(controller.spell_buttons) do
-                button.update()
+                button:update()
                 if button.hot then controller.description_box.text = controller.spells[i].description end
             end
             controller.hand.update()
@@ -83,10 +83,10 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
         controller.enemy_screen.draw()
         controller.resource_display.draw()
         for i, button in ipairs(controller.spell_buttons) do
-            button.draw()
+            button:draw()
         end
         controller.hand.draw()
-        controller.description_box.draw()
+        controller.description_box:draw()
     end
 
     controller.setMode = function(mode)

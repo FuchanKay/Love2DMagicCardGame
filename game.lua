@@ -299,7 +299,7 @@ channels:
 
     self.hemo_card_spells = {
         dash = {name = "Dash", type = "hemo", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}},
-        jump = {name = "Jump", type = "hemo", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}},
+         jump = {name = "Jump", type = "hemo", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}},
     }
 
     self.hemo_buff_spells = {
@@ -347,9 +347,9 @@ function Game:initProfile()
     HolyCardEffects = require "game.cards.holy_card_effects"
     UnholyCardEffects = require "game.cards.unholy_card_effects"
     -- TODO: implement seed stuff
-    local seed = os.time()
-    print(seed)
-    math.randomseed(seed)
+    self.seed = os.time()
+    print(self.seed)
+    math.randomseed(self.seed)
     self.deck = Deck()
     self.draw_pile = DrawPile()
     self.discard_pile = DiscardPile()

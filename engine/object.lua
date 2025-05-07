@@ -32,5 +32,6 @@ end
 
 function Object:__call(...)
   local obj = setmetatable({}, self)
+  -- slightly modified to return the object initiated instead of the metatable
   return obj:init(...)
 end
