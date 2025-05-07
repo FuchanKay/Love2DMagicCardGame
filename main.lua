@@ -22,7 +22,7 @@ require "game.combat.event_queue"
 require "game.combat.event"
 require "game.combat.hand_display"
 require "game.combat.resource_display"
-
+Game()
 
 love.window.setTitle(Settings.title);
 -- Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
@@ -38,8 +38,6 @@ Scenes = {
 current_scene = Scenes.main_menu
 
 function love.load()
-    Game()
-    G:initProfile()
     -- checks whether .funcion is not nil before calling
     if not current_scene.loaded and current_scene.load then current_scene.load() end
 end
@@ -75,6 +73,7 @@ end
 function ChangeScene(nextScene)
     current_scene = Scenes[nextScene]
     current_scene.load()
+    
 end
 
 function ReloadScene()

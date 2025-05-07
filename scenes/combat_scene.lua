@@ -4,7 +4,7 @@ CombatScene = Object:extend()
 function CombatScene:init()
     local scene = {}
     scene.load = function()
-
+        G:initProfile()
     end
 
     scene.update = function(dt)
