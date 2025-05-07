@@ -98,6 +98,7 @@ function Card:init(card_effect, scale, level)
     end
 
     card.draw = function()
+        love.graphics.push()
         if card.selected then card.scale = card.expanded_scale
         else card.scale = card.default_scale end
         local brightness = LIGHT_GREY
@@ -143,6 +144,7 @@ function Card:init(card_effect, scale, level)
         love.graphics.print(card.letter, FONT, letter_x, letter_y, 0, card.scale, card.scale)
         love.graphics.setColor(brightness)
         love.graphics.draw(rune_img, rune_x, rune_y, 0, rune_scale_x, rune_scale_y)
+        love.graphics.pop()
     end
 
     card.updateDescription = function()

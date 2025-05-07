@@ -20,7 +20,7 @@ function Box:init(x, y, width, height, box_color, text, font, text_color, center
         centered_y = centered_y or false,
     }
 
-    box.draw = function()
+    function box:draw()
         love.graphics.setColor(box.box_color)
         love.graphics.rectangle(
         "fill",
@@ -85,7 +85,7 @@ function Button:init(x, y, width, height, button_color, hot_color, text, font, t
         now = false,
         last = false
     }
-    button.update = function()
+    function button:update()
         -- button.last/now makes sure that button being pressed is called once
         button.last = button.now
 
@@ -102,7 +102,8 @@ function Button:init(x, y, width, height, button_color, hot_color, text, font, t
         end
     end
 
-    button.draw = function()
+    function button:draw()
+        love.graphics.push()
         button_color = button.default_color
         if button.hot then button_color = button.hot_color end
         love.graphics.setColor(button_color)
@@ -123,6 +124,7 @@ function Button:init(x, y, width, height, button_color, hot_color, text, font, t
         end
         love.graphics.setFont(button.font)
         love.graphics.print(button.text, button.x + text_offset_x, button.y + text_offset_y)
+        love.graphics.pop()
     end
     return button
 end

@@ -133,6 +133,7 @@ function HandDisplay:init(x, y, width, size, draw_pile, discard_pile, card_scale
     end
     -- draw as in drawing sprites, not drawing cards
     hand.draw = function()
+        love.graphics.push()
         love.graphics.setColor(Colors.white)
         for i = 1, hand.size do
             local card_x =  hand.x + (i - 1) * SPACING
@@ -159,6 +160,7 @@ function HandDisplay:init(x, y, width, size, draw_pile, discard_pile, card_scale
         love.graphics.setColor(Colors.white)
         love.graphics.print("Draw Pile: "..draw_pile_num, FONT, 30, 130)
         love.graphics.print("Discard Pile: "..discard_pile_num, FONT, 30, 230)
+        love.graphics.pop()
     end
 
     hand.deselectAll = function()

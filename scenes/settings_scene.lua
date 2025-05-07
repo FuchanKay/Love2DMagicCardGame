@@ -340,19 +340,19 @@ function SettingsScene:init()
     scene.update = function(dt)
         if not buttons then error "buttons is nil" end
         for i, button in ipairs(buttons) do
-            button.update()
+            button:update()
         end
     end
 
     scene.draw = function()
         if not buttons then error "buttons is nil" end
         for i, button in ipairs(buttons) do
-            button.update()
-            button.draw()
+            button:update()
+            button:draw()
         end
         if not boxes then error "boxes is nil" end
         for i, box in ipairs(boxes) do
-            box.draw()
+            box:draw()
         end
     end
     scene.keyboardpressed = function(k)

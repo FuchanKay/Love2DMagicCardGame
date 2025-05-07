@@ -55,6 +55,7 @@ function EnemyScreen:init(background_img, x, y, scale)
     end
 
     screen.draw = function()
+        love.graphics.push()
         love.graphics.draw(background_img, x, y, 0, scale, scale)
         local num_of_enemies = #screen
         for i, enemy in ipairs(screen) do
@@ -89,6 +90,7 @@ function EnemyScreen:init(background_img, x, y, scale)
         local text_x = screen.x + BACKGROUND_WIDTH / 2 - text_width / 2
         local text_y = screen.y + 40
         love.graphics.print(screen.text, text_x, text_y)
+        love.graphics.pop()
     end
 
     screen.aoeUpdateHp = function(num)

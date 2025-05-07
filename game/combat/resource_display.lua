@@ -61,6 +61,7 @@ function ResourceDisplay:init(x, y, scale, init_arcane, init_hemo, init_holy, in
     end
 
     resource_display.draw = function()
+        love.graphics.push()
         love.graphics.setColor(Colors.white)
         local font = resource_display.font
         local resource_scale = resource_display.scale
@@ -105,6 +106,7 @@ function ResourceDisplay:init(x, y, scale, init_arcane, init_hemo, init_holy, in
         else love.graphics.print(""..resource_display.unholy_num, font, text_x, text_y) end
         resource_x = resource_x + offset_x
         text_x = text_x + offset_x
+        love.graphics.pop()
     end
     return resource_display
 end

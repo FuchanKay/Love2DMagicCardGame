@@ -107,8 +107,8 @@ function MainMenu:init()
     scene.draw = function()
         if not buttons then error "buttons is nil" end
         for i, button in ipairs(buttons) do
-            button.update()
-            button.draw()
+            button:update()
+            button:draw()
         end
     end
     
