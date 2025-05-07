@@ -24,7 +24,7 @@ local RUNE_WIDTH = ARCANE_HD_IMG:getWidth() * RUNE_SCALE
 local RUNE_HEIGHT = ARCANE_HD_IMG:getHeight() * RUNE_SCALE
 
 -- card leter bigger than usual so its easier to see for now. will update visuals later
-local CARD_LETTER_FONT_FACTOR = 7
+local CARD_LETTER_FONT_FACTOR = 12
 local DEFAULT_SCALE = 1.0
 local EXPANDED_SCALE = 1.2
 local LIGHT_GREY = {0.9, 0.9, 0.9, 1.0}

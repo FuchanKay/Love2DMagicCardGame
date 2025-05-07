@@ -1,17 +1,12 @@
 local unholy_card_effects_module = {}
 
-unholy_card_effects_module.setController = function(controller)
-    unholy_card_effects_module.controller = controller
-end
-
 unholy_card_effects_module.A = {
     type = "unholy",
     letter = "A",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -26,9 +21,8 @@ unholy_card_effects_module.B = {
     letter = "B",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -43,9 +37,8 @@ unholy_card_effects_module.C = {
     letter = "C",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -60,9 +53,8 @@ unholy_card_effects_module.D = {
     letter = "D",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -77,9 +69,8 @@ unholy_card_effects_module.E = {
     letter = "E",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -94,9 +85,8 @@ unholy_card_effects_module.F = {
     letter = "F",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -111,9 +101,8 @@ unholy_card_effects_module.G = {
     letter = "G",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -128,9 +117,8 @@ unholy_card_effects_module.H = {
     letter = "H",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -145,9 +133,8 @@ unholy_card_effects_module.I = {
     letter = "I",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -162,9 +149,8 @@ unholy_card_effects_module.J = {
     letter = "J",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -179,9 +165,8 @@ unholy_card_effects_module.K = {
     letter = "K",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -196,9 +181,8 @@ unholy_card_effects_module.L = {
     letter = "L",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -213,9 +197,8 @@ unholy_card_effects_module.M = {
     letter = "M",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -230,9 +213,8 @@ unholy_card_effects_module.N = {
     letter = "N",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -247,9 +229,8 @@ unholy_card_effects_module.O = {
     letter = "O",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -264,9 +245,8 @@ unholy_card_effects_module.P = {
     letter = "P",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -281,9 +261,8 @@ unholy_card_effects_module.Q = {
     letter = "Q",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -298,9 +277,8 @@ unholy_card_effects_module.R = {
     letter = "R",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = true,
@@ -311,21 +289,19 @@ unholy_card_effects_module.R = {
 }
 unholy_card_effects_module.R.when_retained_description = "Gives +"..unholy_card_effects_module.R.retain_num.." unholy. Increased by 1 for every turn retained"
 unholy_card_effects_module.R.whenRetained = function(card)
-    if not unholy_card_effects_module.controller then error "controller is nil" end
-    local controller = unholy_card_effects_module.controller
+    if not unholy_card_effects_module.G.controller then error "G.controller is nil" end
     unholy_card_effects_module.R.retain_num = unholy_card_effects_module.R.retain_num + 1
     unholy_card_effects_module.R.when_retained_description = "Gives +"..unholy_card_effects_module.R.retain_num.." unholy. Increased by 1 for every turn retained"
     card.updateDescription()
-    controller.addResource("unholy", unholy_card_effects_module.R.retain_num)
+    G.controller.addResource("unholy", unholy_card_effects_module.R.retain_num)
 end
 unholy_card_effects_module.S = {
     type = "unholy",
     letter = "S",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -340,9 +316,8 @@ unholy_card_effects_module.T = {
     letter = "T",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -357,9 +332,8 @@ unholy_card_effects_module.U = {
     letter = "U",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -374,9 +348,8 @@ unholy_card_effects_module.V = {
     letter = "V",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -391,9 +364,8 @@ unholy_card_effects_module.W = {
     letter = "W",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -408,9 +380,8 @@ unholy_card_effects_module.X = {
     letter = "X",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -425,9 +396,8 @@ unholy_card_effects_module.Y = {
     letter = "Y",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,
@@ -442,9 +412,8 @@ unholy_card_effects_module.Z = {
     letter = "Z",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not unholy_card_effects_module.controller then error "controller is nil" end
-        local controller = unholy_card_effects_module.controller
-        controller.addResource("unholy", 2)
+
+        G.controller.addResource("unholy", 2)
     end,
     when_drawn_description = "+2 unholy",
     retain = false,

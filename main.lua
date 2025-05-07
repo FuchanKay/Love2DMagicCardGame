@@ -4,13 +4,25 @@ local current_scene = nil
 
 Colors = require "libraries.luacolors"
 require "engine.object"
+require "settings"
 require "game"
 require "globals"
 require "game.ui"
-require "settings"
 require "scenes.main_menu"
 require "scenes.settings_scene"
 require "scenes.combat_scene"
+require "game.combat.card"
+require "game.combat.combat_controller"
+require "game.combat.deck"
+require "game.combat.discard_pile"
+require "game.combat.draw_pile"
+require "game.combat.enemy_screen"
+require "game.combat.enemy"
+require "game.combat.event_queue"
+require "game.combat.event"
+require "game.combat.hand_display"
+require "game.combat.resource_display"
+
 
 love.window.setTitle(Settings.title);
 -- Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
@@ -26,6 +38,8 @@ Scenes = {
 current_scene = Scenes.main_menu
 
 function love.load()
+    Game()
+    G:initProfile()
     -- checks whether .funcion is not nil before calling
     if not current_scene.loaded and current_scene.load then current_scene.load() end
 end

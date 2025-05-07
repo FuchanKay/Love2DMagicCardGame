@@ -1,7 +1,4 @@
-local arcane_card_effects_module = {controller = nil}
-arcane_card_effects_module.setController = function(controller)
-    arcane_card_effects_module.controller = controller
-end
+local arcane_card_effects_module = {}
 -- general letter ideas
 -- the abilities differ from type to type but same letters have similar effects
 -- except for item??? not sure yet
@@ -31,16 +28,14 @@ end
 -- Y:
 -- Z:
 
-
--- A
 arcane_card_effects_module.A = {
     type = "arcane",
     letter = "A",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+
+
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -55,9 +50,8 @@ arcane_card_effects_module.B = {
     letter = "B",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -72,9 +66,7 @@ arcane_card_effects_module.C = {
     letter = "C",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -89,9 +81,7 @@ arcane_card_effects_module.D = {
     letter = "D",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -106,9 +96,7 @@ arcane_card_effects_module.E = {
     letter = "E",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -123,9 +111,7 @@ arcane_card_effects_module.F = {
     letter = "F",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -140,9 +126,7 @@ arcane_card_effects_module.G = {
     letter = "G",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -157,9 +141,7 @@ arcane_card_effects_module.H = {
     letter = "H",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -174,9 +156,7 @@ arcane_card_effects_module.I = {
     letter = "I",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -191,9 +171,7 @@ arcane_card_effects_module.J = {
     letter = "J",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -208,9 +186,7 @@ arcane_card_effects_module.K = {
     letter = "K",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -225,9 +201,7 @@ arcane_card_effects_module.L = {
     letter = "L",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -242,9 +216,7 @@ arcane_card_effects_module.M = {
     letter = "M",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -259,9 +231,7 @@ arcane_card_effects_module.N = {
     letter = "N",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -276,9 +246,7 @@ arcane_card_effects_module.O = {
     letter = "O",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -293,9 +261,7 @@ arcane_card_effects_module.P = {
     letter = "P",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -310,9 +276,7 @@ arcane_card_effects_module.Q = {
     letter = "Q",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -327,9 +291,7 @@ arcane_card_effects_module.R = {
     letter = "R",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = true,
@@ -340,21 +302,18 @@ arcane_card_effects_module.R = {
 }
 arcane_card_effects_module.R.when_retained_description = "Gives +"..arcane_card_effects_module.R.retain_num.." arcane. Increased by 1 for every turn retained"
 arcane_card_effects_module.R.whenRetained = function(card)
-    if not arcane_card_effects_module.controller then error "controller is nil" end
-    local controller = arcane_card_effects_module.controller
+    if not arcane_card_effects_module.G.controller then error "G.controller is nil" end
     arcane_card_effects_module.R.retain_num = arcane_card_effects_module.R.retain_num + 1
     arcane_card_effects_module.R.when_retained_description = "Gives +"..arcane_card_effects_module.R.retain_num.." arcane. Increased by 1 for every turn retained"
     card.updateDescription()
-    controller.addResource("arcane", arcane_card_effects_module.R.retain_num)
+    G.controller.addResource("arcane", arcane_card_effects_module.R.retain_num)
 end
 arcane_card_effects_module.S = {
     type = "arcane",
     letter = "S",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -369,9 +328,7 @@ arcane_card_effects_module.T = {
     letter = "T",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -386,10 +343,8 @@ arcane_card_effects_module.U = {
     letter = "U",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
-        controller.aoeUpdateHp(-3)
+        G.controller.addResource("arcane", 2)
+        G.controller.aoeUpdateHp(-3)
     end,
     when_drawn_description = "+2 arcane, deal 3 dmg to all enemies",
     retain = false,
@@ -404,9 +359,7 @@ arcane_card_effects_module.V = {
     letter = "V",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -421,9 +374,7 @@ arcane_card_effects_module.W = {
     letter = "W",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -438,9 +389,7 @@ arcane_card_effects_module.X = {
     letter = "X",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -455,9 +404,7 @@ arcane_card_effects_module.Y = {
     letter = "Y",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,
@@ -472,9 +419,7 @@ arcane_card_effects_module.Z = {
     letter = "Z",
     when_drawn_num = {},
     whenDrawn = function(card)
-        if not arcane_card_effects_module.controller then error "controller is nil" end
-        local controller = arcane_card_effects_module.controller
-        controller.addResource("arcane", 2)
+        G.controller.addResource("arcane", 2)
     end,
     when_drawn_description = "+2 arcane",
     retain = false,

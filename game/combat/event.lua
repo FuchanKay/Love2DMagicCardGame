@@ -15,3 +15,15 @@ function EventManager:init()
         combat = {}
     }
 end
+
+function EventManager:addEvent(event, queue)
+
+end
+
+function EventManager:clearQueue(queue)
+
+end
+
+function EventManager:update()
+
+end

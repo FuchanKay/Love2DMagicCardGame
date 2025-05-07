@@ -1,9 +1,29 @@
 Game = Object:extend()
 
+
+
+-- constants
+CARD_SIZE_SCALE = 3 / 17
+local HAND_WIDTH = 768
+local HAND_SIZE = 8
+
+local COMBAT_BACKGROUND_IMG = love.graphics.newImage("res/images/backgrounds/combat_background_1.png")
+local BACKGROUND_IMG_X = 720
+local BACKGROUND_IMG_Y = 20
+local BACKGROUND_IMG_SCALE = 2.25
+local BACKGROUND_IMG_WIDTH = COMBAT_BACKGROUND_IMG:getWidth() * BACKGROUND_IMG_SCALE
+local BACKGROUND_IMG_HEIGHT = COMBAT_BACKGROUND_IMG:getHeight() * BACKGROUND_IMG_SCALE
+
+local BLACK_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/skeleton_enemy_black.png")
+local WHITE_SKELETON_ENEMY_IMG = love.graphics.newImage("res/images/enemies/skeleton_enemy_white.png")
+local SKELETON_SCALE = 0.2
+local SKELETON_WIDTH = BLACK_SKELETON_ENEMY_IMG:getWidth() * SKELETON_SCALE
+local SKELETON_HEIGHT = BLACK_SKELETON_ENEMY_IMG:getHeight() * SKELETON_SCALE
+
 function Game:init()
     G = self
 
-    G:setGlobals()
+    -- G:setGlobals()
 end
 
 function Game:initItemPrototypes()
@@ -256,18 +276,9 @@ channels:
 ]]
 
     self.arcane_dmg_spells = {
-        -- fireball is an arcane instant cast aoe damage spell that first force discards two cards. for every arcane card discarded by this card, the damage will be increased by ten
-        fireball = {
-            name = "Fireball", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
-        },
-        -- lightning arc is an arcane instant cast single target damage spell where the damage increases for every arcane card held in hand. max of 3 cards held  
-        lightning_arc = {
-            name = "Lightning Arc", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 1, y = 0} , tier = 1, effects = {}
-        },
-        -- mega laser is an arcane channel cast single target damage spell where the card does extra damage for every arcane card held in hand when the spell takes effect (not when it is initially cast)
-        mega_laser = {
-            name = "Mega Laser", type = "arcane", set = "spell", unlocked = true, discovered = false, order = 3, pos = {x = 2, y = 0}, tier = 3, effects = {}
-        },
+        fireball = {name = "Fireball", type = "arcane", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
+        lightning_arc = {name = "Lightning Arc", type = "arcane", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 1, y = 0} , tier = 1, effects = {}},
+        mega_laser = {name = "Mega Laser", type = "arcane", set = "spell", channel = nil, discovered = false, order = 3, pos = {x = 2, y = 0}, tier = 3, effects = {}},
     }
 
     self.arcane_card_spells = {
@@ -283,28 +294,17 @@ channels:
     }
 
     self.hemo_dmg_spells = {
-        -- blood spikes is a hemo +1 cast single target damage spell
-        blood_spikes = {
-            name = "Blood Spikes", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {},
-        },
+        blood_spikes = {name = "Blood Spikes", type = "hemo", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {},},
     }
 
     self.hemo_card_spells = {
-        -- dash is a hemo instant cast spell that force discards 2 cards then draws 1 card
-        dash = {
-            name = "Dash", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}
-        },
-        -- jump is a hemo instant cast spell that force draws 2 cards then discards 1 card 
-        jump = {
-            name = "Jump", type = "hemo", set = "spell", unlocked = true, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}
-        },
+        dash = {name = "Dash", type = "hemo", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}},
+        jump = {name = "Jump", type = "hemo", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}},
     }
 
     self.hemo_buff_spells = {
 
-        harden_blood = {
-            name = "Harden Blood", type = "hemo", set = "spell", unlocked = true, discovered = false,  order = 3, pos = {x = 3, y = 0}, tier = 1, effects = {}
-        },
+        harden_blood = {name = "Harden Blood", type = "hemo", set = "spell", channel = nil, discovered = false,  order = 3, pos = {x = 3, y = 0}, tier = 1, effects = {}},
     }
 
     self.hemo_shield_spells = {
@@ -312,10 +312,7 @@ channels:
     }
 
     self.holy_dmg_spells = {
-        -- arrows of light is a tier 1 holy channel cast spell that does 20 to 30 damage. Repeats 0 - 2 times for every holy card held in hand
-        arrows_of_light = {
-            name = "Arrows of Light", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
-        },
+        arrows_of_light = {name = "Arrows of Light", type = "holy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
     }
 
     self.holy_card_spells = {
@@ -323,15 +320,11 @@ channels:
     }
 
     self.holy_buff_spells = {
-        meditate = {
-            name = "Meditate", type = "holy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 2, effects = {}
-        },
+        meditate = {name = "Meditate", type = "holy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 2, effects = {}},
     }
 
     self.unholy_dmg_spells = {
-        brimstone_explosion = {
-            name = "Brimstone Explosion", type = "unholy", set = "spell", unlocked = true, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}
-        },
+        brimstone_explosion = {name = "Brimstone Explosion", type = "unholy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
     }
 
     self.unholy_card_spells = {
@@ -345,6 +338,58 @@ channels:
     self.unholy_shield_spells = {
 
     }
-
 end
 
+function Game:initProfile()
+
+    ArcaneCardEffects = require "game.cards.card_effects.arcane_card_effects"
+    HemoCardEffects = require "game.cards.card_effects.hemo_card_effects"
+    HolyCardEffects = require "game.cards.card_effects.holy_card_effects"
+    UnholyCardEffects = require "game.cards.card_effects.unholy_card_effects"
+    -- TODO: implement seed stuff
+    local seed = os.time()
+    print(seed)
+    math.randomseed(seed)
+    G.deck = Deck()
+    G.draw_pile = DrawPile()
+    G.discard_pile = DiscardPile()
+    G.deck.addCard(Card(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HemoCardEffects.B, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HolyCardEffects.C, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(UnholyCardEffects.D, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HemoCardEffects.F, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HolyCardEffects.G, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(UnholyCardEffects.H, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HemoCardEffects.B, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HolyCardEffects.C, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(UnholyCardEffects.D, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HemoCardEffects.F, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(HolyCardEffects.G, CARD_SIZE_SCALE))
+    G.deck.addCard(Card(UnholyCardEffects.H, CARD_SIZE_SCALE))
+    G.draw_pile.addDeck(G.deck)
+
+    local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
+    local hand_y = 520
+    G.hand = HandDisplay(hand_x, hand_y, HAND_WIDTH, HAND_SIZE, G.draw_pile, G.discard_pile, CARD_SIZE_SCALE)
+
+    local resource_display_x = 30
+    local resource_display_y = 30
+    G.resource_display = ResourceDisplay(resource_display_x, resource_display_y, 1)
+
+    G.enemy_screen = EnemyScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
+    G.enemy_screen.addEnemy(Enemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    G.enemy_screen.addEnemy(Enemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+
+    G.spells = {}
+    -- table.insert(spells, Spells.fireball)
+    -- table.insert(spells, Spells.arrows_of_light)
+
+    G.controller = CombatController(G.deck, G.hand, G.draw_pile, G.discard_pile, G.enemy_screen, G.resource_display, G.spells)
+end
+
+function Game:startCombat(enemies)
+
+end
