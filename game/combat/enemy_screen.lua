@@ -9,7 +9,7 @@ local DIM_COLOR = {0.3, 0.3, 0.3, 0.5}
 local SEELCT_IMG = love.graphics.newImage("res/images/enemies/enemy_selection.png")
 local SELECT_WIDTH, SELECT_HEIGHT = SEELCT_IMG:getWidth(), SEELCT_IMG:getHeight()
 
-function EnemyScreen:newScreen(background_img, x, y, scale)
+function EnemyScreen:init(background_img, x, y, scale)
     local screen = {
         background_img = background_img,
         x = x, y = y, scale = scale,

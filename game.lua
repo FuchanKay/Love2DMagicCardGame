@@ -18,7 +18,7 @@ function Game:initItemPrototypes()
         g = {name = "G", type = "arcane", set = "card", level = 1, order = 7, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         h = {name = "H", type = "arcane", set = "card", level = 1, order = 8, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         i = {name = "I", type = "arcane", set = "card", level = 1, order = 9, config = {drawn = true, retained = false, discarded = false, swapped = false}},
-        j = {name = "J", type = "arcane", set = "card", level = 1, order = 10, config = {drawn = true, retained = false,     discarded = false, swapped = false}},
+        j = {name = "J", type = "arcane", set = "card", level = 1, order = 10, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         k = {name = "K", type = "arcane", set = "card", level = 1, order = 11, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         l = {name = "L", type = "arcane", set = "card", level = 1, order = 12, config = {drawn = true, retained = false, discarded = false, swapped = false}},
         m = {name = "M", type = "arcane", set = "card", level = 1, order = 13, config = {drawn = true, retained = false, discarded = false, swapped = false}},

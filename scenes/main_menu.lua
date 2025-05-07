@@ -1,7 +1,4 @@
-local main_menu_module = {}
-
-local Colors = require "libraries.luacolors"
-
+MainMenu = Object:extend()
 -- if you want to do a private global variable like this,
 -- make sure to set it to nil then assign a value in load()
 local buttons = nil
@@ -24,7 +21,7 @@ local function addStartButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, newButton(
+    table.insert(buttons, Button(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -32,7 +29,7 @@ local function addStartButton(off_x, off_y)
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        ChangeScene("combat_scene")
+        ChangeScene("combat")
     end
     ))
 end
@@ -42,7 +39,7 @@ local function addLoadButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, newButton(
+    table.insert(buttons, Button(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -60,7 +57,7 @@ local function addSettingsButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, newButton(
+    table.insert(buttons, Button(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -68,7 +65,7 @@ local function addSettingsButton(off_x, off_y)
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        ChangeScene("settings_scene")
+        ChangeScene("settings")
     end
     ))
 end
@@ -78,7 +75,7 @@ local function addQuitButton(off_x, off_y)
     local highest_main_button_y = WINDOW_HEIGHT / 5
     local button_x = (WINDOW_WIDTH - main_buttons_width) * 0.5 + (off_x or 0)
     local button_y = highest_main_button_y + (off_y or 0)
-    table.insert(buttons, newButton(
+    table.insert(buttons, Button(
     button_x, button_y,
     main_buttons_width, MAIN_BUTTONS_HEIGHT,
     nil, nil,
@@ -90,44 +87,46 @@ local function addQuitButton(off_x, off_y)
     end
     ))
 end
-
-main_menu_module.load = function()
-    love.graphics.setBackgroundColor(Colors.black)
-    love.graphics.setColor(Colors.white)
-    buttons = {}
-    -- initializes font
-    addStartButton(0, 0)
-    addLoadButton(0, MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING)
-    addSettingsButton(0, 2 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
-    addQuitButton(0, 3 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
-end
-
-main_menu_module.update = function(dt)
-
-end
-
-main_menu_module.draw = function()
-    if not buttons then error "buttons is nil" end
-    for i, button in ipairs(buttons) do
-        button.update()
-        button.draw()
+function MainMenu:init()
+    local scene = {}
+    scene.load = function()
+        love.graphics.setBackgroundColor(Colors.black)
+        love.graphics.setColor(Colors.white)
+        buttons = {}
+        -- initializes font
+        addStartButton(0, 0)
+        addLoadButton(0, MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING)
+        addSettingsButton(0, 2 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
+        addQuitButton(0, 3 * (MAIN_BUTTONS_HEIGHT + MAIN_BUTTONS_SPACING))
     end
+    
+    scene.update = function(dt)
+    
+    end
+    
+    scene.draw = function()
+        if not buttons then error "buttons is nil" end
+        for i, button in ipairs(buttons) do
+            button.update()
+            button.draw()
+        end
+    end
+    
+    scene.keyboardpressed = function(k)
+        -- if k == "f" then love.filesystem.write("save.txt", "f") end
+    end
+    
+    scene.keyboardreleased = function(k)
+    
+    end
+    
+    scene.mousepressed = function(x, y, button)
+    
+    end
+    
+    scene.mousereleased = function(x, y, button)
+    
+    end
+    
+    return scene
 end
-
-main_menu_module.keyboardpressed = function(k)
-    -- if k == "f" then love.filesystem.write("save.txt", "f") end
-end
-
-main_menu_module.keyboardreleased = function(k)
-
-end
-
-main_menu_module.mousepressed = function(x, y, button)
-
-end
-
-main_menu_module.mousereleased = function(x, y, button)
-
-end
-
-return main_menu_module

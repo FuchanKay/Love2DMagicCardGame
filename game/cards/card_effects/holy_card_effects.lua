@@ -1,18 +1,17 @@
 local holy_card_effects_module = {}
-local CardTypes = require "game.cards.card_types"
 
 holy_card_effects_module.setController = function(controller)
     holy_card_effects_module.controller = controller
 end
 
 holy_card_effects_module.A = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "A",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -23,13 +22,13 @@ holy_card_effects_module.A = {
     when_discarded_description = ""
 }
 holy_card_effects_module.B = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "B",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -40,13 +39,13 @@ holy_card_effects_module.B = {
     when_discarded_description = ""
 }
 holy_card_effects_module.C = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "C",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -57,13 +56,13 @@ holy_card_effects_module.C = {
     when_discarded_description = ""
 }
 holy_card_effects_module.D = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "D",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -74,13 +73,13 @@ holy_card_effects_module.D = {
     when_discarded_description = ""
 }
 holy_card_effects_module.E = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "E",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -91,13 +90,13 @@ holy_card_effects_module.E = {
     when_discarded_description = ""
 }
 holy_card_effects_module.F = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "F",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -108,13 +107,13 @@ holy_card_effects_module.F = {
     when_discarded_description = ""
 }
 holy_card_effects_module.G = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "G",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -125,13 +124,13 @@ holy_card_effects_module.G = {
     when_discarded_description = ""
 }
 holy_card_effects_module.H = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "H",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -142,13 +141,13 @@ holy_card_effects_module.H = {
     when_discarded_description = ""
 }
 holy_card_effects_module.I = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "I",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -159,13 +158,13 @@ holy_card_effects_module.I = {
     when_discarded_description = ""
 }
 holy_card_effects_module.J = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "J",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -176,13 +175,13 @@ holy_card_effects_module.J = {
     when_discarded_description = ""
 }
 holy_card_effects_module.K = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "K",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -193,13 +192,13 @@ holy_card_effects_module.K = {
     when_discarded_description = ""
 }
 holy_card_effects_module.L = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "L",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -210,13 +209,13 @@ holy_card_effects_module.L = {
     when_discarded_description = ""
 }
 holy_card_effects_module.M = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "M",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -227,13 +226,13 @@ holy_card_effects_module.M = {
     when_discarded_description = ""
 }
 holy_card_effects_module.N = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "N",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -244,13 +243,13 @@ holy_card_effects_module.N = {
     when_discarded_description = ""
 }
 holy_card_effects_module.O = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "O",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -261,13 +260,13 @@ holy_card_effects_module.O = {
     when_discarded_description = ""
 }
 holy_card_effects_module.P = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "P",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -278,13 +277,13 @@ holy_card_effects_module.P = {
     when_discarded_description = ""
 }
 holy_card_effects_module.Q = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "Q",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -296,13 +295,13 @@ holy_card_effects_module.Q = {
 }
 
 holy_card_effects_module.R = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "R",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = true,
@@ -318,17 +317,17 @@ holy_card_effects_module.R.whenRetained = function(card)
     holy_card_effects_module.R.retain_num = holy_card_effects_module.R.retain_num + 1
     holy_card_effects_module.R.when_retained_description = "Gives +"..holy_card_effects_module.R.retain_num.." holy. Increased by 1 for every turn retained"
     card.updateDescription()
-    controller.addResource(CardTypes.holy, holy_card_effects_module.R.retain_num)
+    controller.addResource("holy", holy_card_effects_module.R.retain_num)
 end
 
 holy_card_effects_module.S = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "S",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -339,13 +338,13 @@ holy_card_effects_module.S = {
     when_discarded_description = ""
 }
 holy_card_effects_module.T = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "T",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -356,13 +355,13 @@ holy_card_effects_module.T = {
     when_discarded_description = ""
 }
 holy_card_effects_module.U = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "U",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -373,13 +372,13 @@ holy_card_effects_module.U = {
     when_discarded_description = ""
 }
 holy_card_effects_module.V = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "V",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -390,13 +389,13 @@ holy_card_effects_module.V = {
     when_discarded_description = ""
 }
 holy_card_effects_module.W = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "W",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -407,13 +406,13 @@ holy_card_effects_module.W = {
     when_discarded_description = ""
 }
 holy_card_effects_module.X = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "X",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -424,13 +423,13 @@ holy_card_effects_module.X = {
     when_discarded_description = ""
 }
 holy_card_effects_module.Y = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "Y",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,
@@ -441,13 +440,13 @@ holy_card_effects_module.Y = {
     when_discarded_description = ""
 }
 holy_card_effects_module.Z = {
-    type = CardTypes.holy,
+    type = "holy",
     letter = "Z",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not holy_card_effects_module.controller then error "controller is nil" end
         local controller = holy_card_effects_module.controller
-        controller.addResource(CardTypes.holy, 2)
+        controller.addResource("holy", 2)
     end,
     when_drawn_description = "+2 holy",
     retain = false,

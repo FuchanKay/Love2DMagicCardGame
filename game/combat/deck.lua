@@ -1,9 +1,12 @@
 Deck = Object:extend()
 
-function Deck:newDeck()
+
+function Deck:init()
     local deck = {}
+    deck.name = "deck"
+
     deck.addCard = function(card)
-        card.ind = 1     
+        card.ind = 1
         table.insert(deck, card)
     end
     deck.removeCard = function(card)

@@ -8,17 +8,22 @@ require "game"
 require "globals"
 require "game.ui"
 require "settings"
-
-print(Settings.title)
+require "scenes.main_menu"
+require "scenes.settings_scene"
+require "scenes.combat_scene"
 
 love.window.setTitle(Settings.title);
 -- Settings.window_dimensions[1], Settings.window_dimensions[2] = love.window.getDesktopDimensions()
 love.window.setMode(Settings.window_dimensions[1], Settings.window_dimensions[2])
 love.window.setFullscreen(Settings.fullscreen)
 
-
+Scenes = {
+    main_menu = MainMenu(),
+    settings = SettingsScene(),
+    combat = CombatScene(),
+}
 -- adds scenes from /scenes
-current_scene = require "scenes.main_menu"
+current_scene = Scenes.main_menu
 
 function love.load()
     -- checks whether .funcion is not nil before calling
@@ -54,15 +59,10 @@ function love.mousereleased(x, y, button)
 end
 
 function ChangeScene(nextScene)
-    current_scene = require("scenes/"..nextScene)
+    current_scene = Scenes[nextScene]
     current_scene.load()
 end
 
 function ReloadScene()
-    current_scene.load()
-end
-
-function CombatScene(enemy_table)
-    current_scene = require("scenes/combat_scene")
     current_scene.load()
 end

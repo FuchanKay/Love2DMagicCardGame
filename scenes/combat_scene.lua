@@ -1,15 +1,17 @@
 -- TODO: add loading scene and be able to construct this
-local combat_scene_module = {}
+CombatScene = Object:extend()
 
-require "game.combat.deck"
-require "game.combat.draw_pile"
-require "game.combat.discard_pile"
 require "game.combat.card"
-require "game.combat.hand_display"
-require "game.combat.resource_display"
+require "game.combat.combat_controller"
+require "game.combat.deck"
+require "game.combat.discard_pile"
+require "game.combat.draw_pile"
 require "game.combat.enemy_screen"
 require "game.combat.enemy"
-require "game.combat.combat_controller"
+require "game.combat.event_queue"
+require "game.combat.event"
+require "game.combat.hand_display"
+require "game.combat.resource_display"
 
 local ArcaneCardEffects = require "game.cards.card_effects.arcane_card_effects"
 local HemoCardEffects = require "game.cards.card_effects.hemo_card_effects"
@@ -44,90 +46,91 @@ local SKELETON_SCALE = 0.2
 local SKELETON_WIDTH = BLACK_SKELETON_ENEMY_IMG:getWidth() * SKELETON_SCALE
 local SKELETON_HEIGHT = BLACK_SKELETON_ENEMY_IMG:getHeight() * SKELETON_SCALE
 
-combat_scene_module.load = function()
-    -- TODO: implement seed stuff
-    local seed = os.time()
-    print(seed)
-    math.randomseed(seed)
-    deck = newDeck()
-    draw_pile = newDrawPile()
-    discard_pile = newDiscardPile()
-    deck.addCard(newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
-    deck.addCard(newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
-    deck.addCard(newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
-    deck.addCard(newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
-    deck.addCard(newCard(ArcaneCardEffects.A, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HemoCardEffects.B, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HolyCardEffects.C, CARD_SIZE_SCALE))
-    deck.addCard(newCard(UnholyCardEffects.D, CARD_SIZE_SCALE))
-    deck.addCard(newCard(ArcaneCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HemoCardEffects.F, CARD_SIZE_SCALE))
-    deck.addCard(newCard(HolyCardEffects.G, CARD_SIZE_SCALE))
-    deck.addCard(newCard(UnholyCardEffects.H, CARD_SIZE_SCALE))
-    draw_pile.addDeck(deck)
+function CombatScene:init()
+    local scene = {}
+    scene.load = function()
+                -- TODO: implement seed stuff
+        local seed = os.time()
+        print(seed)
+        math.randomseed(seed)
+        deck = Deck()
+        draw_pile = DrawPile()
+        discard_pile = DiscardPile()
+        deck.addCard(Card(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+        deck.addCard(Card(HemoCardEffects.B, CARD_SIZE_SCALE))
+        deck.addCard(Card(HolyCardEffects.C, CARD_SIZE_SCALE))
+        deck.addCard(Card(UnholyCardEffects.D, CARD_SIZE_SCALE))
+        deck.addCard(Card(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+        deck.addCard(Card(HemoCardEffects.F, CARD_SIZE_SCALE))
+        deck.addCard(Card(HolyCardEffects.G, CARD_SIZE_SCALE))
+        deck.addCard(Card(UnholyCardEffects.H, CARD_SIZE_SCALE))
+        deck.addCard(Card(ArcaneCardEffects.A, CARD_SIZE_SCALE))
+        deck.addCard(Card(HemoCardEffects.B, CARD_SIZE_SCALE))
+        deck.addCard(Card(HolyCardEffects.C, CARD_SIZE_SCALE))
+        deck.addCard(Card(UnholyCardEffects.D, CARD_SIZE_SCALE))
+        deck.addCard(Card(ArcaneCardEffects.F, CARD_SIZE_SCALE))
+        deck.addCard(Card(HemoCardEffects.F, CARD_SIZE_SCALE))
+        deck.addCard(Card(HolyCardEffects.G, CARD_SIZE_SCALE))
+        deck.addCard(Card(UnholyCardEffects.H, CARD_SIZE_SCALE))
+        draw_pile.addDeck(deck)
 
-    local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
-    local hand_y = 520
-    hand = newHandDisplay(hand_x, hand_y, HAND_WIDTH, HAND_SIZE, draw_pile, discard_pile, CARD_SIZE_SCALE)
+        local hand_x = Settings.window_dimensions[1] - 50 - HAND_WIDTH
+        local hand_y = 520
+        hand = HandDisplay(hand_x, hand_y, HAND_WIDTH, HAND_SIZE, draw_pile, discard_pile, CARD_SIZE_SCALE)
 
-    local resource_display_x = 30
-    local resource_display_y = 30
-    resource_display = newResourceDisplay(resource_display_x, resource_display_y, 1)
+        local resource_display_x = 30
+        local resource_display_y = 30
+        resource_display = ResourceDisplay(resource_display_x, resource_display_y, 1)
 
-    enemy_screen = newScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
-    enemy_screen.addEnemy(Enemy.newEnemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
-    enemy_screen.addEnemy(Enemy.newEnemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+        enemy_screen = EnemyScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
+        enemy_screen.addEnemy(Enemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+        enemy_screen.addEnemy(Enemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
 
-    spells = {}
-    table.insert(spells, Spells.fireball)
-    table.insert(spells, Spells.arrows_of_light)
+        spells = {}
+        -- table.insert(spells, Spells.fireball)
+        -- table.insert(spells, Spells.arrows_of_light)
 
-    controller = Controller.newController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells)
-    Spells.controller = controller
-    -- dont really know how to pass controller to card effects without doing this
-    ArcaneCardEffects.controller = controller
-    HemoCardEffects.controller = controller
-    HolyCardEffects.controller = controller
-    UnholyCardEffects.controller = controller
+        controller = CombatController(deck, hand, draw_pile, discard_pile, enemy_screen, resource_display, spells)
+        -- dont really know how to pass controller to card effects without doing this
+        ArcaneCardEffects.controller = controller
+        HemoCardEffects.controller = controller
+        HolyCardEffects.controller = controller
+        UnholyCardEffects.controller = controller
+    end
 
+    scene.update = function(dt)
+        if not controller then error "controller is nil" end
+        controller.update(dt)
+    end
+    
+    scene.draw = function()
+        love.graphics.setBackgroundColor(0.4, 0.4, 0.5)
+        if not controller then error "controller is nil" end
+        controller.draw()
+    end
+    
+    scene.keyboardpressed = function(k)
+        if k == "m" then ChangeScene("main_menu") end
+    end
+    
+    scene.keyboardreleased = function(k)
+        if not resource_display then error "resource display is nil" end
+        if not controller then error "controller is nil" end
+        if not draw_pile then error "draw pile is nil" end
+        if not enemy_screen then error "enemy screen is nil" end
+        if k == "f" then controller.drawCard() end
+        if k == "g" then controller.discardEntireHand() end
+        -- if k == "h" then enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {})) end
+        if k == "q" then draw_pile.addCard(Card(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
+    end
+    
+    scene.mousepressed = function(x, y, button)
+    
+    end
+    
+    scene.mousereleased = function(x, y, button)
+    
+    end
+
+    return scene
 end
-
-combat_scene_module.update = function(dt)
-    if not controller then error "controller is nil" end
-    controller.update(dt)
-end
-
-combat_scene_module.draw = function()
-    love.graphics.setBackgroundColor(0.4, 0.4, 0.5)
-    if not controller then error "controller is nil" end
-    controller.draw()
-end
-
-combat_scene_module.keyboardpressed = function(k)
-    if k == "m" then ChangeScene("main_menu") end
-end
-
-combat_scene_module.keyboardreleased = function(k)
-    if not resource_display then error "resource display is nil" end
-    if not controller then error "controller is nil" end
-    if not draw_pile then error "draw pile is nil" end
-    if not enemy_screen then error "enemy screen is nil" end
-    if k == "f" then controller.drawCard() end
-    if k == "g" then controller.discardEntireHand() end
-    -- if k == "h" then enemy_screen.addEnemy(Enemy.newEnemy("skelly", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {})) end
-    if k == "q" then draw_pile.addCard(newCard(HolyCardEffects.Z, CARD_SIZE_SCALE)) end
-end
-
-combat_scene_module.mousepressed = function(x, y, button)
-
-end
-
-combat_scene_module.mousereleased = function(x, y, button)
-
-end
-
-return combat_scene_module

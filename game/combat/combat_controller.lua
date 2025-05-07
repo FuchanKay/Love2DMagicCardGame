@@ -1,6 +1,4 @@
 CombatController = Object:extend()
-local EventQueue = require "game.combat.event_queue"
-
 -- constants
 local DESCRIPTION_BOX_WIDTH = Settings.window_dimensions[1] / 2
 local DESCRIPTION_BOX_HEIGHT = 160
@@ -25,12 +23,12 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
     local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 
     for i, spell in ipairs(controller.spells) do
-        local spell_button = newButton(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        local spell_button = Button:init(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
         spell_button.spell = spell
         table.insert(controller.spell_buttons, spell_button)
     end
     controller.description = ""
-    controller.description_box = newBox(
+    controller.description_box = Box:init(
         DESCRIPTION_BOX_X, DESCRIPTION_BOX_Y,
         DESCRIPTION_BOX_WIDTH, DESCRIPTION_BOX_HEIGHT,
         DESCRIPTION_BOX_COLOR, controller.description,
@@ -38,7 +36,7 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
         false, false)
     controller.hand.description_box = controller.description_box
     controller.enemy_screen.description_box = controller.description_box
-    controller.event_queue = EventQueue.newEventQueue()
+    controller.event_queue = EventQueue()
 
     controller.update = function(dt)
         controller.event_queue.update(dt)

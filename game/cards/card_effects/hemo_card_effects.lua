@@ -1,18 +1,17 @@
 local hemo_card_effects_module = {}
-local CardTypes = require "game.cards.card_types"
 
 hemo_card_effects_module.setController = function(controller)
     hemo_card_effects_module.controller = controller
 end
 
 hemo_card_effects_module.A = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "A",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -23,13 +22,13 @@ hemo_card_effects_module.A = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.B = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "B",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -40,13 +39,13 @@ hemo_card_effects_module.B = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.C = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "C",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -57,13 +56,13 @@ hemo_card_effects_module.C = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.D = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "D",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -74,13 +73,13 @@ hemo_card_effects_module.D = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.E = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "E",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -91,13 +90,13 @@ hemo_card_effects_module.E = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.F = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "F",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -108,13 +107,13 @@ hemo_card_effects_module.F = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.G = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "G",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -125,13 +124,13 @@ hemo_card_effects_module.G = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.H = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "H",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -142,13 +141,13 @@ hemo_card_effects_module.H = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.I = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "I",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -159,13 +158,13 @@ hemo_card_effects_module.I = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.J = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "J",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -176,13 +175,13 @@ hemo_card_effects_module.J = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.K = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "K",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -193,13 +192,13 @@ hemo_card_effects_module.K = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.L = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "L",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -210,13 +209,13 @@ hemo_card_effects_module.L = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.M = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "M",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -227,13 +226,13 @@ hemo_card_effects_module.M = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.N = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "N",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -244,13 +243,13 @@ hemo_card_effects_module.N = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.O = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "O",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -261,13 +260,13 @@ hemo_card_effects_module.O = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.P = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "P",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -278,13 +277,13 @@ hemo_card_effects_module.P = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Q = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "Q",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -295,13 +294,13 @@ hemo_card_effects_module.Q = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.R = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "R",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = true,
@@ -317,16 +316,16 @@ hemo_card_effects_module.R.whenRetained = function(card)
     hemo_card_effects_module.R.retain_num = hemo_card_effects_module.R.retain_num + 1
     hemo_card_effects_module.R.when_retained_description = "Gives +"..hemo_card_effects_module.R.retain_num.." hemo. Increased by 1 for every turn retained"
     card.updateDescription()
-    controller.addResource(CardTypes.hemo, hemo_card_effects_module.R.retain_num)
+    controller.addResource("hemo", hemo_card_effects_module.R.retain_num)
 end
 hemo_card_effects_module.S = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "S",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -337,13 +336,13 @@ hemo_card_effects_module.S = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.T = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "T",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -354,13 +353,13 @@ hemo_card_effects_module.T = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.U = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "U",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -371,13 +370,13 @@ hemo_card_effects_module.U = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.V = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "V",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -388,13 +387,13 @@ hemo_card_effects_module.V = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.W = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "W",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -405,13 +404,13 @@ hemo_card_effects_module.W = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.X = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "X",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -422,13 +421,13 @@ hemo_card_effects_module.X = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Y = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "Y",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,
@@ -439,13 +438,13 @@ hemo_card_effects_module.Y = {
     when_discarded_description = ""
 }
 hemo_card_effects_module.Z = {
-    type = CardTypes.hemo,
+    type = "hemo",
     letter = "Z",
     when_drawn_num = {},
     whenDrawn = function(card)
         if not hemo_card_effects_module.controller then error "controller is nil" end
         local controller = hemo_card_effects_module.controller
-        controller.addResource(CardTypes.hemo, 2)
+        controller.addResource("hemo", 2)
     end,
     when_drawn_description = "+2 hemo",
     retain = false,

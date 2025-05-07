@@ -8,7 +8,7 @@ local CARD_WIDTH = RED_CARD_IMG:getWidth()
 local CARD_HEIGHT = RED_CARD_IMG:getHeight()
 
 
-function DrawPile:newDrawPile()
+function DrawPile:init()
     local draw_pile = {}
 
     draw_pile.addDeck = function(deck)
@@ -44,5 +44,3 @@ function DrawPile:newDrawPile()
 
     return draw_pile
 end
-
-return draw_pile_module

@@ -1,8 +1,7 @@
 local item_card_effects_module = {}
-local CardTypes = require "game.cards.card_types"
 
 item_card_effects_module.A = {
-    type = CardTypes.item,
+    type = "item",
     letter = "A",
     when_drawn_num = {},
     whenDrawn = {},
@@ -15,7 +14,7 @@ item_card_effects_module.A = {
     when_discarded_description = ""
 }
 item_card_effects_module.B = {
-    type = CardTypes.item,
+    type = "item",
     letter = "B",
     when_drawn_num = {},
     whenDrawn = {},
@@ -28,7 +27,7 @@ item_card_effects_module.B = {
     when_discarded_description = ""
 }
 item_card_effects_module.C = {
-    type = CardTypes.item,
+    type = "item",
     letter = "C",
     when_drawn_num = {},
     whenDrawn = {},
@@ -41,7 +40,7 @@ item_card_effects_module.C = {
     when_discarded_description = ""
 }
 item_card_effects_module.D = {
-    type = CardTypes.item,
+    type = "item",
     letter = "D",
     when_drawn_num = {},
     whenDrawn = {},
@@ -54,7 +53,7 @@ item_card_effects_module.D = {
     when_discarded_description = ""
 }
 item_card_effects_module.E = {
-    type = CardTypes.item,
+    type = "item",
     letter = "E",
     when_drawn_num = {},
     whenDrawn = {},
@@ -67,7 +66,7 @@ item_card_effects_module.E = {
     when_discarded_description = ""
 }
 item_card_effects_module.F = {
-    type = CardTypes.item,
+    type = "item",
     letter = "F",
     when_drawn_num = {},
     whenDrawn = {},
@@ -80,7 +79,7 @@ item_card_effects_module.F = {
     when_discarded_description = ""
 }
 item_card_effects_module.G = {
-    type = CardTypes.item,
+    type = "item",
     letter = "G",
     when_drawn_num = {},
     whenDrawn = {},
@@ -93,7 +92,7 @@ item_card_effects_module.G = {
     when_discarded_description = ""
 }
 item_card_effects_module.H = {
-    type = CardTypes.item,
+    type = "item",
     letter = "H",
     when_drawn_num = {},
     whenDrawn = {},
@@ -106,7 +105,7 @@ item_card_effects_module.H = {
     when_discarded_description = ""
 }
 item_card_effects_module.I = {
-    type = CardTypes.item,
+    type = "item",
     letter = "I",
     when_drawn_num = {},
     whenDrawn = {},
@@ -119,7 +118,7 @@ item_card_effects_module.I = {
     when_discarded_description = ""
 }
 item_card_effects_module.J = {
-    type = CardTypes.item,
+    type = "item",
     letter = "J",
     when_drawn_num = {},
     whenDrawn = {},
@@ -132,7 +131,7 @@ item_card_effects_module.J = {
     when_discarded_description = ""
 }
 item_card_effects_module.K = {
-    type = CardTypes.item,
+    type = "item",
     letter = "K",
     when_drawn_num = {},
     whenDrawn = {},
@@ -145,7 +144,7 @@ item_card_effects_module.K = {
     when_discarded_description = ""
 }
 item_card_effects_module.L = {
-    type = CardTypes.item,
+    type = "item",
     letter = "L",
     when_drawn_num = {},
     whenDrawn = {},
@@ -158,7 +157,7 @@ item_card_effects_module.L = {
     when_discarded_description = ""
 }
 item_card_effects_module.M = {
-    type = CardTypes.item,
+    type = "item",
     letter = "M",
     when_drawn_num = {},
     whenDrawn = {},
@@ -171,7 +170,7 @@ item_card_effects_module.M = {
     when_discarded_description = ""
 }
 item_card_effects_module.N = {
-    type = CardTypes.item,
+    type = "item",
     letter = "N",
     when_drawn_num = {},
     whenDrawn = {},
@@ -184,7 +183,7 @@ item_card_effects_module.N = {
     when_discarded_description = ""
 }
 item_card_effects_module.O = {
-    type = CardTypes.item,
+    type = "item",
     letter = "O",
     when_drawn_num = {},
     whenDrawn = {},
@@ -197,7 +196,7 @@ item_card_effects_module.O = {
     when_discarded_description = ""
 }
 item_card_effects_module.P = {
-    type = CardTypes.item,
+    type = "item",
     letter = "P",
     when_drawn_num = {},
     whenDrawn = {},
@@ -210,7 +209,7 @@ item_card_effects_module.P = {
     when_discarded_description = ""
 }
 item_card_effects_module.Q = {
-    type = CardTypes.item,
+    type = "item",
     letter = "Q",
     when_drawn_num = {},
     whenDrawn = {},
@@ -223,7 +222,7 @@ item_card_effects_module.Q = {
     when_discarded_description = ""
 }
 item_card_effects_module.R = {
-    type = CardTypes.item,
+    type = "item",
     letter = "R",
     when_drawn_num = {},
     whenDrawn = {},
@@ -236,7 +235,7 @@ item_card_effects_module.R = {
     when_discarded_description = ""
 }
 item_card_effects_module.S = {
-    type = CardTypes.item,
+    type = "item",
     letter = "S",
     when_drawn_num = {},
     whenDrawn = {},
@@ -249,7 +248,7 @@ item_card_effects_module.S = {
     when_discarded_description = ""
 }
 item_card_effects_module.T = {
-    type = CardTypes.item,
+    type = "item",
     letter = "T",
     when_drawn_num = {},
     whenDrawn = {},
@@ -262,7 +261,7 @@ item_card_effects_module.T = {
     when_discarded_description = ""
 }
 item_card_effects_module.U = {
-    type = CardTypes.item,
+    type = "item",
     letter = "U",
     when_drawn_num = {},
     whenDrawn = {},
@@ -275,7 +274,7 @@ item_card_effects_module.U = {
     when_discarded_description = ""
 }
 item_card_effects_module.V = {
-    type = CardTypes.item,
+    type = "item",
     letter = "V",
     when_drawn_num = {},
     whenDrawn = {},
@@ -288,7 +287,7 @@ item_card_effects_module.V = {
     when_discarded_description = ""
 }
 item_card_effects_module.W = {
-    type = CardTypes.item,
+    type = "item",
     letter = "W",
     when_drawn_num = {},
     whenDrawn = {},
@@ -301,7 +300,7 @@ item_card_effects_module.W = {
     when_discarded_description = ""
 }
 item_card_effects_module.X = {
-    type = CardTypes.item,
+    type = "item",
     letter = "X",
     when_drawn_num = {},
     whenDrawn = {},
@@ -314,7 +313,7 @@ item_card_effects_module.X = {
     when_discarded_description = ""
 }
 item_card_effects_module.Y = {
-    type = CardTypes.item,
+    type = "item",
     letter = "Y",
     when_drawn_num = {},
     whenDrawn = {},
@@ -327,7 +326,7 @@ item_card_effects_module.Y = {
     when_discarded_description = ""
 }
 item_card_effects_module.Z = {
-    type = CardTypes.item,
+    type = "item",
     letter = "Z",
     when_drawn_num = {},
     whenDrawn = {},

@@ -1,3 +1,5 @@
+ResourceDisplay = Object:extend()
+
 -- constants
 local RESOURCE_DISPLAY_WIDTH = Settings.window_dimensions[1] / 5
 local NUM_OF_CARD_TYPES = 4
@@ -16,7 +18,7 @@ local CARD_TYPE_HEIGHT = ARCANE_IMG:getHeight()
 
 
 -- for if resource display has to start with a certain amount of resources
-function newResourceDisplay(x, y, scale, init_arcane, init_hemo, init_holy, init_unholy)
+function ResourceDisplay:init(x, y, scale, init_arcane, init_hemo, init_holy, init_unholy)
     local resource_display = {
         x = x, y = y, scale = scale,
         font = love.graphics.newFont("res/fonts/Roman SD.ttf", math.floor(CARD_LETTER_FONT_FACTOR * scale)),

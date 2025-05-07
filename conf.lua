@@ -2,7 +2,7 @@ _RELEASE_MODE = false
 _DEMO = true
 
 function love.conf(t)
-	t.console = not _RELEASE_MODE and false
+	t.console = not _RELEASE_MODE
 	t.title = 'Fumatro'
 	t.window.width = 0
     t.window.height = 0

@@ -32,6 +32,5 @@ end
 
 function Object:__call(...)
   local obj = setmetatable({}, self)
-  obj:init(...)
-  return obj
+  return obj:init(...)
 end
