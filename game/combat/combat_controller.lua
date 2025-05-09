@@ -70,6 +70,7 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
         end
 
         local fight_victory = true
+        -- TODO: make this only update when enemy hp is updated not every frame
         for i, enemy in ipairs(controller.enemy_screen) do
             if enemy.hp > 0 then fight_victory = false end
         end
@@ -228,6 +229,11 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
             for i = 1, #controller.hand do
                 local card = controller.hand[i]
                 if card ~= EMPTY and not card.card_effect.retain then
+                    if card.type == "arcane" then hand.arcane_cards = hand.arcane_cards - 1
+                    elseif card.type == "hemo" then hand.hemo_cards = hand.hemo_cards - 1
+                    elseif card.type == "holy" then hand.holy_cards = hand.holy_cards - 1
+                    elseif card.type == "unholy" then hand.unholy_cards = hand.unholy_cards - 1
+                    elseif card.type == "item" then hand.item_cards = hand.item_cards - 1 end
                     controller.hand[i] = EMPTY
                     card.selected = false
                     if controller.hand.selected_card == card then controller.hand.selected_card = nil end
@@ -241,7 +247,7 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
         controller.event_queue.addEvent(fn)
     end
 
-    controller.forceDiscardCard = function(num)
+    controller.forceDiscard = function(num)
         -- TODO: make the number of non empty cards a property that updates when hand changes because having to do this every time is really tedious
         -- counts the number of non_empty_cards
         local num_of_nonempty_cards = 0

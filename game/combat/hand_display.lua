@@ -23,6 +23,7 @@ function HandDisplay:init(x, y, width, size, draw_pile, discard_pile, card_scale
         right_input_now = false, right_input_late = false,
         enter_input_now = false, enter_input_late = false,
         discarding = false, discard_confirm = false,
+        arcane_cards = 0, hemo_cards = 0, holy_cards = 0, unholy_cards = 0, item_cards = 0
     }
     for i = 1, size do
         table.insert(hand, EMPTY)
@@ -182,18 +183,30 @@ function HandDisplay:init(x, y, width, size, draw_pile, discard_pile, card_scale
             local card_x = hand.x + (empty_ind - 1) * SPACING
             card.x = card_x
             card.y = hand.y
+            card.ind = empty_ind
             hand[empty_ind] = card
+            if card.type == "arcane" then hand.arcane_cards = hand.arcane_cards + 1
+            elseif card.type == "hemo" then hand.hemo_cards = hand.hemo_cards + 1
+            elseif card.type == "holy" then hand.holy_cards = hand.holy_cards + 1
+            elseif card.type == "unholy" then hand.unholy_cards = hand.unholy_cards + 1
+            elseif card.type == "item" then hand.item_cards = hand.item_cards + 1 end
         end
     end
 
     hand.discard = function(card)
         -- TODO: implement when discarded functions
-        -- card.card_effect.whenDiscarded(card)
         for i, c in ipairs(hand) do
             if c == card then
                 c.selected = false
                 table.insert(hand.discarded_cards, c)
                 hand.discard_pile.addCard(c)
+                if card.type == "arcane" then hand.arcane_cards = hand.arcane_cards - 1
+                elseif card.type == "hemo" then hand.hemo_cards = hand.hemo_cards - 1
+                elseif card.type == "holy" then hand.holy_cards = hand.holy_cards - 1
+                elseif card.type == "unholy" then hand.unholy_cards = hand.unholy_cards - 1
+                elseif card.type == "item" then hand.item_cards = hand.item_cards - 1 end
+            -- G.controller.addEvent(card.card_effect.whenDiscarded(card))
+
                 hand[i] = EMPTY
             end
         end

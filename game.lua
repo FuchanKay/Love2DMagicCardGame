@@ -162,7 +162,7 @@ function Game:initItemPrototypes()
     self.spell_effects = {
         draw = {trigger = nil, set = "cards", effect = "draw", type = "any", num = 1, extra_condition = nil, extra = {num = 1}},
         discard = {trigger = nil, set = "cards", effect = "discard", type = "any", extra_condition = nil, num = 1, extra = {num = 1}},
-        swap = {trigger = nil, set = "swap", effect = "swap", type = "any"},
+        swap = {trigger = nil, set = "cards", effect = "swap", type = "any"},
         aoe_dmg = {trigger = nil, set = "damage", effect = "aoe damage", num = 1, extra_condition = nil, extra = {num = 1}},
         st_dmg = {trigger = nil, set = "damage", effect = "single target damage", extra_condition = nil, num = 1, extra = {num = 1}},
         shield = {trigger = nil, set = "shield", effect = "shield", num = 1, extra_condition = nil, extra = {num = 1}},
@@ -276,9 +276,9 @@ channels:
 ]]
 
     self.arcane_dmg_spells = {
-        fireball = {name = "Fireball", type = "arcane", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
-        lightning_arc = {name = "Lightning Arc", type = "arcane", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 1, y = 0} , tier = 1, effects = {}},
-        mega_laser = {name = "Mega Laser", type = "arcane", set = "spell", channel = nil, discovered = false, order = 3, pos = {x = 2, y = 0}, tier = 3, effects = {}},
+        fireball = {name = "Fireball", type = "arcane", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
+        lightning_arc = {name = "Lightning Arc", type = "arcane", set = "spell", channel = nil, cost = nil, discovered = false, order = 2, pos = {x = 1, y = 0} , tier = 1, effects = {}},
+        mega_laser = {name = "Mega Laser", type = "arcane", set = "spell", channel = nil, cost = nil, discovered = false, order = 3, pos = {x = 2, y = 0}, tier = 3, effects = {}},
     }
 
     self.arcane_card_spells = {
@@ -294,17 +294,17 @@ channels:
     }
 
     self.hemo_dmg_spells = {
-        blood_spikes = {name = "Blood Spikes", type = "hemo", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {},},
+        blood_spikes = {name = "Blood Spikes", type = "hemo", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {},},
     }
 
     self.hemo_card_spells = {
-        dash = {name = "Dash", type = "hemo", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}},
-        jump = {name = "Jump", type = "hemo", set = "spell", channel = nil, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}},
+        dash = {name = "Dash", type = "hemo", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 1, effects = {}},
+        jump = {name = "Jump", type = "hemo", set = "spell", channel = nil, cost = nil, discovered = false, order = 2, pos = {x = 2, y = 0}, tier = 1, effects = {}},
     }
 
     self.hemo_buff_spells = {
 
-        harden_blood = {name = "Harden Blood", type = "hemo", set = "spell", channel = nil, discovered = false,  order = 3, pos = {x = 3, y = 0}, tier = 1, effects = {}},
+        harden_blood = {name = "Harden Blood", type = "hemo", set = "spell", channel = nil, cost = nil, discovered = false,  order = 3, pos = {x = 3, y = 0}, tier = 1, effects = {}},
     }
 
     self.hemo_shield_spells = {
@@ -312,7 +312,7 @@ channels:
     }
 
     self.holy_dmg_spells = {
-        arrows_of_light = {name = "Arrows of Light", type = "holy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
+        arrows_of_light = {name = "Arrows of Light", type = "holy", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
     }
 
     self.holy_card_spells = {
@@ -320,11 +320,11 @@ channels:
     }
 
     self.holy_buff_spells = {
-        meditate = {name = "Meditate", type = "holy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 2, effects = {}},
+        meditate = {name = "Meditate", type = "holy", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 1, y = 0}, tier = 2, effects = {}},
     }
 
     self.unholy_dmg_spells = {
-        brimstone_explosion = {name = "Brimstone Explosion", type = "unholy", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
+        brimstone_explosion = {name = "Brimstone Explosion", type = "unholy", set = "spell", channel = nil, cost = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
     }
 
     self.unholy_card_spells = {
@@ -382,51 +382,28 @@ function Game:initProfile()
     self.resource_display = ResourceDisplay(resource_display_x, resource_display_y, 1)
 
     self.enemy_screen = EnemyScreen(COMBAT_BACKGROUND_IMG, BACKGROUND_IMG_X, BACKGROUND_IMG_Y, BACKGROUND_IMG_SCALE)
-    self.enemy_screen.addEnemy(Enemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
-    self.enemy_screen.addEnemy(Enemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 100, {}))
+    self.enemy_screen.addEnemy(Enemy("skelly 1", WHITE_SKELETON_ENEMY_IMG, SKELETON_SCALE, 10000, {}))
+    self.enemy_screen.addEnemy(Enemy("skelly 2", BLACK_SKELETON_ENEMY_IMG, SKELETON_SCALE, 42069, {}))
 
     self.spells = {}
     local new_spell = Spell()
-    new_spell:is("adsf")
-    new_spell:copyFrom(self.arcane_dmg_spells.fireball)
-    for k, v in pairs(self.arcane_dmg_spells.fireball) do
-        new_spell[k] = v
-    end
-    -- fireball = {name = "Fireball", type = "arcane", set = "spell", channel = nil, discovered = false, order = 1, pos = {x = 0, y = 0}, tier = 1, effects = {}},
+    copyFrom(new_spell, self.arcane_dmg_spells.fireball)
     new_spell.channel = "instant"
-    -- st_dmg = {trigger = nil, set = "damage", effect = "single target damage", extra_condition = nil, num = 1, extra = {num = 1}},
-
+    new_spell.cost = 0
     local e = Effect()
-    e:copyFrom(self.spell_effects.aoe_dmg)
+    copyFrom(e, self.spell_effects.aoe_dmg)
     e.num = 30
+    table.insert(new_spell.effects, e)
+    e = Effect()
+    copyFrom(e, self.spell_effects.draw)
+    e.num = 2
+    e.trigger = {}
+    copyFrom(e.trigger, self.triggers.rand)
+    e.trigger.prob = 0.5
     table.insert(new_spell.effects, e)
     table.insert(self.spells, new_spell)
     new_spell.description = "hi"
     -- TODO: i dont really know where to move this function it should not be here
-    function processSpell(spell)
-        return function()
-            for i, effect in ipairs(new_spell.effects) do
-                -- TODO: check for trigger
-                if effect.trigger then end
-                if effect.set == "damage" then
-                    local dmg = effect.num
-                    if effect.effect == "single target damage" then
-                        -- TODO: check for extra condition
-                        if effect.extra_condition then end
-                        self.controller.targetEnemy()
-                        local fn = function()
-                            self.controller.updateHp(self.controller.enemy_screen.selected_enemy, dmg)
-                        end
-                        self.controller.addEvent(fn)
-                    elseif effect.effect == "aoe damage" then
-                        -- TODO: check for extra condition
-                        if effect.extra_condition then end
-                        self.controller.aoeUpdateHp(dmg)
-                    end
-                end
-            end
-        end
-    end
     new_spell.fn = processSpell(new_spell)
     -- table.insert(spells, Spells.fireball)
     -- table.insert(spells, Spells.arrows_of_light)
