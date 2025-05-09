@@ -4,6 +4,7 @@ CombatScene = Object:extend()
 function CombatScene:init()
     local scene = {}
     scene.load = function()
+        G:initItemPrototypes()
         G:initProfile()
     end
 

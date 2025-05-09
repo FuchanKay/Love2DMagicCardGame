@@ -23,7 +23,7 @@ function CombatController:init(deck, hand, draw_pile, discard_pile, enemy_screen
     local FONT = love.graphics.newFont("res/fonts/Roman SD.ttf", 20)
 
     for i, spell in ipairs(controller.spells) do
-        local spell_button = Button:init(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.effect)
+        local spell_button = Button:init(i * 200 - 160, 500, 100, 100, nil, nil, spell.name, FONT, nil, true, true, spell.fn)
         spell_button.spell = spell
         table.insert(controller.spell_buttons, spell_button)
     end

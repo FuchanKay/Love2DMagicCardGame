@@ -5,6 +5,19 @@ Object = {}
 Object.__index = Object
 function Object:init()
 end
+-- copies table values of tb1 from tb2
+-- does not copy reference for values that are tables
+-- OMG recursion!!! Thank you Software 1!!!
+function Object:copyFrom(tb)
+  for k, v in pairs(tb) do
+      if type(v) == "table" then
+          self[k] = {}
+          self[k]:copyFrom(v)
+      else
+          self[k] = v
+      end
+  end
+end
 
 function Object:extend()
   local cls = {}
@@ -32,6 +45,7 @@ end
 
 function Object:__call(...)
   local obj = setmetatable({}, self)
+  obj:init(...)
   -- slightly modified to return the object initiated instead of the metatable
-  return obj:init(...)
+  return obj
 end

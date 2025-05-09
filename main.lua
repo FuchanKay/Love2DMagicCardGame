@@ -3,6 +3,7 @@ local current_scene = nil
 
 
 Colors = require "libraries.luacolors"
+require "misc"
 require "engine.object"
 require "settings"
 require "game"
@@ -11,6 +12,7 @@ require "game.ui"
 require "scenes.main_menu"
 require "scenes.settings_scene"
 require "scenes.combat_scene"
+require "game.combat.spells"
 require "game.combat.card"
 require "game.combat.combat_controller"
 require "game.combat.deck"
