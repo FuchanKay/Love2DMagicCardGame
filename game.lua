@@ -395,20 +395,15 @@ function Game:initProfile()
     e.num = 30
     table.insert(new_spell.effects, e)
     e = Effect()
-    copyFrom(e, self.spell_effects.draw)
+    copyFrom(e, self.spell_effects.discard)
     e.num = 2
-    e.trigger = {}
-    copyFrom(e.trigger, self.triggers.rand)
-    e.trigger.prob = 0.5
     table.insert(new_spell.effects, e)
     table.insert(self.spells, new_spell)
     new_spell.description = "hi"
-    -- TODO: i dont really know where to move this function it should not be here
     new_spell.fn = processSpell(new_spell)
     -- table.insert(spells, Spells.fireball)
     -- table.insert(spells, Spells.arrows_of_light)
     self.controller = CombatController(self.deck, self.hand, self.draw_pile, self.discard_pile, self.enemy_screen, self.resource_display, self.spells)
-
 end
 
 function Game:startCombat(enemies)

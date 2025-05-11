@@ -5,6 +5,7 @@ local current_scene = nil
 Colors = require "libraries.luacolors"
 require "misc"
 require "engine.object"
+require "engine.particle"
 require "settings"
 require "game"
 require "globals"
@@ -12,6 +13,7 @@ require "game.ui"
 require "scenes.main_menu"
 require "scenes.settings_scene"
 require "scenes.combat_scene"
+require "scenes.particle_test_scene"
 require "game.combat.spells"
 require "game.combat.card"
 require "game.combat.combat_controller"
@@ -35,6 +37,7 @@ Scenes = {
     main_menu = MainMenu(),
     settings = SettingsScene(),
     combat = CombatScene(),
+    test = TestScene(),
 }
 -- adds scenes from /scenes
 current_scene = Scenes.main_menu

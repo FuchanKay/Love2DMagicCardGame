@@ -47,7 +47,7 @@ local function addLoadButton(off_x, off_y)
     BUTTON_TEXT_FONT, nil,
     true, true,
     function ()
-        print "load"
+        ChangeScene("test")
     end
     ))
 end
